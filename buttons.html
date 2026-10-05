@@ -2,80 +2,207 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Стеклянная кнопка — варианты</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b2544">
+<title>Капсула — варианты и отклик на нажатие</title>
 <style>
-  *{box-sizing:border-box}
-  body{margin:0;background:#1b1436;color:#f1ecff;font-family:Inter,system-ui,-apple-system,sans-serif;font-weight:300}
-  .head{padding:26px 20px 10px;max-width:760px;margin:0 auto}
-  .head h1{font:700 26px/1.15 Manrope,system-ui,sans-serif;margin:0 0 8px;letter-spacing:-.03em}
-  .head p{margin:0;color:#b6a9dd;font-size:14.5px}
+:root{
+  --deep:#5b8def; --soft:#a9c6f7; --pale:#c9dcfb;
+  --lilac:#8b7fe8; --lilac2:#b9a8f5; --lilac-pale:#e3ddfb; --lilac-ink:#3a3160;
+  --bg:#1b2544;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --pad:clamp(16px,4.4vw,40px);
+}
+*{box-sizing:border-box}
+body{margin:0;background:#0e1730;color:#eef3ff;font:300 16px/1.6 Inter,system-ui,-apple-system,sans-serif}
+h1,h2{margin:0;font-family:Manrope,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;line-height:1.12}
+.head{padding:26px var(--pad) 6px;max-width:900px}
+.head h1{font-size:clamp(22px,5.4vw,32px);margin-bottom:10px}
+.head p{margin:0 0 4px;color:#b9c8ea;font-size:14.5px;max-width:60ch}
+.hint{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(180,205,250,.22);
+  background:rgba(140,130,230,.10);font-size:14px;color:#cfdcf6}
+.hint b{color:#e6ecff;font-weight:600}
 
-  .row{position:relative;height:330px;overflow:hidden;border-top:1px solid rgba(205,190,255,.18);margin-top:18px}
-  .row__bg{position:absolute;inset:0;background:url('img/hero-mobile.jpg') center 78%/cover no-repeat}
-  .row__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(36,26,68,.5) 0%,rgba(43,36,86,.2) 40%,rgba(43,36,86,.8) 100%)}
-  .row__label{position:absolute;left:20px;top:18px;z-index:3;font:600 12px/1 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#cfbaff}
-  .row__note{position:absolute;left:20px;top:40px;z-index:3;font-size:12.5px;color:#b6a9dd}
-  .stage{position:absolute;inset:auto 20px 26px 20px;z-index:3}
+/* строка-стенд: настоящая картинка героя + настоящие шторки сайта */
+.row{position:relative;height:340px;overflow:hidden;border-top:1px solid rgba(180,205,250,.16)}
+.row__bg{position:absolute;inset:0;background:url('img/hero-mobile.jpg') center 30%/cover no-repeat}
+.row__veil{position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(to top,
+      #1b2544 0%, rgba(27,37,68,.99) 9%, rgba(27,37,68,.97) 20%, rgba(27,37,68,.92) 32%,
+      rgba(27,37,68,.86) 42%, rgba(27,37,68,.70) 52%, rgba(27,37,68,.50) 62%,
+      rgba(27,37,68,.30) 72%, rgba(27,37,68,.12) 85%, rgba(27,37,68,.04) 95%, rgba(27,37,68,0) 100%),
+    linear-gradient(96deg, rgba(27,37,68,.40) 0%, rgba(27,37,68,.24) 30%, rgba(27,37,68,.08) 55%, rgba(27,37,68,0) 72%)}
+.row__label{position:absolute;left:var(--pad);top:16px;z-index:4;font:600 11.5px/1.4 Manrope,system-ui,sans-serif;
+  letter-spacing:.2em;text-transform:uppercase;color:#d6e2ff;text-shadow:0 1px 12px rgba(6,10,24,.9)}
+.row__note{position:absolute;left:var(--pad);top:36px;z-index:4;font-size:13px;color:#b9c8ea;
+  text-shadow:0 1px 12px rgba(6,10,24,.9)}
+.stage{position:absolute;left:var(--pad);bottom:26px;z-index:4;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 
-  .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
-    height:52px;padding:0 26px;border:0;background:none;border-radius:999px;
-    font:600 13px/1 Manrope,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#f6ecff;
-    text-shadow:0 1px 10px rgba(24,8,46,.9),0 0 22px rgba(150,110,240,.5)}
-  .pill::before{content:"";position:absolute;inset:-5px -9px;z-index:-1;pointer-events:none;
-    background:url('img/btn.png') center/100% 100% no-repeat;
-    transition:transform .25s,filter .3s,opacity .3s}
+/* ===== капсула: база (резкая, без картинки) ===== */
+.pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
+  height:54px;padding:0 30px;border:0;border-radius:999px;cursor:pointer;overflow:hidden;
+  font:600 13px/1 Manrope,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;
+  transition:transform .38s var(--ease), box-shadow .38s var(--ease), filter .3s var(--ease);
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.pill span{position:relative;z-index:3}
+.pill:active,.pill.is-press{transform:translateY(4px) scale(.985);transition-duration:.07s}
 
-  /* A — стекло, светлее */
-  .v-a .pill::before{opacity:.58;filter:saturate(.8) brightness(1.3);
-    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-  /* B — стекло, чуть плотнее */
-  .v-b .pill::before{opacity:.44;filter:saturate(.8) brightness(1.32);
-    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-  /* C — матовое стекло (мороз) */
-  .v-c .pill::before{opacity:.32;filter:saturate(.75) brightness(1.35);
-    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
-  /* D — почти прозрачная, только контур капсулы */
-  .v-d .pill::before{opacity:.2;filter:saturate(.7) brightness(1.45);
-    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+/* мягкое «дыхание» — приглашает нажать */
+.pill::after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;pointer-events:none;
+  animation:breathe 4.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.25}50%{opacity:.75}}
 
-  .foot{padding:22px 20px 40px;color:#8f81bb;font-size:12.5px;max-width:760px;margin:0 auto}
+/* волна от точки тапа */
+.ripple{position:absolute;z-index:2;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);
+  background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);
+  animation:rip .62s var(--ease) forwards}
+@keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+
+/* лепестки лаванды */
+.petal{position:fixed;z-index:999;pointer-events:none;border-radius:60% 0 60% 0;
+  box-shadow:0 0 6px rgba(185,168,245,.55)}
+
+.pill.no-breathe::after{animation:none;opacity:.45}
+
+/* A — васильковая (как сейчас) */
+.v-a{background:linear-gradient(122deg,#5b8def,#8fb5f2);
+  box-shadow:0 10px 26px rgba(59,110,220,.42), inset 0 1px 0 rgba(255,255,255,.34)}
+.v-a::after{box-shadow:0 0 26px rgba(140,180,250,.5)}
+/* B — сиренево-васильковая */
+.v-b{background:linear-gradient(122deg,#8b7fe8,#6f9bf0 55%,#b9a8f5);
+  box-shadow:0 10px 28px rgba(120,100,220,.46), inset 0 1px 0 rgba(255,255,255,.36)}
+.v-b::after{box-shadow:0 0 28px rgba(175,150,250,.55)}
+/* C — светлое стекло */
+.v-c{background:rgba(255,255,255,.14);backdrop-filter:blur(14px) saturate(150%);
+  -webkit-backdrop-filter:blur(14px) saturate(150%);
+  border:1px solid rgba(230,238,255,.5);
+  box-shadow:0 10px 30px rgba(20,30,64,.4), inset 0 1px 0 rgba(255,255,255,.5), inset 0 -8px 18px rgba(140,170,240,.28)}
+.v-c::after{box-shadow:0 0 24px rgba(210,220,255,.34)}
+/* D — пастельная лиловая, тёмный текст */
+.v-d{background:linear-gradient(122deg,#ded6fb,#f0ecfe 60%,#cfc4f2);color:var(--lilac-ink);
+  box-shadow:0 12px 28px rgba(150,130,225,.44), inset 0 1px 0 #fff}
+.v-d::after{box-shadow:0 0 26px rgba(215,205,255,.6)}
+/* E — лиловая, как лента */
+.v-e{background:linear-gradient(122deg,#9a8cf0,#7d9bf2 60%,#c3b4f7);
+  box-shadow:0 10px 26px rgba(110,95,215,.44), inset 0 1px 0 rgba(255,255,255,.4)}
+.v-e::after{box-shadow:0 0 26px rgba(170,150,250,.5)}
+
+/* переключатели эффектов */
+.switches{position:sticky;bottom:0;z-index:6;display:flex;gap:8px;flex-wrap:wrap;
+  padding:14px var(--pad);background:rgba(12,20,42,.92);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(180,205,250,.2)}
+.sw{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;
+  border:1px solid rgba(180,205,250,.3);background:rgba(150,170,240,.10);color:#dce7fb;
+  font:600 12px/1 Manrope,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer;user-select:none}
+.sw.is-on{background:linear-gradient(120deg,#8b7fe8,#6f9bf0);border-color:transparent;color:#fff}
+.foot{padding:18px var(--pad) 90px;color:#93a4c8;font-size:13px;max-width:900px}
 </style>
 </head>
 <body>
-  <div class="head">
-    <h1>Стеклянная кнопка — какая прозрачность?</h1>
-    <p>Все на настоящем фоне героя. Скажи букву — поставлю на страницу.</p>
-  </div>
 
-  <section class="row v-a">
-    <div class="row__bg"></div><div class="row__veil"></div>
-    <div class="row__label">A — стекло, светлее</div>
-    <div class="row__note">прозрачность 22%, чуть подсвечена</div>
-    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
-  </section>
+<div class="head">
+  <h1>Капсула: 5 оттенков и живой отклик</h1>
+  <p>Тапни любую кнопку — она продавится, из точки касания пойдёт волна, разлетятся лепестки лаванды и сработает вибрация. Внизу можно включать и выключать эффекты по одному, чтобы выбрать, что оставить.</p>
+  <div class="hint"><b>Важно:</b> кнопка нарисована кодом, а не картинкой, поэтому остаётся резкой на любом экране и весит 0 КБ. Картинка-капсула так не умеет.</div>
+</div>
 
-  <section class="row v-b">
-    <div class="row__bg"></div><div class="row__veil"></div>
-    <div class="row__label">B — стекло, плотнее</div>
-    <div class="row__note">прозрачность 40%, сквозь неё видно фото</div>
-    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
-  </section>
+<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__label">A — васильковая</div>
+  <div class="row__note">как сейчас на сайте</div>
+  <div class="stage"><button class="pill v-a"><span>Смотреть курсы</span></button></div>
+</div>
 
-  <section class="row v-c">
-    <div class="row__bg"></div><div class="row__veil"></div>
-    <div class="row__label">C — матовое стекло</div>
-    <div class="row__note">полупрозрачная + размытие фона («мороз»)</div>
-    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
-  </section>
+<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__label">B — сиренево-васильковая</div>
+  <div class="row__note">под новую картинку: берёт и лаванду, и василёк</div>
+  <div class="stage"><button class="pill v-b"><span>Смотреть курсы</span></button></div>
+</div>
 
-  <section class="row v-d">
-    <div class="row__bg"></div><div class="row__veil"></div>
-    <div class="row__label">D — почти прозрачная</div>
-    <div class="row__note">виден только блик и контур капсулы</div>
-    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
-  </section>
+<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__label">C — светлое стекло</div>
+  <div class="row__note">самая нежная, «парит» над картинкой</div>
+  <div class="stage"><button class="pill v-c"><span>Смотреть курсы</span></button></div>
+</div>
 
-  <div class="foot">Если ни одна — скажи «прозрачнее/плотнее/больше/меньше», подкручу точно.</div>
+<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__label">D — пастельная лиловая</div>
+  <div class="row__note">светлая капсула, тёмно-сиреневый текст — самый контраст</div>
+  <div class="stage"><button class="pill v-d"><span>Смотреть курсы</span></button></div>
+</div>
+
+<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__label">E — лиловая, как букет</div>
+  <div class="row__note">цвет лаванды в кадре, но чуть глубже</div>
+  <div class="stage"><button class="pill v-e"><span>Смотреть курсы</span></button></div>
+</div>
+
+<div class="switches">
+  <div class="sw is-on" data-fx="press">продавливание</div>
+  <div class="sw is-on" data-fx="ripple">волна от пальца</div>
+  <div class="sw is-on" data-fx="petals">лепестки лаванды</div>
+  <div class="sw is-on" data-fx="breathe">дыхание</div>
+  <div class="sw is-on" data-fx="haptic">вибрация</div>
+</div>
+
+<div class="foot">Если что-то из этого лишнее — скажи номер: уберу. Мой выбор: <b>B</b> + продавливание + вибрация + лепестки, без «дыхания» (оно мигает на всех кнопках сразу и начинает раздражать).</div>
+
+<script>
+(function(){
+  var FX={press:1,ripple:1,petals:1,breathe:1,haptic:1};
+  var PETAL_COLORS=['#c9b8f5','#b9a8f5','#9a8cf0','#a9c6f7','#d7cdf9'];
+
+  document.querySelectorAll('.sw').forEach(function(el){
+    el.addEventListener('click',function(){
+      var k=el.dataset.fx; FX[k]=FX[k]?0:1;
+      el.classList.toggle('is-on',!!FX[k]);
+      if(k==='breathe'){
+        document.querySelectorAll('.pill').forEach(function(p){ p.classList.toggle('no-breathe',!FX.breathe); });
+      }
+    });
+  });
+
+  function petals(x,y){
+    for(var i=0;i<9;i++){
+      var p=document.createElement('i');
+      p.className='petal';
+      var s=6+Math.random()*7;
+      p.style.width=s+'px'; p.style.height=s*0.7+'px';
+      p.style.background=PETAL_COLORS[i%PETAL_COLORS.length];
+      p.style.left=x+'px'; p.style.top=y+'px';
+      document.body.appendChild(p);
+      var ang=(i/9)*Math.PI*2 + Math.random()*0.6;
+      var dist=46+Math.random()*58;
+      var dx=Math.cos(ang)*dist, dy=Math.sin(ang)*dist - 26;
+      p.animate([
+        {transform:'translate(-50%,-50%) rotate(0deg) scale(1)',opacity:.95},
+        {transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+(240+Math.random()*240)+'deg) scale(.5)',opacity:0}
+      ],{duration:780+Math.random()*420,easing:'cubic-bezier(.18,.7,.3,1)'}).onfinish=function(){p.remove()};
+    }
+  }
+
+  document.querySelectorAll('.pill').forEach(function(btn){
+    btn.addEventListener('pointerdown',function(e){
+      var r=btn.getBoundingClientRect();
+      var x=e.clientX-r.left, y=e.clientY-r.top;
+      if(FX.ripple){
+        var d=Math.max(r.width,r.height)*2.2;
+        var rip=document.createElement('i');
+        rip.className='ripple';
+        rip.style.width=d+'px'; rip.style.height=d+'px';
+        rip.style.left=x+'px'; rip.style.top=y+'px';
+        btn.appendChild(rip);
+        setTimeout(function(){rip.remove()},700);
+      }
+      if(FX.petals) petals(e.clientX,e.clientY);
+      if(FX.haptic && navigator.vibrate){ try{navigator.vibrate(12)}catch(err){} }
+      if(FX.press) btn.classList.add('is-press');
+    });
+    ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+      btn.addEventListener(ev,function(){ btn.classList.remove('is-press'); });
+    });
+  });
+})();
+</script>
 </body>
 </html>
