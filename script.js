@@ -37,12 +37,53 @@
   const heroMedia = document.getElementById('heroMedia');
   const bar = document.querySelector('.bar');
   const dotsBox = document.getElementById('dots');
-  let dots = [];
+  let dots = [], dotCenters = [], pill = null, pillW = 22;
   if (dotsBox) {
-    slides.forEach(() => { const d = document.createElement('i'); dotsBox.appendChild(d); dots.push(d); });
+    slides.forEach((slide, i) => {
+      const d = document.createElement('i');
+      d.setAttribute('role', 'button');
+      d.setAttribute('tabindex', '0');
+      d.setAttribute('aria-label', 'Курс ' + (i + 1));
+      const go = () => {
+        if (isMobile()) {
+          slide.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+        } else if (gallery) {
+          const h = gallery.offsetHeight - innerHeight;
+          if (h > 0) scrollTo({ top: gallery.offsetTop + h * (i / Math.max(slides.length - 1, 1)), behavior: reduce ? 'auto' : 'smooth' });
+        }
+      };
+      d.addEventListener('click', go);
+      d.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+      dotsBox.appendChild(d);
+      dots.push(d);
+    });
+    // «пилюля» — плавно скользит между точками, вместо жёсткого переключения
+    pill = document.createElement('span');
+    pill.className = 'dots__pill';
+    dotsBox.appendChild(pill);
   }
-  function setDots(i) {
-    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+
+  function layoutDots() {
+    if (!dotsBox || !dots.length) return;
+    const box = dotsBox.getBoundingClientRect();
+    dotCenters = dots.map(d => {
+      const r = d.getBoundingClientRect();
+      return r.left - box.left + r.width / 2;
+    });
+    pillW = pill.getBoundingClientRect().width || 22;
+  }
+
+  // f — дробный номер курса: пилюля едет вслед за пальцем, а не прыгает по шагам
+  function setDots(f) {
+    if (!dots.length || !pill) return;
+    const n = dots.length - 1;
+    const v = clamp(f, 0, n);
+    const i0 = Math.floor(v), i1 = Math.min(i0 + 1, n), t = v - i0;
+    if (!dotCenters.length) layoutDots();
+    const x = dotCenters[i0] + (dotCenters[i1] - dotCenters[i0]) * t;
+    pill.style.transform = `translateX(${(x - pillW / 2).toFixed(2)}px)`;
+    const near = Math.round(v);
+    dots.forEach((d, k) => d.classList.toggle('on', k === near));
   }
   const masterPhoto = document.querySelector('.master__photo');
 
@@ -58,19 +99,18 @@
   function frame() {
     setProg();
 
-    // точки галереи
+    // точки галереи — дробный номер, чтобы пилюля ехала за пальцем плавно
     if (dots.length) {
-      let idx = 0;
-      if (isMobile()) {
-        const tr = track;
-        const p2 = tr.scrollWidth > tr.clientWidth ? tr.scrollLeft / (tr.scrollWidth - tr.clientWidth) : 0;
-        idx = Math.round(p2 * (dots.length - 1));
+      let f = 0;
+      if (isMobile() && track) {
+        const p2 = track.scrollWidth > track.clientWidth ? track.scrollLeft / (track.scrollWidth - track.clientWidth) : 0;
+        f = p2 * (dots.length - 1);
       } else if (gallery) {
         const h2 = gallery.offsetHeight - innerHeight;
         const p2 = h2 > 0 ? clamp((scrollY - gallery.offsetTop) / h2, 0, 1) : 0;
-        idx = Math.round(p2 * (dots.length - 1));
+        f = p2 * (dots.length - 1);
       }
-      setDots(clamp(idx, 0, dots.length - 1));
+      setDots(f);
     }
 
     // шапка: при скролле становится плотной, чтобы не налезать на текст
@@ -123,10 +163,14 @@
   let raf = null;
   const onScroll = () => { if (!raf) raf = requestAnimationFrame(() => { frame(); raf = null; }); };
   addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', () => { measure(); onScroll(); });
-  measure(); frame();
+  // на телефоне галерея листается пальцем по горизонтали — слушаем и её скролл,
+  // иначе точки не двигались бы во время свайпа
+  if (track) track.addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', () => { measure(); layoutDots(); onScroll(); });
+  measure(); layoutDots(); frame();
 
   // шрифты/картинки догрузились — пересчитать
-  addEventListener('load', () => { measure(); onScroll(); });
-  setTimeout(() => { measure(); onScroll(); }, 600);
+  addEventListener('load', () => { measure(); layoutDots(); onScroll(); });
+  setTimeout(() => { measure(); layoutDots(); onScroll(); }, 600);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { layoutDots(); onScroll(); });
 })();

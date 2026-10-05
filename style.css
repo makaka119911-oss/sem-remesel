@@ -368,3 +368,38 @@ body{font-size:17px}
   .hero__title{font-size:clamp(34px,10.4vw,46px)}
   .hero__lead{max-width:none}
 }
+
+/* ===== ТОЧКИ ГАЛЕРЕИ: мягкая «пилюля», которая едет за пальцем ===== */
+.dots{
+  position:relative;display:flex;gap:9px;justify-content:center;align-items:center;
+  padding:24px var(--pad) 0;
+}
+.dots i{
+  position:relative;display:block;width:7px;height:7px;border-radius:999px;
+  background:rgba(169,198,247,.26);
+  transition:background-color .45s ease, transform .45s cubic-bezier(.22,.9,.24,1);
+  cursor:pointer;
+}
+/* зона нажатия шире самой точки — пальцу удобно */
+.dots i::after{content:"";position:absolute;inset:-14px -9px}
+.dots i.on{background:rgba(207,224,251,.72);transform:none}
+.dots i:hover{background:rgba(207,224,251,.62)}
+.dots i:active{transform:scale(.86)}
+.dots__pill{
+  position:absolute;left:0;top:24px;width:22px;height:7px;border-radius:999px;
+  background:linear-gradient(90deg,#5b8def,#a9c6f7);
+  box-shadow:0 0 16px rgba(91,141,239,.5), 0 1px 0 rgba(255,255,255,.18) inset;
+  pointer-events:none;
+  transition:transform .5s cubic-bezier(.22,.9,.24,1);
+  will-change:transform;
+}
+/* галерея листается пальцем мягко, по одному курсу, без полосы прокрутки */
+@media (max-width:900px){
+  .track{scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none}
+  .track::-webkit-scrollbar{display:none}
+  .slide{scroll-snap-stop:always}
+}
+@media (prefers-reduced-motion:reduce){
+  .dots__pill{transition:none}
+  .track{scroll-behavior:auto}
+}
