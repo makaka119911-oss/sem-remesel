@@ -91,7 +91,7 @@ a{color:inherit;text-decoration:none}
 /* ---------- ГЕРОЙ ---------- */
 .hero{position:relative;height:100vh;height:100dvh;min-height:620px;overflow:hidden;display:flex;align-items:stretch}
 .hero__media{position:absolute;inset:-6% 0;will-change:transform;
-  background-image:var(--hero-mobile,none),url('img/hero.jpg');
+  background-image:var(--hero-mobile,none),url('img/hero.jpg?v=52');
   background-size:cover;background-position:center,72% center}
 /* затемнение: картинка дышит сверху, текст и кнопка — в плотной тёмной зоне снизу */
 .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -112,20 +112,17 @@ a{color:inherit;text-decoration:none}
   background:radial-gradient(135% 112% at 48% 40%,rgba(27,37,68,0) 50%,rgba(27,37,68,.34) 100%)}
 /* 16:9 — тот же низ, плюс совсем лёгкая тень у левого края */
 @media (min-width:901px){
+  /* картинка тоже светлая — шторки такой же плотности, как на телефоне,
+     иначе белый текст не читается */
   .hero::before{background:
     linear-gradient(to top,
-      #1b2544 0%,
-      rgba(27,37,68,.96) 14%,
-      rgba(27,37,68,.88) 30%,
-      rgba(27,37,68,.72) 44%,
-      rgba(27,37,68,.52) 56%,
-      rgba(27,37,68,.28) 70%,
-      rgba(27,37,68,.10) 84%,
-      rgba(27,37,68,0) 96%),
+      #1b2544 0%, rgba(27,37,68,.99) 9%, rgba(27,37,68,.97) 20%, rgba(27,37,68,.92) 32%,
+      rgba(27,37,68,.86) 42%, rgba(27,37,68,.70) 52%, rgba(27,37,68,.50) 62%,
+      rgba(27,37,68,.30) 72%, rgba(27,37,68,.12) 85%, rgba(27,37,68,.04) 95%, rgba(27,37,68,0) 100%),
     linear-gradient(96deg,
-      rgba(27,37,68,.34) 0%,
-      rgba(27,37,68,.20) 30%,
-      rgba(27,37,68,.06) 55%,
+      rgba(27,37,68,.40) 0%,
+      rgba(27,37,68,.24) 30%,
+      rgba(27,37,68,.08) 55%,
       rgba(27,37,68,0) 72%)}
 }
 .hero__inner{position:relative;z-index:2;display:flex;flex-direction:column;
@@ -219,7 +216,7 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- адаптив ---------- */
 @media (max-width:900px){
-  :root{--hero-mobile:url('img/hero-mobile.jpg')}
+  :root{--hero-mobile:url('img/hero-mobile.jpg?v=52')}
   .hero__media{background-position:center,center}
   .slide{width:78vw}
   .gallery__sticky{height:auto;position:relative;padding:60px 0}

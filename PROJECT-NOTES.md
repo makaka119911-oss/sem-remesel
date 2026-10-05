@@ -61,7 +61,12 @@
 **Замеры после замены текста (1600×900 и 390×844):** заголовок 86,4px / 40,6px; лид 2 строки / 3 строки; кнопка 76px / 55px от низа; контраст 7,1–8,8:1.
 Превью: `attachments/hero-final-preview.jpg`.
 
-**На прод ещё не выложено** (Pages: v=41, локально v=44) — ждём «выкладывай».
+**Выложено на прод 05.10:** [живая страница](https://makaka119911-oss.github.io/sem-remesel/) — `style.css?v=44`, новый лид (и в `og:description`). Проверено: HTML и все ассеты 200, замеры на проде совпали с локальными.
+
+**Грабли выкладки (на будущее):**
+1. `scripts/deploy-masterclass.sh` падал — в песочнице нет git credential helper, а скрипт сбрасывал remote на URL без токена до push. Починил: push идёт по одноразовому URL с токеном (коммит `4cf588a`).
+2. `TMPDIR` в приложении ведёт в `/data/user/0/com.openminis.app/cache` — оттуда `rm -rf` не работает. Запускать: `TMPDIR=/tmp sh scripts/deploy-masterclass.sh`.
+3. `browser_use screenshot` иногда отдаёт пустой кадр — проверять `execute_js`.
 
 ## Файлы (актуально)
 Рабочая папка: `/var/minis/shared/masterclass/`
