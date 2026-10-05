@@ -143,7 +143,9 @@ a{color:inherit;text-decoration:none}
 /* подсказка «листайте»: на светлом фоне держим её очень деликатной,
    иначе тонкая палка у края читается как артефакт вёрстки */
 .hero__scroll{position:absolute;right:var(--pad);bottom:clamp(40px,7vh,90px);width:1px;height:52px;
-  background:rgba(90,80,140,.14);z-index:2}
+  background:rgba(90,80,140,.14);z-index:2;display:none}
+/* на большом экране подсказка уместна, на телефоне это лишняя палка у края — там и так свайпят */
+@media (min-width:901px){ .hero__scroll{display:block} }
 .hero__scroll span{position:absolute;top:0;left:-1px;width:2px;height:14px;
   background:rgba(91,79,176,.42);animation:drop 2.6s var(--ease) infinite}
 @keyframes drop{0%{top:0;opacity:0}30%{opacity:1}100%{top:52px;opacity:0}}
