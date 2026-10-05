@@ -32,7 +32,7 @@ body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
     radial-gradient(34% 28% at 78% 72%, rgba(196,182,240,.30), transparent 70%);
   filter:blur(36px);animation:aura 22s ease-in-out infinite}
 @keyframes aura{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(2%,-2%,0) scale(1.06)}}
-h1,h2,h3{margin:0;font-family:'Manrope',system-ui,sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.02}
+h1,h2,h3{margin:0;font-family:'Comfortaa',system-ui,sans-serif;font-weight:700;letter-spacing:-.035em;line-height:1.1}
 a{color:inherit;text-decoration:none}
 
 /* живое зерно */
@@ -66,13 +66,14 @@ a{color:inherit;text-decoration:none}
    ВАЖНО: фон — только картинка, без второго слоя. Любой дополнительный градиент
    под ней заливает всю коробку и читается как вторая капсула вокруг настоящей. */
 .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
-  width:216px;height:62px;padding:0;border:0;background:none;border-radius:999px;overflow:hidden;
-  font-size:13.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:#3a3460;
-  text-shadow:0 1px 0 rgba(255,255,255,.95),0 0 16px rgba(255,255,255,.6);
-  transition:transform .3s cubic-bezier(.2,.9,.3,1.2)}
-/* 106%/114% — капсула почти заполняет коробку, свечение по краям чуть подрезается */
+  width:200px;height:58px;padding:0;border:0;background:none;border-radius:999px;overflow:hidden;
+  font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#332e54;
+  text-shadow:0 1px 0 rgba(255,255,255,.95),0 0 14px rgba(255,255,255,.6);
+  box-shadow:0 14px 28px -12px rgba(96,84,150,.5),0 2px 6px rgba(96,84,150,.12);
+  transition:transform .3s cubic-bezier(.2,.9,.3,1.2),box-shadow .3s ease}
+/* 103%/109% — капсула почти заполняет коробку, свечение по краям чуть подрезается */
 .pill::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
-  background:url('img/btn.png') 50% calc(50% + 3px)/102% 108% no-repeat;
+  background:url('img/btn.png') 50% calc(50% + 3px)/103% 109% no-repeat;
   transition:filter .3s ease}
 /* по стеклу раз в пять секунд пробегает блик — кнопка «живая» и просит нажатия */
 .pill::after{content:"";position:absolute;top:0;left:-45%;width:32%;height:100%;z-index:-1;pointer-events:none;
@@ -133,9 +134,9 @@ a{color:inherit;text-decoration:none}
 }
 .hero__inner{position:relative;z-index:2;display:flex;flex-direction:column;
   padding:clamp(64px,11vh,120px) var(--pad) clamp(40px,7vh,90px);max-width:1100px;width:100%}
-.hero__kicker{font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:#5b4fb0;margin:0 0 22px;
+.hero__kicker{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#5b4fb0;margin:0 0 22px;
   text-shadow:0 1px 14px rgba(255,255,255,.8)}
-.hero__title{font-size:clamp(46px,10.2vw,152px);font-weight:700;letter-spacing:-.055em;
+.hero__title{font-size:clamp(46px,10.2vw,152px);font-weight:700;letter-spacing:-.028em;
   text-shadow:0 3px 34px rgba(255,255,255,.66),0 1px 3px rgba(255,255,255,.5),0 0 70px rgba(120,105,190,.26)}
 .hero__lead{max-width:42ch;margin:22px 0 0;color:rgba(56,50,92,.92);line-height:1.56;
   font-size:clamp(15px,1.3vw,18px);text-shadow:0 1px 16px rgba(255,255,255,.85),0 1px 2px rgba(255,255,255,.6)}
@@ -159,7 +160,7 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- ВЫСКАЗЫВАНИЕ ---------- */
 .statement{padding:clamp(90px,16vh,190px) var(--pad);max-width:1150px;margin:0 auto}
-.statement__text{font-size:clamp(24px,4.2vw,58px);font-weight:300;letter-spacing:-.03em;line-height:1.15;margin:0;
+.statement__text{font-size:clamp(22px,3.8vw,50px);font-weight:300;letter-spacing:-.03em;line-height:1.15;margin:0;
   color:#5b4fb0;text-shadow:0 0 60px rgba(120,105,190,.45)}
 .statement__text em{font-style:italic;color:#6b5cc4}
 
@@ -184,8 +185,8 @@ a{color:inherit;text-decoration:none}
 .gallery__sticky::before{left:0;background:linear-gradient(90deg,#ded8e9 0%,rgba(222,216,233,.6) 45%,transparent 100%)}
 .gallery__sticky::after{right:0;background:linear-gradient(270deg,#ded8e9 0%,rgba(222,216,233,.6) 45%,transparent 100%)}
 .gallery__head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:0 var(--pad) 22px}
-.gallery__head h2{font-size:clamp(22px,3.2vw,42px);text-shadow:0 0 50px rgba(120,105,190,.45)}
-.gallery__hint{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#6559be;margin:0}
+.gallery__head h2{font-size:clamp(21px,3vw,38px);text-shadow:0 0 50px rgba(120,105,190,.45)}
+.gallery__hint{font-size:12px;letter-spacing:.17em;text-transform:uppercase;color:#6559be;margin:0}
 .track{display:flex;gap:clamp(14px,2vw,26px);padding:0 var(--pad);will-change:transform}
 
 .slide{position:relative;flex:0 0 auto;width:min(46vw,560px)}
@@ -198,7 +199,7 @@ a{color:inherit;text-decoration:none}
   box-shadow:0 58px 150px -60px rgba(120,105,190,.85), 0 0 0 1px rgba(100,90,155,.22) inset}
 .slide__meta{display:flex;align-items:baseline;gap:14px;padding:16px 2px 0}
 .slide__meta .n{font-size:12px;letter-spacing:.18em;color:#5b4fb0}
-.slide__meta h3{font-family:'Manrope',system-ui,sans-serif;font-size:clamp(21px,2vw,30px);font-weight:700;letter-spacing:-.02em}
+.slide__meta h3{font-family:'Comfortaa',system-ui,sans-serif;font-size:clamp(21px,2vw,30px);font-weight:700;letter-spacing:-.02em}
 .slide__meta p{margin:0;font-size:12.5px;color:var(--dim);letter-spacing:.04em}
 
 /* ---------- МАСТЕР ---------- */
@@ -208,13 +209,13 @@ a{color:inherit;text-decoration:none}
   box-shadow:0 54px 140px -60px rgba(120,105,190,.78);
   background-image:linear-gradient(180deg,rgba(190,181,214,.02),rgba(190,181,214,.12)),url('img/master.jpg');
   background-size:cover;background-position:center}
-.master__text .kicker{margin:0 0 16px;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#5b4fb0}
-.master__text h2{font-size:clamp(30px,4.6vw,64px);margin-bottom:18px;font-weight:600}
+.master__text .kicker{margin:0 0 16px;font-size:12.5px;letter-spacing:.17em;text-transform:uppercase;color:#5b4fb0}
+.master__text h2{font-size:clamp(28px,4.2vw,56px);margin-bottom:18px;font-weight:600}
 .master__text p{color:var(--dim);max-width:46ch;margin:0 0 28px}
 
 /* ---------- ПОКУПКА ---------- */
 .buy{padding:clamp(90px,16vh,190px) var(--pad);border-top:1px solid var(--line)}
-.buy h2{font-size:clamp(28px,5vw,74px);font-weight:600;letter-spacing:-.04em}
+.buy h2{font-size:clamp(26px,4.6vw,64px);font-weight:600;letter-spacing:-.04em}
 .buy h2 em{font-style:italic;background:linear-gradient(100deg,#6b5cc4,#4568d0);-webkit-background-clip:text;background-clip:text;color:transparent}
 .buy p{color:var(--dim);margin:22px 0 32px;max-width:48ch}
 .buy__row{display:flex;gap:14px;flex-wrap:wrap}
@@ -243,7 +244,7 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- «что внутри курса» ---------- */
 .inside{padding:clamp(56px,10vh,110px) var(--pad);border-bottom:1px solid var(--line)}
-.inside__k{display:block;font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:#5b4fb0;margin-bottom:clamp(20px,3vw,34px)}
+.inside__k{display:block;font-size:12.5px;letter-spacing:.17em;text-transform:uppercase;color:#5b4fb0;margin-bottom:clamp(20px,3vw,34px)}
 .inside__list{list-style:none;display:grid;gap:clamp(16px,2.4vw,32px);
   grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:0;padding:0}
 .inside__list li{padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:7px;
@@ -265,21 +266,21 @@ h2{text-wrap:balance}
 
 /* ================= СТОИМОСТЬ ================= */
 .price{padding:clamp(70px,12vh,150px) var(--pad);border-top:1px solid var(--line)}
-.price h2{font-size:clamp(28px,4.6vw,64px);margin-bottom:18px}
+.price h2{font-size:clamp(26px,4.2vw,56px);margin-bottom:18px}
 .price__lead{color:var(--dim);max-width:52ch;margin:0 0 clamp(24px,4vw,40px);font-size:clamp(15px,1.25vw,17.5px)}
 .price__list{list-style:none;display:grid;gap:clamp(14px,2vw,26px);
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:0 0 clamp(28px,4vw,44px);padding:0}
 .price__list li{display:flex;flex-direction:column;gap:6px;padding-top:16px;border-top:1px solid var(--line)}
-.price__list b{font-family:'Manrope',system-ui,sans-serif;font-weight:700;font-size:17px;letter-spacing:-.01em}
+.price__list b{font-family:'Comfortaa',system-ui,sans-serif;font-weight:700;font-size:17px;letter-spacing:-.01em}
 .price__list span{color:var(--dim);font-size:14px}
 
 /* ================= FAQ ================= */
 .faq{padding:clamp(70px,12vh,150px) var(--pad);border-top:1px solid var(--line)}
-.faq h2{font-size:clamp(28px,4.6vw,64px);margin-bottom:clamp(22px,3.4vw,40px)}
+.faq h2{font-size:clamp(26px,4.2vw,56px);margin-bottom:clamp(22px,3.4vw,40px)}
 .faq__list{margin:0}
 .faq__list details{border-bottom:1px solid var(--line)}
 .faq__list summary{cursor:pointer;list-style:none;padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;
-  font-family:'Manrope',system-ui,sans-serif;font-weight:600;font-size:clamp(16px,1.5vw,21px);letter-spacing:-.01em;
+  font-family:'Comfortaa',system-ui,sans-serif;font-weight:600;font-size:clamp(16px,1.5vw,21px);letter-spacing:-.01em;
   transition:color .3s var(--ease)}
 .faq__list summary::-webkit-details-marker{display:none}
 .faq__list summary::after{content:"+";font-size:22px;color:#5b4fb0;transition:transform .35s var(--ease)}
@@ -318,7 +319,7 @@ body{font-size:17px}
   border-bottom:1px solid rgba(90,80,140,.5);padding-bottom:3px;
   transition:border-color .3s var(--ease),color .3s var(--ease)}
 .tlink:hover{border-color:var(--ink);color:#5b52a0}
-.tlink--big{font-family:'Manrope',system-ui,sans-serif;font-weight:600;letter-spacing:-.01em;
+.tlink--big{font-family:'Comfortaa',system-ui,sans-serif;font-weight:600;letter-spacing:-.01em;
   font-size:clamp(16px,2vw,22px);border-bottom-width:2px}
 .tlink::before{content:"";position:absolute;inset:-15px 0}
 .bar__cta::before{content:"";position:absolute;inset:-14px 0}
@@ -329,10 +330,10 @@ body{font-size:17px}
 /* ===== ГЕРОЙ: текст и кнопка стоят внизу, в тёмной зоне ===== */
 /* ни одна строка заголовка не переносится и не «разваливает» вёрстку */
 .hero__title .mask__i{white-space:nowrap}
-.hero__title{font-size:clamp(38px,11.2vw,72px);line-height:1.06}
+.hero__title{font-size:clamp(31px,9.2vw,62px);line-height:1.06}
 .hero__inner{min-height:0;justify-content:flex-end;
   padding-top:clamp(76px,13vh,140px);
-  padding-bottom:clamp(34px,6.5vh,72px)}
+  padding-bottom:clamp(20px,3.4vh,46px)}
 .hero__inner > .pill{margin-top:clamp(26px,5vh,52px)}
 @media (min-width:901px){
   .hero__title{font-size:clamp(52px,5vw,88px)}
@@ -341,7 +342,7 @@ body{font-size:17px}
   .hero__lead{margin-top:16px}
 }
 @media (max-width:380px){
-  .hero__title{font-size:clamp(34px,10.4vw,44px)}
+  .hero__title{font-size:clamp(28px,8.6vw,38px)}
 }
 
 /* ===== ГЕРОЙ: композиция — метка уходит наверх, текстовый блок живёт в тёмной зоне внизу =====
@@ -351,21 +352,21 @@ body{font-size:17px}
   min-height:0;
   justify-content:flex-end;
   padding-top:clamp(72px,12vh,132px);
-  padding-bottom:clamp(34px,6.5vh,76px);
+  padding-bottom:clamp(20px,3.4vh,46px);
 }
 /* метка стоит над заголовком — в тёмной зоне, где читается */
-.hero__kicker{margin:0 0 clamp(12px,2vh,18px);font-size:12px;letter-spacing:.24em;color:#4a4270}
-.hero__title{font-size:clamp(38px,11.2vw,72px);line-height:1.04;letter-spacing:-.045em}
+.hero__kicker{margin:0 0 clamp(12px,2vh,18px);font-size:12px;letter-spacing:.18em;color:#4a4270}
+.hero__title{font-size:clamp(31px,9.2vw,62px);line-height:1.04;letter-spacing:-.025em}
 .hero__lead{margin-top:clamp(14px,2.2vh,22px);max-width:36ch;font-size:clamp(15px,1.25vw,17px)}
 .hero__inner > .pill{margin-top:clamp(22px,4vh,44px);align-self:flex-start;flex:0 0 auto}
 
 @media (min-width:901px){
-  .hero__inner{padding-bottom:clamp(56px,8.5vh,104px)}
-  .hero__title{font-size:clamp(52px,5.1vw,86px)}
+  .hero__inner{padding-bottom:clamp(30px,4.6vh,64px)}
+  .hero__title{font-size:clamp(44px,4.5vw,76px)}
   .hero__lead{max-width:40ch}
 }
 @media (min-width:1500px){
-  .hero__title{font-size:clamp(84px,5.4vw,102px)}
+  .hero__title{font-size:clamp(72px,4.8vw,92px)}
 }
 @media (max-width:900px){
   .hero__lead{max-width:36ch}
@@ -373,7 +374,7 @@ body{font-size:17px}
   .hero__media{-webkit-mask-image:none;mask-image:none}
 }
 @media (max-width:420px){
-  .hero__title{font-size:clamp(34px,10.4vw,46px)}
+  .hero__title{font-size:clamp(29px,8.8vw,40px)}
   .hero__lead{max-width:none}
 }
 

@@ -4,201 +4,163 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ded8e9">
-<title>Капсула — варианты и отклик на нажатие</title>
+<title>Кнопка — 4 варианта на новой картинке</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Inter:wght@300;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --deep:#5b8def; --soft:#a9c6f7; --pale:#c9dcfb;
-  --lilac:#8b7fe8; --lilac2:#b9a8f5; --lilac-pale:#e3ddfb; --lilac-ink:#3a3160;
-  --bg:#ded8e9;
-  --ease:cubic-bezier(.22,1,.36,1);
-  --pad:clamp(16px,4.4vw,40px);
-}
+:root{--ink:#37325a;--dim:#5d5678;--bg:#ded8e9;--pad:clamp(16px,4.4vw,34px);--ease:cubic-bezier(.22,1,.36,1)}
 *{box-sizing:border-box}
-body{margin:0;background:#ded8e9;color:#37325a;font:300 16px/1.6 Inter,system-ui,-apple-system,sans-serif}
-h1,h2{margin:0;font-family:Manrope,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;line-height:1.12}
-.head{padding:26px var(--pad) 6px;max-width:900px}
-.head h1{font-size:clamp(22px,5.4vw,32px);margin-bottom:10px}
-.head p{margin:0 0 4px;color:#5d5678;font-size:14.5px;max-width:60ch}
-.hint{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(90,80,140,.22);
-  background:rgba(255,255,255,.62);font-size:14px;color:#4a4270}
-.hint b{color:#37325a;font-weight:600}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.6 Inter,system-ui,sans-serif}
+h1{margin:0 0 10px;font:700 clamp(20px,5vw,28px)/1.2 Comfortaa,Georgia,serif;letter-spacing:-.015em}
+.head{padding:24px var(--pad) 6px;max-width:780px}
+.head p{margin:0 0 6px;color:var(--dim);font-size:14.5px}
+.hint{margin-top:12px;padding:12px 14px;border-radius:14px;border:1px solid rgba(90,80,140,.2);
+  background:rgba(255,255,255,.6);font-size:13.5px;color:#4a4270}
+.hint b{font-weight:600;color:var(--ink)}
 
-/* строка-стенд: настоящая картинка героя + настоящие шторки сайта */
-.row{position:relative;height:340px;overflow:hidden;border-top:1px solid rgba(90,80,140,.16)}
+.row{position:relative;height:360px;overflow:hidden;border-top:1px solid rgba(90,80,140,.16)}
 .row__bg{position:absolute;inset:0;background:url('img/hero-mobile.jpg') center 30%/cover no-repeat}
 .row__veil{position:absolute;inset:0;pointer-events:none;
-  background:
-    linear-gradient(to top,
-      #ded8e9 0%, rgba(222,216,233,.92) 12%, rgba(222,216,233,.62) 24%,
-      rgba(222,216,233,.30) 38%, rgba(222,216,233,.10) 52%, rgba(222,216,233,0) 66%),
-    linear-gradient(96deg, rgba(238,234,247,.60) 0%, rgba(238,234,247,.34) 30%, rgba(238,234,247,.10) 55%, rgba(238,234,247,0) 72%)}
-.row__label{position:absolute;left:var(--pad);top:16px;z-index:4;font:600 11.5px/1.4 Manrope,system-ui,sans-serif;
-  letter-spacing:.2em;text-transform:uppercase;color:#37325a;text-shadow:0 1px 12px rgba(255,255,255,.9)}
-.row__note{position:absolute;left:var(--pad);top:36px;z-index:4;font-size:13px;color:#5d5678;
-  text-shadow:0 1px 12px rgba(255,255,255,.85)}
-.stage{position:absolute;left:var(--pad);bottom:26px;z-index:4;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  background:linear-gradient(to top,#ded8e9 0%,rgba(222,216,233,.92) 12%,rgba(222,216,233,.62) 24%,
+    rgba(222,216,233,.30) 38%,rgba(222,216,233,.10) 52%,rgba(222,216,233,0) 66%),
+  linear-gradient(180deg,rgba(238,234,247,.8) 0%,rgba(238,234,247,.44) 7%,rgba(238,234,247,0) 20%)}
+.row__tag{position:absolute;left:var(--pad);top:14px;z-index:4;font:700 11px/1 Comfortaa,sans-serif;
+  letter-spacing:.16em;text-transform:uppercase;color:#4a4270;padding:7px 12px;border-radius:999px;
+  background:rgba(255,255,255,.74);border:1px solid rgba(90,80,140,.16)}
+.row__note{position:absolute;right:var(--pad);top:16px;z-index:4;max-width:56%;text-align:right;
+  font-size:12.5px;line-height:1.35;color:#4a4270;text-shadow:0 1px 10px rgba(255,255,255,.9)}
+.stage{position:absolute;left:var(--pad);bottom:44px;z-index:4}
 
-/* ===== капсула: база (резкая, без картинки) ===== */
+/* ---------- капсула ---------- */
 .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
-  height:54px;padding:0 30px;border:0;border-radius:999px;cursor:pointer;overflow:hidden;
-  font:600 13px/1 Manrope,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;
-  transition:transform .38s var(--ease), box-shadow .38s var(--ease), filter .3s var(--ease);
-  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.pill span{position:relative;z-index:3}
-.pill:active,.pill.is-press{transform:translateY(4px) scale(.985);transition-duration:.07s}
-
-/* мягкое «дыхание» — приглашает нажать */
-.pill::after{content:"";position:absolute;inset:0;border-radius:inherit;z-index:1;pointer-events:none;
-  animation:breathe 4.6s ease-in-out infinite}
-@keyframes breathe{0%,100%{opacity:.25}50%{opacity:.75}}
-
-/* волна от точки тапа */
-.ripple{position:absolute;z-index:2;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);
-  background:radial-gradient(circle,rgba(255,255,255,.55),rgba(255,255,255,0) 70%);
-  animation:rip .62s var(--ease) forwards}
+  min-width:200px;height:58px;padding:0 30px;border:0;border-radius:999px;overflow:hidden;cursor:pointer;
+  font:700 13px/1 Comfortaa,system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  transition:transform .3s var(--ease);-webkit-tap-highlight-color:transparent}
+.pill span{position:relative;z-index:2}
+.pill:active{transform:translateY(4px) scale(.99)}
+.pill::after{content:"";position:absolute;top:0;left:-45%;width:32%;height:100%;z-index:-1;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);
+  animation:sheen 5.4s ease-in-out infinite}
+@keyframes sheen{0%,60%{transform:translateX(0);opacity:0}8%{opacity:.9}72%{transform:translateX(460%);opacity:0}100%{transform:translateX(460%);opacity:0}}
+.ripple{position:absolute;z-index:1;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%) scale(0);
+  background:radial-gradient(circle,rgba(255,255,255,.8),rgba(255,255,255,0) 70%);animation:rip .62s var(--ease) forwards}
 @keyframes rip{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.petal{position:fixed;z-index:999;pointer-events:none;border-radius:60% 0 60% 0;box-shadow:0 0 6px rgba(140,120,220,.5)}
+.pill.no-sheen::after{animation:none;opacity:0}
 
-/* лепестки лаванды */
-.petal{position:fixed;z-index:999;pointer-events:none;border-radius:60% 0 60% 0;
-  box-shadow:0 0 6px rgba(185,168,245,.55)}
+/* A — светлое стекло */
+.v-a{color:#332e54;text-shadow:0 1px 0 rgba(255,255,255,.95);
+  background:linear-gradient(165deg,rgba(255,255,255,.92),rgba(255,255,255,.55) 40%,rgba(233,225,250,.75));
+  border:1px solid rgba(255,255,255,.95);
+  box-shadow:0 14px 28px -12px rgba(96,84,150,.5),inset 0 1px 0 #fff,inset 0 -8px 16px -6px rgba(170,150,240,.35)}
+/* B — залитая лаванда-василёк */
+.v-b{color:#fdfcff;text-shadow:0 1px 8px rgba(42,52,120,.4);
+  background:linear-gradient(122deg,#5b7fe0,#8b7fe8 70%,#a99ee6);
+  box-shadow:0 16px 30px -12px rgba(91,127,224,.62),inset 0 1px 0 rgba(255,255,255,.45)}
+/* C — пастельная светлая */
+.v-c{color:#3a3460;text-shadow:0 1px 0 rgba(255,255,255,.9);
+  background:linear-gradient(122deg,#efeafd,#e0d8f8 55%,#cfc4f2);
+  box-shadow:0 14px 28px -12px rgba(120,105,190,.52),inset 0 1px 0 #fff}
+/* D — картинка из Leonardo (то, что стоит сейчас) */
+.v-d{color:#332e54;text-shadow:0 1px 0 rgba(255,255,255,.95);
+  box-shadow:0 14px 28px -12px rgba(96,84,150,.5)}
+.v-d::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+  background:url('img/btn.png') 50% calc(50% + 3px)/103% 109% no-repeat}
 
-.pill.no-breathe::after{animation:none;opacity:.45}
-
-/* A — васильковая (как сейчас) */
-.v-a{background:linear-gradient(122deg,#5b8def,#8fb5f2);
-  box-shadow:0 10px 26px rgba(59,110,220,.42), inset 0 1px 0 rgba(255,255,255,.34)}
-.v-a::after{box-shadow:0 0 26px rgba(140,180,250,.5)}
-/* B — сиренево-васильковая */
-.v-b{background:linear-gradient(122deg,#8b7fe8,#6f9bf0 55%,#b9a8f5);
-  box-shadow:0 10px 28px rgba(120,100,220,.46), inset 0 1px 0 rgba(255,255,255,.36)}
-.v-b::after{box-shadow:0 0 28px rgba(175,150,250,.55)}
-/* C — светлое стекло */
-.v-c{background:rgba(255,255,255,.14);backdrop-filter:blur(14px) saturate(150%);
-  -webkit-backdrop-filter:blur(14px) saturate(150%);
-  border:1px solid rgba(230,238,255,.5);
-  box-shadow:0 10px 30px rgba(20,30,64,.4), inset 0 1px 0 rgba(255,255,255,.5), inset 0 -8px 18px rgba(140,170,240,.28)}
-.v-c::after{box-shadow:0 0 24px rgba(210,220,255,.34)}
-/* D — пастельная лиловая, тёмный текст */
-.v-d{background:linear-gradient(122deg,#ded6fb,#f0ecfe 60%,#cfc4f2);color:var(--lilac-ink);
-  box-shadow:0 12px 28px rgba(150,130,225,.44), inset 0 1px 0 #fff}
-.v-d::after{box-shadow:0 0 26px rgba(215,205,255,.6)}
-/* E — лиловая, как лента */
-.v-e{background:linear-gradient(122deg,#9a8cf0,#7d9bf2 60%,#c3b4f7);
-  box-shadow:0 10px 26px rgba(110,95,215,.44), inset 0 1px 0 rgba(255,255,255,.4)}
-.v-e::after{box-shadow:0 0 26px rgba(170,150,250,.5)}
-
-/* переключатели эффектов */
-.switches{position:sticky;bottom:0;z-index:6;display:flex;gap:8px;flex-wrap:wrap;
-  padding:14px var(--pad);background:rgba(255,255,255,.9);backdrop-filter:blur(12px);
-  border-top:1px solid rgba(90,80,140,.2)}
-.sw{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;
-  border:1px solid rgba(90,80,140,.3);background:rgba(120,105,190,.10);color:#3a3460;
-  font:600 12px/1 Manrope,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer;user-select:none}
+.switches{position:sticky;bottom:0;z-index:6;display:flex;gap:8px;flex-wrap:wrap;padding:14px var(--pad);
+  background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-top:1px solid rgba(90,80,140,.2)}
+.sw{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;cursor:pointer;
+  border:1px solid rgba(90,80,140,.3);background:rgba(120,105,190,.1);color:#3a3460;
+  font:700 11.5px/1 Comfortaa,system-ui,sans-serif;letter-spacing:.06em;user-select:none}
 .sw.is-on{background:linear-gradient(120deg,#6b5cc4,#4568d0);border-color:transparent;color:#fff}
-.foot{padding:18px var(--pad) 90px;color:#5d5678;font-size:13px;max-width:900px}
+.foot{padding:18px var(--pad) 80px;color:var(--dim);font-size:13.5px;max-width:780px}
+.foot b{color:var(--ink);font-weight:500}
 </style>
 </head>
 <body>
 
 <div class="head">
-  <h1>Капсула: 5 оттенков и живой отклик</h1>
-  <p>Тапни любую кнопку — она продавится, из точки касания пойдёт волна, разлетятся лепестки лаванды и сработает вибрация. Внизу можно включать и выключать эффекты по одному, чтобы выбрать, что оставить.</p>
-  <div class="hint"><b>Важно:</b> кнопка нарисована кодом, а не картинкой, поэтому остаётся резкой на любом экране и весит 0 КБ. Картинка-капсула так не умеет.</div>
+  <h1>Кнопка: 4 варианта на новой картинке</h1>
+  <p>Заголовки и надпись на кнопке — уже Comfortaa, как ты выбрал. Тапни любую кнопку: продавливание, волна от пальца, лепестки лаванды, вибрация.</p>
+  <div class="hint"><b>Мой выбор — B.</b> На светлой лаванде залитая капсула держит взгляд и читается лучше всех. A и C — стеклянные, нежнее, но на светлом фоне слабее заметны. D — твоя картинка из Leonardo.</div>
 </div>
 
-<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
-  <div class="row__label">A — васильковая</div>
-  <div class="row__note">как сейчас на сайте</div>
+<section class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__tag">A · светлое стекло</div><div class="row__note">нежно, «парит»</div>
   <div class="stage"><button class="pill v-a"><span>Смотреть курсы</span></button></div>
-</div>
+</section>
 
-<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
-  <div class="row__label">B — сиренево-васильковая</div>
-  <div class="row__note">под новую картинку: берёт и лаванду, и василёк</div>
+<section class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__tag">B · лаванда и василёк</div><div class="row__note">залитая, самая заметная</div>
   <div class="stage"><button class="pill v-b"><span>Смотреть курсы</span></button></div>
-</div>
+</section>
 
-<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
-  <div class="row__label">C — светлое стекло</div>
-  <div class="row__note">самая нежная, «парит» над картинкой</div>
+<section class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__tag">C · пастельная светлая</div><div class="row__note">мягкая, как сам фон</div>
   <div class="stage"><button class="pill v-c"><span>Смотреть курсы</span></button></div>
-</div>
+</section>
 
-<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
-  <div class="row__label">D — пастельная лиловая</div>
-  <div class="row__note">светлая капсула, тёмно-сиреневый текст — самый контраст</div>
+<section class="row"><div class="row__bg"></div><div class="row__veil"></div>
+  <div class="row__tag">D · картинка из Leonardo</div><div class="row__note">то, что стоит сейчас</div>
   <div class="stage"><button class="pill v-d"><span>Смотреть курсы</span></button></div>
-</div>
-
-<div class="row"><div class="row__bg"></div><div class="row__veil"></div>
-  <div class="row__label">E — лиловая, как букет</div>
-  <div class="row__note">цвет лаванды в кадре, но чуть глубже</div>
-  <div class="stage"><button class="pill v-e"><span>Смотреть курсы</span></button></div>
-</div>
+</section>
 
 <div class="switches">
-  <div class="sw is-on" data-fx="press">продавливание</div>
   <div class="sw is-on" data-fx="ripple">волна от пальца</div>
   <div class="sw is-on" data-fx="petals">лепестки лаванды</div>
-  <div class="sw is-on" data-fx="breathe">дыхание</div>
+  <div class="sw is-on" data-fx="sheen">блик по стеклу</div>
   <div class="sw is-on" data-fx="haptic">вибрация</div>
 </div>
 
-<div class="foot">Если что-то из этого лишнее — скажи номер: уберу. Мой выбор: <b>B</b> + продавливание + вибрация + лепестки, без «дыхания» (оно мигает на всех кнопках сразу и начинает раздражать).</div>
+<div class="foot">Скажи букву — поставлю её в сайт. Если ни одна не зашла, опиши словами, что не так (слишком бледная / крупная / глянцевая), подберу точнее.</div>
 
 <script>
 (function(){
-  var FX={press:1,ripple:1,petals:1,breathe:1,haptic:1};
-  var PETAL_COLORS=['#c9b8f5','#b9a8f5','#9a8cf0','#a9c6f7','#d7cdf9'];
+  var FX={ripple:1,petals:1,sheen:1,haptic:1};
+  var PETALS=['#c9b8f5','#b9a8f5','#9a8cf0','#a9c6f7','#d7cdf9'];
 
   document.querySelectorAll('.sw').forEach(function(el){
     el.addEventListener('click',function(){
       var k=el.dataset.fx; FX[k]=FX[k]?0:1;
       el.classList.toggle('is-on',!!FX[k]);
-      if(k==='breathe'){
-        document.querySelectorAll('.pill').forEach(function(p){ p.classList.toggle('no-breathe',!FX.breathe); });
+      if(k==='sheen'){
+        document.querySelectorAll('.pill').forEach(function(p){
+          p.classList.toggle('no-sheen',!FX.sheen);
+        });
       }
     });
   });
 
-  function petals(x,y){
+  function flyPetals(x,y){
     for(var i=0;i<9;i++){
-      var p=document.createElement('i');
-      p.className='petal';
+      var p=document.createElement('i'); p.className='petal';
       var s=6+Math.random()*7;
       p.style.width=s+'px'; p.style.height=s*0.7+'px';
-      p.style.background=PETAL_COLORS[i%PETAL_COLORS.length];
+      p.style.background=PETALS[i%PETALS.length];
       p.style.left=x+'px'; p.style.top=y+'px';
       document.body.appendChild(p);
-      var ang=(i/9)*Math.PI*2 + Math.random()*0.6;
-      var dist=46+Math.random()*58;
-      var dx=Math.cos(ang)*dist, dy=Math.sin(ang)*dist - 26;
+      var ang=(i/9)*Math.PI*2+Math.random()*0.6, dist=46+Math.random()*58;
+      var dx=Math.cos(ang)*dist, dy=Math.sin(ang)*dist-26;
       p.animate([
         {transform:'translate(-50%,-50%) rotate(0deg) scale(1)',opacity:.95},
         {transform:'translate(calc(-50% + '+dx+'px),calc(-50% + '+dy+'px)) rotate('+(240+Math.random()*240)+'deg) scale(.5)',opacity:0}
-      ],{duration:780+Math.random()*420,easing:'cubic-bezier(.18,.7,.3,1)'}).onfinish=function(){p.remove()};
+      ],{duration:780+Math.random()*420,easing:'cubic-bezier(.18,.7,.3,1)'}).addEventListener('finish',function(){p.remove()});
     }
   }
 
   document.querySelectorAll('.pill').forEach(function(btn){
     btn.addEventListener('pointerdown',function(e){
       var r=btn.getBoundingClientRect();
-      var x=e.clientX-r.left, y=e.clientY-r.top;
       if(FX.ripple){
-        var d=Math.max(r.width,r.height)*2.2;
-        var rip=document.createElement('i');
+        var d=Math.max(r.width,r.height)*2.2, rip=document.createElement('i');
         rip.className='ripple';
         rip.style.width=d+'px'; rip.style.height=d+'px';
-        rip.style.left=x+'px'; rip.style.top=y+'px';
-        btn.appendChild(rip);
-        setTimeout(function(){rip.remove()},700);
+        rip.style.left=(e.clientX-r.left)+'px'; rip.style.top=(e.clientY-r.top)+'px';
+        btn.appendChild(rip); setTimeout(function(){rip.remove()},700);
       }
-      if(FX.petals) petals(e.clientX,e.clientY);
+      if(FX.petals) flyPetals(e.clientX,e.clientY);
       if(FX.haptic && navigator.vibrate){ try{navigator.vibrate(12)}catch(err){} }
-      if(FX.press) btn.classList.add('is-press');
-    });
-    ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
-      btn.addEventListener(ev,function(){ btn.classList.remove('is-press'); });
     });
   });
 })();
