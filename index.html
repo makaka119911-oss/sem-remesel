@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Семь ремёсел — Татьяна Солнечная</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Семь ремёсел — видеокурсы Татьяны Солнечной">
+<meta property="og:description" content="Мох, гипс, ткань, нить. Смотришь урок — повторяешь за мастером — вещь остаётся тебе.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="style.css?v=41">
+</head>
+<body>
+
+<div class="progress" id="progress" style="width: 0%;"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<header class="bar">
+  <a class="bar__brand" href="#top">Татьяна Солнечная</a>
+  <a class="bar__cta" href="https://t.me/Tan4ik77G" target="_blank" rel="noopener">Написать</a>
+</header>
+
+<main id="top">
+
+  <!-- ГЕРОЙ -->
+  <section class="hero is-in">
+    <div class="hero__media" id="heroMedia" style="transform: translate3d(0px, 0px, 0px) scale(1);"></div>
+    <div class="hero__inner">
+      <p class="hero__kicker is-in" data-rv="">видеокурсы ручной работы</p>
+      <h1 class="hero__title">
+        <span class="mask"><span class="mask__i" data-line="">Семь ремёсел</span></span>
+        <span class="mask"><span class="mask__i" data-line="">своими руками</span></span>
+      </h1>
+      <p class="hero__lead is-in" data-rv="">Мох, гипс, ткань, нить. Смотришь урок — повторяешь за мастером — вещь остаётся тебе.</p>
+      <a class="pill is-in" href="#gallery" data-rv="">Смотреть курсы</a>
+    </div>
+    <div class="hero__scroll" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- ВЫСКАЗЫВАНИЕ -->
+  <section class="statement">
+    <p class="statement__text" data-rv="">
+      Я не учу «делать красиво» — я показываю <em>руками</em>: вот так держать, вот так вести, а здесь не торопиться. Каждый урок снят крупно и честно: видно, что происходит с материалом.
+    </p>
+  </section>
+
+  <!-- БЕГУЩАЯ СТРОКА -->
+  <section class="marquee" aria-hidden="true">
+    <div class="marquee__row" data-dir="left">
+      <span>древо рода · картины · стрит-арт · платья · макраме · абажур · барельеф · </span>
+      <span>древо рода · картины · стрит-арт · платья · макраме · абажур · барельеф · </span>
+    </div>
+    <div class="marquee__row marquee__row--ghost" data-dir="right">
+      <span>мох · гипс · ткань · нить · свет · </span>
+      <span>мох · гипс · ткань · нить · свет · </span>
+    </div>
+  </section>
+
+  <!-- ГОРИЗОНТАЛЬНАЯ ГАЛЕРЕЯ -->
+  <section class="gallery" id="gallery">
+    <div class="gallery__sticky">
+      <div class="gallery__head">
+        <h2>Семь ремёсел</h2>
+        <p class="gallery__hint">прокрути — курсы поедут</p>
+      </div>
+      <div class="track" id="track">
+
+        <article class="slide" style="--img:url('img/01.jpg')">
+          <div class="slide__ph"><span class="slide__play" aria-hidden="true"></span></div>
+          <div class="slide__meta"><span class="n">01</span><h3>Древо рода</h3><p>мох · дерево · 3–4 ч</p></div>
+        </article>
+
+        <article class="slide" style="--img:url('img/02.jpg')">
+          <div class="slide__ph"><span class="slide__play" aria-hidden="true"></span></div>
+          <div class="slide__meta"><span class="n">02</span><h3>Картины</h3><p>акрил · 3 ч</p></div>
+        </article>
+
+        <article class="slide" style="--img:url('img/03.jpg')">
+          <div class="slide__ph"><span class="slide__play" aria-hidden="true"></span></div>
+          <div class="slide__meta"><span class="n">03</span><h3>Стрит-арт</h3><p>спрей · 2–3 ч</p></div>
+        </article>
+
+        <article class="slide" style="--img:url('img/04.jpg')">
+          <div class="slide__ph"><span class="slide__play" aria-hidden="true"></span></div>
+          <div class="slide__meta"><span class="n">04</span><h3>Платья</h3><p>ткань · 5 ч</p></div>
+        </article>
+
+        <article class="slide" style="--img:url('img/05.jpg')">
+          <div class="slide__ph"><span class="slide__play" aria-hidden="true"></span></div>
+          <div class="slide__meta"><span class="n">05</span><h3>Макраме · панно</h3><p>шнур · 3 ч</p></div>
+        </article>
+
+        <article class="slide" style="--img:url('img/06.jpg')">
+          <div class="slide__ph"><span class="slide__play" aria-hidden="true"></span></div>
+          <div class="slide__meta"><span class="n">06</span><h3>Макраме · абажур</h3><p>свет · 4 ч</p></div>
+        </article>
+
+        <article class="slide" style="--img:url('img/07.jpg')">
+          <div class="slide__ph"><span class="slide__play" aria-hidden="true"></span></div>
+          <div class="slide__meta"><span class="n">07</span><h3>Ботанический барельеф</h3><p>гипс · 2–3 ч</p></div>
+        </article>
+
+      </div>
+      <div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+
+  <!-- ЧТО ВНУТРИ -->
+  <section class="inside" id="inside">
+    <span class="inside__k">что внутри курса</span>
+    <ul class="inside__list">
+      <li><b>видео крупным планом</b><span>каждый узел и мазок видно</span></li>
+      <li><b>список материалов</b><span>что купить и чем заменить</span></li>
+      <li><b>шаг за шагом</b><span>можно идти частями</span></li>
+      <li><b>доступ навсегда</b><span>уроки остаются с тобой</span></li>
+    </ul>
+  </section>
+
+  <!-- МАСТЕР -->
+  <section class="master">
+    <div class="master__photo" data-parallax=""></div>
+    <div class="master__text">
+      <p class="kicker" data-rv="">мастер</p>
+      <h2 data-rv="">Татьяна Солнечная</h2>
+      <p data-rv="">Много лет работаю с женщинами — в кругах и практиках. А рядом живёт рукоделие: мох, гипс, нить, ткань.</p>
+      <p data-rv="">Мне важно, чтобы женщина не просто посмотрела, а <em>взяла в руки и сделала</em>. Поэтому курсы записаны как для подруги — спокойно и по шагам.</p>
+      <a class="tlink" href="https://t.me/Tan4ik77G" target="_blank" rel="noopener" data-rv="">Написать Татьяне</a>
+    </div>
+  </section>
+
+
+  <!-- СТОИМОСТЬ -->
+  <section class="price" id="price">
+    <span class="num">05</span>
+    <h2>Стоимость</h2>
+    <p class="price__lead">Курсы продаются по отдельности — можно взять один или собрать свой набор из нескольких ремёсел.</p>
+    <ul class="price__list">
+      <li><b>Один курс</b><span>цена по запросу</span></li>
+      <li><b>Набор из двух и более</b><span>условия — у мастера</span></li>
+      <li><b>Доступ</b><span>навсегда</span></li>
+    </ul>
+    <a class="tlink" href="https://t.me/Tan4ik77G" target="_blank" rel="noopener" data-rv="">Узнать стоимость</a>
+  </section>
+
+  <!-- ВОПРОСЫ -->
+  <section class="faq" id="faq">
+    <span class="num">06</span>
+    <h2>Частые вопросы</h2>
+    <div class="faq__list">
+      <details><summary>Нужен ли опыт?</summary><p>Нет. Курсы рассчитаны на первый раз — с нуля.</p></details>
+      <details><summary>Сколько идёт курс?</summary><p>От 2 до 5 часов чистого времени. Можно частями: главное — не спешить.</p></details>
+      <details><summary>Материалы сложно достать?</summary><p>В курсе есть список с заменами. Почти всё — в обычных магазинах для творчества.</p></details>
+      <details><summary>Как получить доступ?</summary><p>Напишите Татьяне в Telegram или позвоните — расскажет про оплату и доступ.</p></details>
+    </div>
+  </section>
+
+  <!-- ПОКУПКА -->
+  <section class="buy" id="buy">
+    <h2 data-rv="">По вопросам приобретения<br>обращаться к <em>Татьяне Солнечной</em></h2>
+    <p data-rv="">Напиши или позвони — расскажу про курсы, стоимость и доступ. Можно взять один курс или собрать свой набор из нескольких ремёсел.</p>
+    <div class="buy__row" data-rv="">
+      <a class="tlink tlink--big" href="https://t.me/Tan4ik77G" target="_blank" rel="noopener">Telegram · @Tan4ik77G</a>
+      <a class="tlink tlink--big" href="tel:+79055959996">+7 905 595 99 96</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span>© Мастерская Татьяны Солнечной</span>
+  <span>Сделано с теплом</span>
+</footer>
+
+<script src="script.js?v=16"></script>
+
+</body>
+</html>

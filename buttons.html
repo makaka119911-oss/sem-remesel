@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Стеклянная кнопка — варианты</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#1b1436;color:#f1ecff;font-family:Inter,system-ui,-apple-system,sans-serif;font-weight:300}
+  .head{padding:26px 20px 10px;max-width:760px;margin:0 auto}
+  .head h1{font:700 26px/1.15 Manrope,system-ui,sans-serif;margin:0 0 8px;letter-spacing:-.03em}
+  .head p{margin:0;color:#b6a9dd;font-size:14.5px}
+
+  .row{position:relative;height:330px;overflow:hidden;border-top:1px solid rgba(205,190,255,.18);margin-top:18px}
+  .row__bg{position:absolute;inset:0;background:url('img/hero-mobile.jpg') center 78%/cover no-repeat}
+  .row__veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(36,26,68,.5) 0%,rgba(43,36,86,.2) 40%,rgba(43,36,86,.8) 100%)}
+  .row__label{position:absolute;left:20px;top:18px;z-index:3;font:600 12px/1 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#cfbaff}
+  .row__note{position:absolute;left:20px;top:40px;z-index:3;font-size:12.5px;color:#b6a9dd}
+  .stage{position:absolute;inset:auto 20px 26px 20px;z-index:3}
+
+  .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
+    height:52px;padding:0 26px;border:0;background:none;border-radius:999px;
+    font:600 13px/1 Manrope,system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#f6ecff;
+    text-shadow:0 1px 10px rgba(24,8,46,.9),0 0 22px rgba(150,110,240,.5)}
+  .pill::before{content:"";position:absolute;inset:-5px -9px;z-index:-1;pointer-events:none;
+    background:url('img/btn.png') center/100% 100% no-repeat;
+    transition:transform .25s,filter .3s,opacity .3s}
+
+  /* A — стекло, светлее */
+  .v-a .pill::before{opacity:.58;filter:saturate(.8) brightness(1.3);
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+  /* B — стекло, чуть плотнее */
+  .v-b .pill::before{opacity:.44;filter:saturate(.8) brightness(1.32);
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+  /* C — матовое стекло (мороз) */
+  .v-c .pill::before{opacity:.32;filter:saturate(.75) brightness(1.35);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  /* D — почти прозрачная, только контур капсулы */
+  .v-d .pill::before{opacity:.2;filter:saturate(.7) brightness(1.45);
+    -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+
+  .foot{padding:22px 20px 40px;color:#8f81bb;font-size:12.5px;max-width:760px;margin:0 auto}
+</style>
+</head>
+<body>
+  <div class="head">
+    <h1>Стеклянная кнопка — какая прозрачность?</h1>
+    <p>Все на настоящем фоне героя. Скажи букву — поставлю на страницу.</p>
+  </div>
+
+  <section class="row v-a">
+    <div class="row__bg"></div><div class="row__veil"></div>
+    <div class="row__label">A — стекло, светлее</div>
+    <div class="row__note">прозрачность 22%, чуть подсвечена</div>
+    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
+  </section>
+
+  <section class="row v-b">
+    <div class="row__bg"></div><div class="row__veil"></div>
+    <div class="row__label">B — стекло, плотнее</div>
+    <div class="row__note">прозрачность 40%, сквозь неё видно фото</div>
+    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
+  </section>
+
+  <section class="row v-c">
+    <div class="row__bg"></div><div class="row__veil"></div>
+    <div class="row__label">C — матовое стекло</div>
+    <div class="row__note">полупрозрачная + размытие фона («мороз»)</div>
+    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
+  </section>
+
+  <section class="row v-d">
+    <div class="row__bg"></div><div class="row__veil"></div>
+    <div class="row__label">D — почти прозрачная</div>
+    <div class="row__note">виден только блик и контур капсулы</div>
+    <div class="stage"><a class="pill" href="#">Смотреть курсы</a></div>
+  </section>
+
+  <div class="foot">Если ни одна — скажи «прозрачнее/плотнее/больше/меньше», подкручу точно.</div>
+</body>
+</html>
