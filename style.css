@@ -63,15 +63,16 @@ a{color:inherit;text-decoration:none}
 .bar__cta:hover::after{transform:scaleX(1)}
 
 /* pill-кнопки — стеклянная капсула из Leonardo (img/btn.png).
-   Градиент под картинкой — страховка на случай, если PNG не догрузился */
+   ВАЖНО: фон — только картинка, без второго слоя. Любой дополнительный градиент
+   под ней заливает всю коробку и читается как вторая капсула вокруг настоящей. */
 .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
   width:216px;height:62px;padding:0;border:0;background:none;border-radius:999px;overflow:hidden;
   font-size:13.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:#3a3460;
   text-shadow:0 1px 0 rgba(255,255,255,.95),0 0 16px rgba(255,255,255,.6);
   transition:transform .3s cubic-bezier(.2,.9,.3,1.2)}
+/* 106%/114% — капсула почти заполняет коробку, свечение по краям чуть подрезается */
 .pill::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
-  background:url('img/btn.png') center/100% 100% no-repeat,
-             linear-gradient(165deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.60) 38%,rgba(233,225,250,.80) 100%);
+  background:url('img/btn.png') 50% calc(50% + 3px)/102% 108% no-repeat;
   transition:filter .3s ease}
 /* по стеклу раз в пять секунд пробегает блик — кнопка «живая» и просит нажатия */
 .pill::after{content:"";position:absolute;top:0;left:-45%;width:32%;height:100%;z-index:-1;pointer-events:none;
@@ -138,8 +139,12 @@ a{color:inherit;text-decoration:none}
   text-shadow:0 3px 34px rgba(255,255,255,.66),0 1px 3px rgba(255,255,255,.5),0 0 70px rgba(120,105,190,.26)}
 .hero__lead{max-width:42ch;margin:22px 0 0;color:rgba(56,50,92,.92);line-height:1.56;
   font-size:clamp(15px,1.3vw,18px);text-shadow:0 1px 16px rgba(255,255,255,.85),0 1px 2px rgba(255,255,255,.6)}
-.hero__scroll{position:absolute;right:var(--pad);bottom:clamp(40px,7vh,90px);width:1px;height:64px;background:var(--line);z-index:2}
-.hero__scroll span{position:absolute;top:0;left:-1px;width:3px;height:18px;background:var(--gold);animation:drop 2.2s var(--ease) infinite}
+/* подсказка «листайте»: на светлом фоне держим её очень деликатной,
+   иначе тонкая палка у края читается как артефакт вёрстки */
+.hero__scroll{position:absolute;right:var(--pad);bottom:clamp(40px,7vh,90px);width:1px;height:52px;
+  background:rgba(90,80,140,.14);z-index:2}
+.hero__scroll span{position:absolute;top:0;left:-1px;width:2px;height:14px;
+  background:rgba(91,79,176,.42);animation:drop 2.6s var(--ease) infinite}
 @keyframes drop{0%{top:0;opacity:0}30%{opacity:1}100%{top:52px;opacity:0}}
 
 /* маски для появления строк */
