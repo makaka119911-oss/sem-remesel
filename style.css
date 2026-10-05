@@ -373,8 +373,8 @@ body{font-size:17px}
    Так под текстом получается честная пустота: предметы живут сверху,
    а заголовок и кнопка стоят в темноте, а не поверх ткани и мха. */
 .hero__media{
-  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 40%,rgba(0,0,0,.72) 56%,rgba(0,0,0,.28) 72%,rgba(0,0,0,0) 88%);
-          mask-image:linear-gradient(to bottom,#000 0%,#000 40%,rgba(0,0,0,.72) 56%,rgba(0,0,0,.28) 72%,rgba(0,0,0,0) 88%);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.6) 76%,rgba(0,0,0,.2) 92%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.6) 76%,rgba(0,0,0,.2) 92%,rgba(0,0,0,0) 100%);
 }
 @media (min-width:901px){
   .hero__media{
