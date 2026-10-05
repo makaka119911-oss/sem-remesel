@@ -93,42 +93,40 @@ a{color:inherit;text-decoration:none}
 .hero__media{position:absolute;inset:-6% 0;will-change:transform;
   background-image:var(--hero-mobile,none),url('img/hero.jpg');
   background-size:cover;background-position:center,72% center}
-/* затемнение — только плавные «шлейфы», без полос и жёстких краёв */
-/* телефоны: сверху — мягкая шторка под текст, снизу — шлейф под кнопку, середина чистая */
+/* затемнение: картинка дышит сверху, текст и кнопка — в плотной тёмной зоне снизу */
 .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
     linear-gradient(to top,
       #1b2544 0%,
-      rgba(27,37,68,.95) 6%,
-      rgba(27,37,68,.70) 18%,
-      rgba(27,37,68,.26) 34%,
-      rgba(27,37,68,0) 52%),
+      rgba(27,37,68,.96) 11%,
+      rgba(27,37,68,.88) 24%,
+      rgba(27,37,68,.64) 38%,
+      rgba(27,37,68,.36) 54%,
+      rgba(27,37,68,.14) 70%,
+      rgba(27,37,68,0) 88%),
     linear-gradient(180deg,
-      rgba(27,37,68,.70) 0%,
-      rgba(27,37,68,.66) 16%,
-      rgba(27,37,68,.58) 30%,
-      rgba(27,37,68,.40) 44%,
-      rgba(27,37,68,.18) 58%,
-      rgba(27,37,68,.05) 72%,
-      rgba(27,37,68,0) 86%)}
+      rgba(27,37,68,.52) 0%,
+      rgba(27,37,68,.22) 7%,
+      rgba(27,37,68,0) 18%)}
 .hero::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(135% 112% at 48% 46%,rgba(27,37,68,0) 46%,rgba(27,37,68,.38) 100%)}
-/* 16:9 — текст на узкой тёмной ленте слева, низ и середина дышат */
+  background:radial-gradient(135% 112% at 48% 40%,rgba(27,37,68,0) 50%,rgba(27,37,68,.34) 100%)}
+/* 16:9 — тот же низ, плюс совсем лёгкая тень у левого края */
 @media (min-width:901px){
   .hero::before{background:
     linear-gradient(to top,
       #1b2544 0%,
-      rgba(27,37,68,.94) 12%,
-      rgba(27,37,68,.76) 26%,
-      rgba(27,37,68,.50) 42%,
-      rgba(27,37,68,.26) 60%,
-      rgba(27,37,68,.10) 78%,
-      rgba(27,37,68,0) 100%),
+      rgba(27,37,68,.96) 14%,
+      rgba(27,37,68,.88) 30%,
+      rgba(27,37,68,.72) 44%,
+      rgba(27,37,68,.52) 56%,
+      rgba(27,37,68,.28) 70%,
+      rgba(27,37,68,.10) 84%,
+      rgba(27,37,68,0) 96%),
     linear-gradient(96deg,
-      rgba(27,37,68,.66) 0%,
-      rgba(27,37,68,.40) 30%,
-      rgba(27,37,68,.12) 52%,
-      rgba(27,37,68,0) 70%)}
+      rgba(27,37,68,.34) 0%,
+      rgba(27,37,68,.20) 30%,
+      rgba(27,37,68,.06) 55%,
+      rgba(27,37,68,0) 72%)}
 }
 .hero__inner{position:relative;z-index:2;display:flex;flex-direction:column;
   padding:clamp(64px,11vh,120px) var(--pad) clamp(40px,7vh,90px);max-width:1100px;width:100%}
@@ -322,19 +320,51 @@ body{font-size:17px}
 /* герой: текст сверху, кнопка — внизу */
 .hero__inner > .pill{margin-top:auto;align-self:flex-start;flex:0 0 auto}
 
-/* ===== ГЕРОЙ: заголовок в две ровные строки, ничего не съезжает ===== */
+/* ===== ГЕРОЙ: текст и кнопка стоят внизу, в тёмной зоне ===== */
 /* ни одна строка заголовка не переносится и не «разваливает» вёрстку */
 .hero__title .mask__i{white-space:nowrap}
 .hero__title{font-size:clamp(38px,11.2vw,72px);line-height:1.06}
-.hero__inner{min-height:0}
+.hero__inner{min-height:0;justify-content:flex-end;
+  padding-top:clamp(76px,13vh,140px);
+  padding-bottom:clamp(34px,6.5vh,72px)}
+.hero__inner > .pill{margin-top:clamp(26px,5vh,52px)}
 @media (min-width:901px){
-  .hero__title{font-size:clamp(64px,6.6vw,118px)}
-  .hero__inner{padding-top:clamp(72px,13vh,132px)}
+  .hero__title{font-size:clamp(52px,5vw,88px)}
+}
+@media (max-width:900px){
+  .hero__lead{margin-top:16px}
 }
 @media (max-width:380px){
   .hero__title{font-size:clamp(34px,10.4vw,44px)}
 }
+
+/* ===== ГЕРОЙ: композиция — метка уходит наверх, текстовый блок живёт в тёмной зоне внизу =====
+   В картинке пусто (плоско и темно): низ кадра — с 50% на десктопе, с 62% на телефоне.
+   Туда и ставим весь текст одной колонкой, с ровным ритмом отступов. */
+.hero__inner{
+  min-height:0;
+  justify-content:flex-end;
+  padding-top:clamp(72px,12vh,132px);
+  padding-bottom:clamp(34px,6.5vh,76px);
+}
+/* метка уезжает в спокойный верхний левый угол */
+.hero__kicker{margin:0 0 auto;font-size:12px;letter-spacing:.24em}
+.hero__title{font-size:clamp(38px,11.2vw,72px);line-height:1.04;letter-spacing:-.045em}
+.hero__lead{margin-top:clamp(14px,2.2vh,22px);max-width:36ch;font-size:clamp(15px,1.25vw,17px)}
+.hero__inner > .pill{margin-top:clamp(22px,4vh,44px);align-self:flex-start;flex:0 0 auto}
+
+@media (min-width:901px){
+  .hero__inner{padding-bottom:clamp(56px,8.5vh,104px)}
+  .hero__title{font-size:clamp(52px,5.1vw,86px)}
+  .hero__lead{max-width:40ch}
+}
+@media (min-width:1500px){
+  .hero__title{font-size:clamp(84px,5.4vw,102px)}
+}
 @media (max-width:900px){
-  .hero__inner{padding-top:clamp(56px,10vh,96px);padding-bottom:clamp(96px,16vh,150px)}
-  .hero__lead{margin-top:18px}
+  .hero__lead{max-width:36ch}
+}
+@media (max-width:420px){
+  .hero__title{font-size:clamp(34px,10.4vw,46px)}
+  .hero__lead{max-width:none}
 }
