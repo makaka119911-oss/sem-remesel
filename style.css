@@ -66,16 +66,19 @@ a{color:inherit;text-decoration:none}
    ВАЖНО: фон — только картинка, без второго слоя. Любой дополнительный градиент
    под ней заливает всю коробку и читается как вторая капсула вокруг настоящей. */
 .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
-  width:200px;height:64px;padding:0;border:0;background:none;border-radius:999px;overflow:hidden;
-  font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:#fdfcff;
+  width:216px;height:66px;padding:3px 0 0;border:0;background:none;border-radius:999px;overflow:hidden;
+  font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#fdfcff;
   text-shadow:0 1px 10px rgba(52,32,110,.5),0 1px 2px rgba(52,32,110,.4);
   transition:transform .3s cubic-bezier(.2,.9,.3,1.2),box-shadow .3s ease}
 /* Сочная капсула из Leonardo. Картинка заполняет коробку целиком, тень уже нарисована в ней.
-   В самой картинке центр капсулы выровнен по центру кадра — поэтому надпись встаёт ровно
-   посередине капсулы без всяких сдвигов фона. */
+   padding-top:3px — центрируем не строку, а сами буквы: у прописных нет выносных элементов
+   снизу, поэтому строчный бокс уводит чернила на 1,5px вверх.
+   margin-left компенсирует прозрачное поле картинки, чтобы капсула встала по краю текста. */
 .pill::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
   background:url('img/btn.png') center/100% 100% no-repeat;
+  filter:saturate(.88) brightness(.96);
   transition:filter .3s ease}
+.hero__inner > .pill{margin-left:-10px}
 /* по стеклу раз в пять секунд пробегает блик — кнопка «живая» и просит нажатия */
 .pill::after{content:"";position:absolute;top:0;left:-45%;width:32%;height:100%;z-index:-1;pointer-events:none;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);
@@ -361,7 +364,7 @@ body{font-size:17px}
 .hero__kicker{margin:0 0 clamp(12px,2vh,18px);font-size:12px;letter-spacing:.18em;color:#4a4270}
 .hero__title{font-size:clamp(31px,9.2vw,62px);line-height:1.04;letter-spacing:-.025em}
 .hero__lead{margin-top:clamp(14px,2.2vh,22px);max-width:36ch;font-size:clamp(15px,1.25vw,17px)}
-.hero__inner > .pill{margin-top:clamp(22px,4vh,44px);align-self:flex-start;flex:0 0 auto}
+.hero__inner > .pill{margin-top:clamp(13px,2.2vh,28px);align-self:flex-start;flex:0 0 auto}
 
 @media (min-width:901px){
   .hero__inner{padding-bottom:clamp(30px,4.6vh,64px)}
