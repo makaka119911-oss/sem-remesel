@@ -53,7 +53,17 @@
         }
       };
       d.addEventListener('click', go);
-      d.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+      d.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          pressPill(.78);
+          setTimeout(() => pressPill(1), 160);
+          go();
+        }
+      });
+      d.addEventListener('pointerdown', () => pressPill(.78));
+      d.addEventListener('pointerup', () => pressPill(1));
+      d.addEventListener('pointerleave', () => pressPill(1));
       dotsBox.appendChild(d);
       dots.push(d);
     });
@@ -81,10 +91,28 @@
     const i0 = Math.floor(v), i1 = Math.min(i0 + 1, n), t = v - i0;
     if (!dotCenters.length) layoutDots();
     const x = dotCenters[i0] + (dotCenters[i1] - dotCenters[i0]) * t;
-    pill.style.transform = `translateX(${(x - pillW / 2).toFixed(2)}px)`;
+    pillX = x - pillW / 2;
+    applyPill();
     const near = Math.round(v);
     dots.forEach((d, k) => d.classList.toggle('on', k === near));
   }
+
+  // «ленивая» капсула: позиция меняется сразу, а догоняет её CSS-переход
+  // с мягкой пружинкой — поэтому она отстаёт от пальца и плавно доезжает
+  let pillX = 0, pillPress = 1;
+  function applyPill() {
+    if (!pill) return;
+    pill.style.transform = `translateX(${pillX.toFixed(2)}px) scale(${pillPress})`;
+  }
+  // отклик на нажатие: капсула продавливается, потом отпускает
+  function pressPill(v) {
+    if (!pill) return;
+    pillPress = v;
+    pill.classList.toggle('is-press', v < 1);
+    applyPill();
+  }
+  addEventListener('pointerup', () => pressPill(1), { passive: true });
+  addEventListener('pointercancel', () => pressPill(1), { passive: true });
   const masterPhoto = document.querySelector('.master__photo');
 
   function measure() {

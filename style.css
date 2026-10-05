@@ -404,8 +404,14 @@ body{font-size:17px}
   background:rgba(207,224,251,.88);
   box-shadow:0 0 12px rgba(169,198,247,.26);
   pointer-events:none;
-  transition:transform .5s cubic-bezier(.22,.9,.24,1);
+  /* «ленивая»: догоняет цель с мягкой пружинкой, поэтому отстаёт от пальца */
+  transition:transform .68s cubic-bezier(.26,1.12,.5,1);
   will-change:transform;
+}
+/* отклик на тап: капсула продавливается быстро, отпускает — пружинкой */
+.dots__pill.is-press{
+  transition-duration:.14s;
+  transition-timing-function:cubic-bezier(.3,.9,.4,1.2);
 }
 /* галерея листается пальцем мягко, по одному курсу, без полосы прокрутки */
 @media (max-width:900px){
