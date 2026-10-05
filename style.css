@@ -347,8 +347,8 @@ body{font-size:17px}
   padding-top:clamp(72px,12vh,132px);
   padding-bottom:clamp(34px,6.5vh,76px);
 }
-/* метка уезжает в спокойный верхний левый угол */
-.hero__kicker{margin:0 0 auto;font-size:12px;letter-spacing:.24em}
+/* метка стоит над заголовком — в тёмной зоне, где читается */
+.hero__kicker{margin:0 0 clamp(12px,2vh,18px);font-size:12px;letter-spacing:.24em;color:#e6efff}
 .hero__title{font-size:clamp(38px,11.2vw,72px);line-height:1.04;letter-spacing:-.045em}
 .hero__lead{margin-top:clamp(14px,2.2vh,22px);max-width:36ch;font-size:clamp(15px,1.25vw,17px)}
 .hero__inner > .pill{margin-top:clamp(22px,4vh,44px);align-self:flex-start;flex:0 0 auto}
@@ -363,6 +363,17 @@ body{font-size:17px}
 }
 @media (max-width:900px){
   .hero__lead{max-width:36ch}
+  /* светлая картинка: низ мягко уходит в тёмную синь сайта, чтобы белый текст читался,
+     а верх остаётся воздушным. Стопы строго монотонные — никаких видимых полос. */
+  .hero::before{
+    background: linear-gradient(to top,
+      #1b2544 0%, rgba(27,37,68,.99) 8%, rgba(27,37,68,.97) 18%, rgba(27,37,68,.92) 30%,
+      rgba(27,37,68,.86) 40%, rgba(27,37,68,.70) 50%, rgba(27,37,68,.50) 60%,
+      rgba(27,37,68,.30) 70%, rgba(27,37,68,.12) 84%, rgba(27,37,68,.04) 94%, rgba(27,37,68,0) 100%),
+      linear-gradient(180deg, rgba(27,37,68,.86) 0%, rgba(27,37,68,.62) 6%, rgba(27,37,68,.26) 12%, rgba(27,37,68,.06) 18%, rgba(27,37,68,0) 24%),
+      linear-gradient(96deg, rgba(27,37,68,.22) 0%, rgba(27,37,68,.12) 30%, rgba(27,37,68,.04) 55%, rgba(27,37,68,0) 72%);
+  }
+  .hero__media{-webkit-mask-image:none;mask-image:none}
 }
 @media (max-width:420px){
   .hero__title{font-size:clamp(34px,10.4vw,46px)}
