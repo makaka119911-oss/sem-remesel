@@ -38,6 +38,18 @@
 
 ---
 
+## 🖼 ПРОМПТ 1-БИС — «под текст» (телефон 9:16) — v2, пустая зона 45%
+
+**RU:** Кинематографичный натюрморт, вертикально 9:16. Тёмный васильково-синий фон, глубокие тени, мягкий контровой свет. Предметы — восковая свеча с огнём, пучок сушёной лаванды, стеклянные колбы и колпак, друза кристаллов, кусок гипса, льняная ткань, моток джута, стабилизированный мох — собраны **только в верхней половине кадра**. **Нижняя половина (45–50%) — абсолютно пустая, ровная, тёмная и слегка размытая**: глубокая тень, мягкий градиент в цвет фона `#1b2544`. Никаких предметов, ткани, мха и деталей внизу. Предметы плавно растворяются в темноту, без горизонтальных полос и жёстких границ. Малая глубина резкости, без текста и водяных знаков, 8k.
+
+**EN:** Cinematic still life, vertical 9:16. Deep navy-cornflower palette, moody low-key light. Objects — wax candle with flame, dried lavender, glass cloche and bottles, crystal cluster, plaster block, linen, jute rope, stabilized moss — placed **only in the upper half of the frame**. **Lower half (45–50%) is completely empty, flat, dark and softly blurred**: deep shadow fading into background `#1b2544`. No objects, cloth or moss in the bottom. Objects dissolve smoothly into darkness, **no horizontal bands, no hard edges**. Shallow depth of field, no text, no watermark, 8k.
+
+## 🖼 ПРОМПТ 2-БИС — «под текст» (десктоп 16:9) — v2
+
+**EN:** Cinematic still life, horizontal 16:9. Deep navy-cornflower palette, moody low-key light. Objects clustered in the **upper 55% and toward the right side**: wax candle, dried lavender, glass cloche, apothecary bottles, crystal cluster, plaster block, linen, jute rope, stabilized moss. The **lower 45% and the left side stay empty, flat and dark** — clean negative space for a headline block. Soft dissolve into background `#1b2544`, no horizontal bands, no hard edges, no text, no watermark, 8k.
+
+---
+
 ## ⛔ NEGATIVE PROMPT (для всех)
 
 `text, letters, words, watermark, logo, signature, purple magenta tones, neon, oversaturated, plastic skin, blurry, horizontal stripes, hard edges, banding, low contrast, cluttered bottom, crowded composition`

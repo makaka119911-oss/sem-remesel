@@ -369,6 +369,20 @@ body{font-size:17px}
   .hero__lead{max-width:none}
 }
 
+/* ===== ГЕРОЙ: картинка мягко растворяется в фон =====
+   Так под текстом получается честная пустота: предметы живут сверху,
+   а заголовок и кнопка стоят в темноте, а не поверх ткани и мха. */
+.hero__media{
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 40%,rgba(0,0,0,.72) 56%,rgba(0,0,0,.28) 72%,rgba(0,0,0,0) 88%);
+          mask-image:linear-gradient(to bottom,#000 0%,#000 40%,rgba(0,0,0,.72) 56%,rgba(0,0,0,.28) 72%,rgba(0,0,0,0) 88%);
+}
+@media (min-width:901px){
+  .hero__media{
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.75) 66%,rgba(0,0,0,.3) 82%,rgba(0,0,0,0) 96%);
+            mask-image:linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.75) 66%,rgba(0,0,0,.3) 82%,rgba(0,0,0,0) 96%);
+  }
+}
+
 /* ===== ТОЧКИ ГАЛЕРЕИ: мягкая «пилюля», которая едет за пальцем ===== */
 .dots{
   position:relative;display:flex;gap:9px;justify-content:center;align-items:center;
@@ -387,8 +401,8 @@ body{font-size:17px}
 .dots i:active{transform:scale(.86)}
 .dots__pill{
   position:absolute;left:0;top:24px;width:22px;height:7px;border-radius:999px;
-  background:linear-gradient(90deg,#5b8def,#a9c6f7);
-  box-shadow:0 0 16px rgba(91,141,239,.5), 0 1px 0 rgba(255,255,255,.18) inset;
+  background:rgba(207,224,251,.88);
+  box-shadow:0 0 12px rgba(169,198,247,.26);
   pointer-events:none;
   transition:transform .5s cubic-bezier(.22,.9,.24,1);
   will-change:transform;
