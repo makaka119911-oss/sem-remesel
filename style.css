@@ -66,13 +66,13 @@ a{color:inherit;text-decoration:none}
    ВАЖНО: фон — только картинка, без второго слоя. Любой дополнительный градиент
    под ней заливает всю коробку и читается как вторая капсула вокруг настоящей. */
 .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
-  width:216px;height:66px;padding:3px 0 0;border:0;background:none;border-radius:999px;overflow:hidden;
+  width:216px;height:66px;padding:0 0 10px;border:0;background:none;border-radius:999px;overflow:hidden;
   font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#fdfcff;
   text-shadow:0 1px 10px rgba(52,32,110,.5),0 1px 2px rgba(52,32,110,.4);
   transition:transform .3s cubic-bezier(.2,.9,.3,1.2),box-shadow .3s ease}
 /* Сочная капсула из Leonardo. Картинка заполняет коробку целиком, тень уже нарисована в ней.
-   padding-top:3px — центрируем не строку, а сами буквы: у прописных нет выносных элементов
-   снизу, поэтому строчный бокс уводит чернила на 1,5px вверх.
+   padding-bottom:10px — поднимает НАДПИСЬ на 6px выше центра капсулы (брат выбрал этот вариант
+   глазами: flex центрирует строку, а не чернила букв, и у прописных чернила уезжают вверх).
    margin-left компенсирует прозрачное поле картинки, чтобы капсула встала по краю текста. */
 .pill::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
   background:url('img/btn.png') center/100% 100% no-repeat;
