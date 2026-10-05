@@ -3,40 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1b2544">
+<meta name="theme-color" content="#ded8e9">
 <title>Капсула — варианты и отклик на нажатие</title>
 <style>
 :root{
   --deep:#5b8def; --soft:#a9c6f7; --pale:#c9dcfb;
   --lilac:#8b7fe8; --lilac2:#b9a8f5; --lilac-pale:#e3ddfb; --lilac-ink:#3a3160;
-  --bg:#1b2544;
+  --bg:#ded8e9;
   --ease:cubic-bezier(.22,1,.36,1);
   --pad:clamp(16px,4.4vw,40px);
 }
 *{box-sizing:border-box}
-body{margin:0;background:#0e1730;color:#eef3ff;font:300 16px/1.6 Inter,system-ui,-apple-system,sans-serif}
+body{margin:0;background:#ded8e9;color:#37325a;font:300 16px/1.6 Inter,system-ui,-apple-system,sans-serif}
 h1,h2{margin:0;font-family:Manrope,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;line-height:1.12}
 .head{padding:26px var(--pad) 6px;max-width:900px}
 .head h1{font-size:clamp(22px,5.4vw,32px);margin-bottom:10px}
-.head p{margin:0 0 4px;color:#b9c8ea;font-size:14.5px;max-width:60ch}
-.hint{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(180,205,250,.22);
-  background:rgba(140,130,230,.10);font-size:14px;color:#cfdcf6}
-.hint b{color:#e6ecff;font-weight:600}
+.head p{margin:0 0 4px;color:#5d5678;font-size:14.5px;max-width:60ch}
+.hint{margin-top:14px;padding:12px 14px;border-radius:12px;border:1px solid rgba(90,80,140,.22);
+  background:rgba(255,255,255,.62);font-size:14px;color:#4a4270}
+.hint b{color:#37325a;font-weight:600}
 
 /* строка-стенд: настоящая картинка героя + настоящие шторки сайта */
-.row{position:relative;height:340px;overflow:hidden;border-top:1px solid rgba(180,205,250,.16)}
+.row{position:relative;height:340px;overflow:hidden;border-top:1px solid rgba(90,80,140,.16)}
 .row__bg{position:absolute;inset:0;background:url('img/hero-mobile.jpg') center 30%/cover no-repeat}
 .row__veil{position:absolute;inset:0;pointer-events:none;
   background:
     linear-gradient(to top,
-      #1b2544 0%, rgba(27,37,68,.99) 9%, rgba(27,37,68,.97) 20%, rgba(27,37,68,.92) 32%,
-      rgba(27,37,68,.86) 42%, rgba(27,37,68,.70) 52%, rgba(27,37,68,.50) 62%,
-      rgba(27,37,68,.30) 72%, rgba(27,37,68,.12) 85%, rgba(27,37,68,.04) 95%, rgba(27,37,68,0) 100%),
-    linear-gradient(96deg, rgba(27,37,68,.40) 0%, rgba(27,37,68,.24) 30%, rgba(27,37,68,.08) 55%, rgba(27,37,68,0) 72%)}
+      #ded8e9 0%, rgba(222,216,233,.92) 12%, rgba(222,216,233,.62) 24%,
+      rgba(222,216,233,.30) 38%, rgba(222,216,233,.10) 52%, rgba(222,216,233,0) 66%),
+    linear-gradient(96deg, rgba(238,234,247,.60) 0%, rgba(238,234,247,.34) 30%, rgba(238,234,247,.10) 55%, rgba(238,234,247,0) 72%)}
 .row__label{position:absolute;left:var(--pad);top:16px;z-index:4;font:600 11.5px/1.4 Manrope,system-ui,sans-serif;
-  letter-spacing:.2em;text-transform:uppercase;color:#d6e2ff;text-shadow:0 1px 12px rgba(6,10,24,.9)}
-.row__note{position:absolute;left:var(--pad);top:36px;z-index:4;font-size:13px;color:#b9c8ea;
-  text-shadow:0 1px 12px rgba(6,10,24,.9)}
+  letter-spacing:.2em;text-transform:uppercase;color:#37325a;text-shadow:0 1px 12px rgba(255,255,255,.9)}
+.row__note{position:absolute;left:var(--pad);top:36px;z-index:4;font-size:13px;color:#5d5678;
+  text-shadow:0 1px 12px rgba(255,255,255,.85)}
 .stage{position:absolute;left:var(--pad);bottom:26px;z-index:4;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 
 /* ===== капсула: база (резкая, без картинки) ===== */
@@ -90,13 +89,13 @@ h1,h2{margin:0;font-family:Manrope,system-ui,sans-serif;font-weight:700;letter-s
 
 /* переключатели эффектов */
 .switches{position:sticky;bottom:0;z-index:6;display:flex;gap:8px;flex-wrap:wrap;
-  padding:14px var(--pad);background:rgba(12,20,42,.92);backdrop-filter:blur(12px);
-  border-top:1px solid rgba(180,205,250,.2)}
+  padding:14px var(--pad);background:rgba(255,255,255,.9);backdrop-filter:blur(12px);
+  border-top:1px solid rgba(90,80,140,.2)}
 .sw{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;
-  border:1px solid rgba(180,205,250,.3);background:rgba(150,170,240,.10);color:#dce7fb;
+  border:1px solid rgba(90,80,140,.3);background:rgba(120,105,190,.10);color:#3a3460;
   font:600 12px/1 Manrope,system-ui,sans-serif;letter-spacing:.08em;cursor:pointer;user-select:none}
-.sw.is-on{background:linear-gradient(120deg,#8b7fe8,#6f9bf0);border-color:transparent;color:#fff}
-.foot{padding:18px var(--pad) 90px;color:#93a4c8;font-size:13px;max-width:900px}
+.sw.is-on{background:linear-gradient(120deg,#6b5cc4,#4568d0);border-color:transparent;color:#fff}
+.foot{padding:18px var(--pad) 90px;color:#5d5678;font-size:13px;max-width:900px}
 </style>
 </head>
 <body>
