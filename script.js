@@ -201,4 +201,51 @@
   addEventListener('load', () => { measure(); layoutDots(); onScroll(); });
   setTimeout(() => { measure(); layoutDots(); onScroll(); }, 600);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { layoutDots(); onScroll(); });
+
+  /* ---- 7. отклик кнопки: волна от пальца, лепестки лаванды, вибрация ----
+     (продавливание самой капсулы живёт в CSS — на :active) */
+  const PETALS = ['#c9b8f5', '#b9a8f5', '#9a8cf0', '#a9c6f7', '#d7cdf9'];
+
+  const flyPetals = (x, y) => {
+    if (reduce) return;
+    for (let i = 0; i < 9; i++) {
+      const p = document.createElement('i');
+      p.className = 'petal';
+      const s = 6 + Math.random() * 7;
+      p.style.width = s + 'px';
+      p.style.height = (s * 0.7) + 'px';
+      p.style.background = PETALS[i % PETALS.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const ang = (i / 9) * Math.PI * 2 + Math.random() * 0.6;
+      const dist = 46 + Math.random() * 58;
+      const dx = Math.cos(ang) * dist;
+      const dy = Math.sin(ang) * dist - 26;
+      p.animate([
+        { transform: 'translate(-50%,-50%) rotate(0deg) scale(1)', opacity: .95 },
+        { transform: 'translate(calc(-50% + ' + dx + 'px),calc(-50% + ' + dy + 'px)) rotate(' +
+            (240 + Math.random() * 240) + 'deg) scale(.5)', opacity: 0 }
+      ], { duration: 780 + Math.random() * 420, easing: 'cubic-bezier(.18,.7,.3,1)' })
+        .addEventListener('finish', () => p.remove());
+    }
+  };
+
+  document.querySelectorAll('.pill').forEach((btn) => {
+    btn.addEventListener('pointerdown', (e) => {
+      const r = btn.getBoundingClientRect();
+      const rip = document.createElement('i');
+      rip.className = 'ripple';
+      const d = Math.max(r.width, r.height) * 2.2;
+      rip.style.width = d + 'px';
+      rip.style.height = d + 'px';
+      rip.style.left = (e.clientX - r.left) + 'px';
+      rip.style.top = (e.clientY - r.top) + 'px';
+      btn.appendChild(rip);
+      setTimeout(() => rip.remove(), 700);
+
+      flyPetals(e.clientX, e.clientY);
+      if (navigator.vibrate) { try { navigator.vibrate(12); } catch (err) {} }
+    });
+  });
 })();
