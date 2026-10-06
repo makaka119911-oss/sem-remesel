@@ -180,6 +180,16 @@
     }
   }
 
+  /* ---- дрейф героя: пауза, когда герой за экраном ---- */
+  const heroBox = document.querySelector('.hero');
+  const driftLayer = document.querySelector('.hero__drift');
+  if (heroBox && driftLayer && 'IntersectionObserver' in window) {
+    const driftIO = new IntersectionObserver((es) => {
+      es.forEach((e) => heroBox.classList.toggle('hero--paused', !e.isIntersecting));
+    }, { threshold: 0 });
+    driftIO.observe(heroBox);
+  }
+
   /* ---- 4. появление ---- */
   const nodes = document.querySelectorAll('[data-rv], .hero');
   const io = new IntersectionObserver(es => {
