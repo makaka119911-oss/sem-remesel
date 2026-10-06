@@ -1,0 +1,168 @@
+/* Плавность — песочница. Палитра и шрифты как на лендинге «Семь ремёсел». */
+:root{
+  --bg:#ded8e9; --ink:#37325a; --dim:#5d5678; --acc:#5b4fb0;
+  --line:rgba(90,80,140,.20);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-syntx:cubic-bezier(.25,.46,.45,.94);
+  --pad:clamp(18px,4.4vw,64px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:'Comfortaa',system-ui,sans-serif;font-weight:600;line-height:1.2;
+  letter-spacing:-.015em;margin:0}
+
+/* ---------- шапка ---------- */
+.head{padding:clamp(34px,9vh,84px) var(--pad) clamp(22px,5vh,44px)}
+.kicker{margin:0 0 12px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.head h1{font-size:clamp(30px,8.4vw,58px)}
+.lead{margin:16px 0 0;max-width:56ch;color:var(--dim)}
+
+/* ---------- блоки ---------- */
+.blk{padding:clamp(30px,7vh,72px) var(--pad);border-top:1px solid var(--line)}
+.blk__head .num{font-size:12px;letter-spacing:.18em;color:var(--acc);font-weight:600}
+.blk__head h2{font-size:clamp(22px,5.4vw,34px);margin:8px 0 12px}
+.hint{margin:0 0 18px;max-width:62ch;color:var(--dim);font-size:15px}
+.hint b{color:var(--ink);font-weight:600}
+.hint i{font-style:normal;border-bottom:1px dashed var(--line)}
+.hint--tiny{font-size:13px;margin:10px 0 0}
+code{font:13px/1.4 ui-monospace,Menlo,monospace;background:rgba(120,105,190,.14);
+  padding:2px 6px;border-radius:6px}
+
+/* ---------- 01 живой фон ---------- */
+.demo{}
+.hero{
+  position:relative;border-radius:20px;overflow:hidden;isolation:isolate;
+  min-height:min(66vh,470px);display:flex;align-items:flex-end;
+  box-shadow:0 18px 44px rgba(80,70,130,.22);
+}
+.hero__media{
+  position:absolute;inset:0;z-index:0;
+  background:url('../img/hero-mobile.jpg') center/cover no-repeat;
+  will-change:transform;
+}
+@media (min-width:820px){
+  .hero__media{background-image:url('../img/hero.jpg')}
+  .hero{min-height:min(70vh,540px)}
+}
+.hero__media::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(222,216,233,.10) 0%,rgba(222,216,233,.42) 52%,#ded8e9 100%);
+}
+/* дрейф: медленный «кен-бёрнс» — фон едет и слегка дышит */
+.hero__media[data-drift]{animation-name:drift;animation-timing-function:ease-in-out;
+  animation-iteration-count:infinite;animation-direction:alternate}
+.hero__media[data-drift="20"]{animation-duration:20s}
+.hero__media[data-drift="12"]{animation-duration:12s}
+.hero__media[data-drift="34"]{animation-duration:34s}
+@keyframes drift{
+  from{transform:scale(1.04) translate3d(-1.2%,-0.8%,0)}
+  to{transform:scale(1.11) translate3d(1.4%,1.2%,0)}
+}
+.hero__inner{position:relative;z-index:1;padding:clamp(18px,4.4vw,44px);width:100%}
+.hero__kicker{margin:0 0 10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+.hero__title{font-size:clamp(26px,7vw,48px)}
+.hero__lead{margin:10px 0 0;color:var(--dim);font-size:15px;max-width:34ch}
+/* появление контента героя */
+.hero__inner>*{opacity:0;transform:translateY(64px);
+  transition:opacity 1.15s var(--ease-syntx),transform 1.15s var(--ease-syntx)}
+.hero__inner.is-in>*{opacity:1;transform:none}
+.hero__inner.is-in>*:nth-child(2){transition-delay:.06s}
+.hero__inner.is-in>*:nth-child(3){transition-delay:.12s}
+
+/* ---------- 02 лента ---------- */
+.tape-lab{margin:0 0 6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.tape{display:flex;overflow:hidden;margin-bottom:20px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.tape__row{display:flex;align-items:center;flex-shrink:0;
+  animation:tape-move linear infinite;padding-right:24px;white-space:nowrap}
+.tape--70 .tape__row{animation-duration:70s}
+.tape--40 .tape__row{animation-duration:40s}
+.tape--26 .tape__row{animation-duration:26s}
+@keyframes tape-move{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.tape--small .item,.tape--small .dot{font-size:clamp(13px,3.4vw,17px);color:var(--dim)}
+.tape--small .item{font-weight:500}
+.tape--small .dot{margin:0 12px;color:var(--acc);opacity:.75}
+.tape--big .item{font-family:'Comfortaa',sans-serif;font-size:clamp(24px,6.2vw,56px);
+  letter-spacing:-.02em;color:var(--ink)}
+.note{margin:0;color:var(--dim);font-size:14px}
+
+/* ---------- 03 появление ---------- */
+.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.card{background:rgba(255,255,255,.66);border-radius:16px;padding:18px 20px;
+  box-shadow:0 3px 16px rgba(80,70,130,.08)}
+.card b{display:block;font-family:'Comfortaa',sans-serif;font-size:17px;font-weight:600}
+.card span{color:var(--dim);font-size:13px}
+/* режимы появления — задаются через script.js переменными */
+.card{opacity:0;transform:translateY(var(--rv-y,64px));
+  transition:opacity var(--rv-d,1.15s) var(--rv-e,var(--ease-syntx)),
+             transform var(--rv-d,1.15s) var(--rv-e,var(--ease-syntx))}
+.card.is-in{opacity:1;transform:none}
+.card.is-in:nth-child(2){transition-delay:.06s}
+.card.is-in:nth-child(3){transition-delay:.12s}
+.card.is-in:nth-child(4){transition-delay:.18s}
+
+/* ---------- 04 кнопка ---------- */
+.pressbox{display:flex;justify-content:center;padding:clamp(14px,4vh,34px) 0}
+.pill{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  min-width:216px;height:66px;border-radius:999px;overflow:hidden;text-decoration:none;
+  background:linear-gradient(180deg,#6f63c8,#5b4fb0);
+  box-shadow:0 10px 24px rgba(80,70,130,.30), inset 0 1px 0 rgba(255,255,255,.35);
+  isolation:isolate;
+}
+.pill span{position:relative;z-index:2;font-family:'Montserrat',sans-serif;font-weight:600;
+  font-size:14.3px;letter-spacing:.09em;color:#fff}
+.pill::after{content:'';position:absolute;top:0;bottom:0;width:60%;z-index:1;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);
+  left:-100%;pointer-events:none}
+
+/* блик — 600 мс, один проход по нажатию */
+.pill--shine.is-fire::after{animation:shine .6s linear}
+@keyframes shine{from{left:-100%}to{left:100%}}
+/* наш вариант — раз в 5,4 с сам */
+.pill--ours::after{animation:shine 5.4s linear infinite}
+/* кольцо — расходящаяся тень, 2 с, бесконечно */
+.pill--pulse{animation:ring 2s var(--ease-syntx) infinite}
+@keyframes ring{
+  0%{box-shadow:0 10px 24px rgba(80,70,130,.30), 0 0 0 0 rgba(91,79,176,.55), inset 0 1px 0 rgba(255,255,255,.35)}
+  70%{box-shadow:0 10px 24px rgba(80,70,130,.30), 0 0 0 14px rgba(91,79,176,0), inset 0 1px 0 rgba(255,255,255,.35)}
+  100%{box-shadow:0 10px 24px rgba(80,70,130,.30), 0 0 0 0 rgba(91,79,176,0), inset 0 1px 0 rgba(255,255,255,.35)}
+}
+.pill:active{transform:translateY(1px)}
+
+/* ---------- итог ---------- */
+.sum{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sum li{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  background:rgba(255,255,255,.55);border-radius:12px;padding:12px 16px}
+.sum b{font-size:15px}
+.sum span{color:var(--dim);font-size:13px;flex:1 1 200px}
+.sum em{font-style:normal;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px}
+.sum .ok{background:#e8f6ec;color:#1e6b3a}
+.sum .maybe{background:#fdf6e0;color:#8a6d00}
+.sum .no{background:#fdecea;color:#b3261e}
+
+/* ---------- управление ---------- */
+.ctrl{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.seg{display:flex;gap:4px;background:rgba(255,255,255,.55);padding:4px;border-radius:999px;
+  flex-wrap:wrap}
+.seg__b{border:0;background:transparent;cursor:pointer;font:500 13px/1 'Inter',sans-serif;
+  color:var(--dim);padding:10px 14px;border-radius:999px;
+  transition:background .3s var(--ease),color .3s var(--ease)}
+.seg__b.is-on{background:var(--acc);color:#fff}
+.ghost{border:1px solid var(--line);background:rgba(255,255,255,.5);cursor:pointer;
+  font:500 13px/1 'Inter',sans-serif;color:var(--ink);padding:12px 18px;border-radius:999px;
+  transition:background .3s var(--ease),border-color .3s var(--ease)}
+.ghost:hover{background:#fff;border-color:var(--acc)}
+
+/* ---------- низ ---------- */
+.foot{padding:26px var(--pad) 42px;color:var(--dim);font-size:13px;border-top:1px solid var(--line)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;transition-duration:.001s!important}
+}
