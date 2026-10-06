@@ -66,14 +66,16 @@ a{color:inherit;text-decoration:none}
    ВАЖНО: фон — только картинка, без второго слоя. Любой дополнительный градиент
    под ней заливает всю коробку и читается как вторая капсула вокруг настоящей. */
 .pill{position:relative;isolation:isolate;display:inline-flex;align-items:center;justify-content:center;
-  width:216px;height:66px;padding:0 0 10px;border:0;background:none;border-radius:999px;overflow:hidden;
+  width:216px;height:66px;padding:0 0 16px;border:0;background:none;border-radius:999px;overflow:hidden;
   font-family:'Montserrat',system-ui,sans-serif;
-  font-size:14.3px;letter-spacing:.09em;text-transform:uppercase;font-weight:600;color:#fdfcff;
+  font-size:18.1px;letter-spacing:.015em;font-weight:500;color:#fdfcff;
   text-shadow:0 1px 10px rgba(52,32,110,.5),0 1px 2px rgba(52,32,110,.4);
   transition:transform .3s cubic-bezier(.2,.9,.3,1.2),box-shadow .3s ease}
-/* Сочная капсула из Leonardo. Картинка заполняет коробку целиком, тень уже нарисована в ней.
-   padding-bottom:10px — поднимает НАДПИСЬ на 6px выше центра капсулы (брат выбрал этот вариант
-   глазами: flex центрирует строку, а не чернила букв, и у прописных чернила уезжают вверх).
+/* Надпись — обычным регистром (брат выбрал вариант C). Он занимает те же 158px, что капс,
+   но кегль 18,1px против 14,1 — буквы крупнее на четверть, поэтому и читается легче.
+   padding-bottom:16px — не «на глаз»: у строчных «р» и «у» есть выносные элементы, чернила
+   уходят на 1,9px НИЖЕ центра строки (у капса было на 1px выше). Считал на реальном шрифте,
+   чтобы центр чернил остался на −6px от центра капсулы, как брат выбрал.
    margin-left компенсирует прозрачное поле картинки, чтобы капсула встала по краю текста. */
 .pill::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
   background:url('img/btn.png') center/100% 100% no-repeat;
