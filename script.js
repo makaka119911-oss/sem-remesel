@@ -145,10 +145,17 @@
     // шапка: при скролле становится плотной, чтобы не налезать на текст
     if (bar) bar.classList.toggle('is-solid', scrollY > 40);
 
-    // параллакс героя
+    // Параллакс героя: только сдвиг, размер не меняется.
+    // Раньше тут был растущий scale — картинка «раздувалась» при скролле, а браузер
+    // перерисовывал её растр каждый кадр. На телефоне сдвига нет совсем:
+    // там картинку оживляет дрейф, а лишний слой только греет телефон.
     if (heroMedia && !reduce) {
-      const y = clamp(scrollY, 0, innerHeight);
-      heroMedia.style.transform = `translate3d(0, ${y * .28}px, 0) scale(${1 + y / innerHeight * .06})`;
+      if (isMobile()) {
+        if (heroMedia.style.transform !== 'none') heroMedia.style.transform = 'none';
+      } else {
+        const y = clamp(scrollY, 0, innerHeight);
+        heroMedia.style.transform = `translate3d(0, ${(y * .22).toFixed(1)}px, 0) scale(1.04)`;
+      }
     }
 
     // горизонтальная галерея
