@@ -252,9 +252,13 @@ a{color:inherit;text-decoration:none}
   transform:scale(1);transition:transform .9s var(--ease),filter .7s ease,box-shadow .7s ease;filter:saturate(.96)}
 .slide:hover .slide__ph{transform:scale(1.03);filter:saturate(1.04);
   box-shadow:0 58px 150px -60px rgba(120,105,190,.85), 0 0 0 1px rgba(100,90,155,.22) inset}
-.slide__meta{display:flex;align-items:baseline;gap:14px;padding:16px 2px 0}
+/* подпись в столбик: в одну строку заголовку доставалось 117 px из 281,
+   и «Ботанический барельеф» рвался на два куска. Теперь название во всю ширину. */
+.slide__meta{display:flex;flex-direction:column;gap:3px;padding:14px 2px 0}
+.meta__top{display:flex;align-items:baseline;gap:10px;font-size:12.5px;color:var(--dim);letter-spacing:.04em}
 .slide__meta .n{font-size:12px;letter-spacing:.18em;color:#5b4fb0}
-.slide__meta h3{font-family:'Comfortaa',system-ui,sans-serif;font-size:clamp(21px,2vw,30px);font-weight:700;letter-spacing:-.02em}
+.slide__meta h3{font-family:'Comfortaa',system-ui,sans-serif;
+  font-size:clamp(20px,5.2vw,30px);font-weight:700;letter-spacing:-.02em;line-height:1.15}
 .slide__meta p{margin:0;font-size:12.5px;color:var(--dim);letter-spacing:.04em}
 
 /* ---------- МАСТЕР ---------- */
@@ -365,10 +369,33 @@ h2{text-wrap:balance}
 .faq__list summary:hover{color:#5b4fb0}
 .faq__list p{margin:0 0 22px;color:var(--dim);max-width:60ch}
 
-/* ================= ТОЧКИ ГАЛЕРЕИ ================= */
-.dots{display:flex;gap:9px;justify-content:center;padding:22px var(--pad) 0}
-.dots i{width:7px;height:7px;border-radius:50%;background:rgba(118,104,180,.32);transition:background .3s,transform .3s}
-.dots i.on{background:#6559be;transform:scale(1.35)}
+/* ===== НИЗ ГАЛЕРЕИ: миниатюры курсов (выбран вариант А) =====
+   Вместо точек — сами курсы маленькими кадрами. Активный растёт и наливается
+   цветом, остальные приглушены: видно, куда листать, и можно ткнуть пальцем. */
+.dots{
+  position:relative;display:flex;gap:8px;justify-content:center;align-items:center;
+  padding:22px 18px 0;
+}
+.dots .thumb{
+  position:relative;flex:0 0 auto;display:block;padding:0;border:0;cursor:pointer;
+  width:34px;height:23px;border-radius:7px;
+  background-size:cover;background-position:center;background-color:#d3cbe2;
+  opacity:.5;filter:saturate(.5);
+  transition:width .5s var(--ease),height .5s var(--ease),opacity .45s ease,
+             filter .45s ease,box-shadow .5s var(--ease),transform .3s var(--ease);
+}
+/* зона нажатия шире кадра — пальцу удобно */
+.dots .thumb::after{content:"";position:absolute;inset:-12px -5px}
+.dots .thumb.on{
+  width:56px;height:37px;opacity:1;filter:saturate(1);
+  box-shadow:0 8px 20px -8px rgba(90,75,160,.65), 0 0 0 2px rgba(255,255,255,.92);
+}
+.dots .thumb:active{transform:scale(.94)}
+@media (min-width:901px){
+  .dots{gap:10px;padding-top:26px}
+  .dots .thumb{width:46px;height:31px;border-radius:8px}
+  .dots .thumb.on{width:74px;height:50px}
+}
 
 /* ================= КРУПНЕЕ ТЕКСТ ================= */
 body{font-size:17px}
@@ -469,36 +496,6 @@ body{font-size:17px}
   }
 }
 
-/* ===== ТОЧКИ ГАЛЕРЕИ: мягкая «пилюля», которая едет за пальцем ===== */
-.dots{
-  position:relative;display:flex;gap:9px;justify-content:center;align-items:center;
-  padding:24px var(--pad) 0;
-}
-.dots i{
-  position:relative;display:block;width:7px;height:7px;border-radius:999px;
-  background:rgba(91,79,176,.26);
-  transition:background-color .45s ease, transform .45s cubic-bezier(.22,.9,.24,1);
-  cursor:pointer;
-}
-/* зона нажатия шире самой точки — пальцу удобно */
-.dots i::after{content:"";position:absolute;inset:-14px -9px}
-.dots i.on{background:rgba(91,79,176,.72);transform:none}
-.dots i:hover{background:rgba(91,79,176,.62)}
-.dots i:active{transform:scale(.86)}
-.dots__pill{
-  position:absolute;left:0;top:24px;width:22px;height:7px;border-radius:999px;
-  background:rgba(91,79,176,.88);
-  box-shadow:0 0 12px rgba(91,79,176,.26);
-  pointer-events:none;
-  /* «ленивая»: догоняет цель с мягкой пружинкой, поэтому отстаёт от пальца */
-  transition:transform .68s cubic-bezier(.26,1.12,.5,1);
-  will-change:transform;
-}
-/* отклик на тап: капсула продавливается быстро, отпускает — пружинкой */
-.dots__pill.is-press{
-  transition-duration:.14s;
-  transition-timing-function:cubic-bezier(.3,.9,.4,1.2);
-}
 /* галерея листается пальцем мягко, по одному курсу, без полосы прокрутки */
 @media (max-width:900px){
   .track{scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none}
@@ -506,7 +503,6 @@ body{font-size:17px}
   .slide{scroll-snap-stop:always}
 }
 @media (prefers-reduced-motion:reduce){
-  .dots__pill{transition:none}
   .track{scroll-behavior:auto}
 }
 
