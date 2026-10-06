@@ -108,6 +108,15 @@ td b{font-variant-numeric:tabular-nums}
 textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);border-radius:12px;
   padding:10px;font:12px/1.5 ui-monospace,Menlo,monospace;background:rgba(255,255,255,.7)}
 .bad{color:#b3261e;font-weight:600}
+.good2{color:#1e6b3a;font-weight:600}
+/* предупреждение, если страница открыта там, где анимации не идут */
+.warn{display:none;margin:14px 18px 0;padding:16px 18px;border-radius:16px;
+  background:#fdecea;border:1px solid rgba(179,38,30,.35)}
+.warn h3{margin:0 0 8px;font-size:17px;color:#b3261e}
+.warn p{margin:0 0 12px;font-size:14px;line-height:1.5}
+.warn a{display:inline-block;background:#b3261e;color:#fff;text-decoration:none;
+  padding:12px 18px;border-radius:999px;font-weight:600;font-size:14px}
+.warn small{display:block;margin-top:10px;color:#7a2320;font-size:12px}
 .good{color:#1e6b3a;font-weight:600}
 </style>
 <body>
@@ -129,6 +138,13 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
 </div>
 
 <div class="page">
+  <div class="warn" id="warn">
+    <h3>Так мерить нельзя</h3>
+    <p>Эта страница открыта <b>внутри приложения</b> — здесь браузер не считает кадры,
+       поэтому замер всегда будет пустым. Открой в обычном Chrome.</p>
+    <a id="chromeLink" href="#">Открыть в Chrome</a>
+    <small>Если кнопка не сработала: скопируй адрес и вставь его в Chrome вручную.</small>
+  </div>
   <p class="hint">Прокручивай страницу вверх-вниз, пока идёт замер. Потом выключи один выключатель и замерь снова — так найдём, что именно роняет кадры. <b>Худший кадр больше 33 мс — уже видимое дёрганье.</b></p>
 
   <div class="hero">
@@ -214,7 +230,9 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
   function tick(t){
     if(last){
       var dt = t - last;
-      if(dt < 500){                       // выбросы после сворачивания не считаем
+      // считаем только осмысленные кадры: отрицательные — сбой часов;
+      // длиннее 200 мс — это не дёрганье, а пауза (свернули приложение)
+      if(dt > 0 && dt < 200){
         deltas.push(dt); if(deltas.length > 90) deltas.shift();
         if(recording && scrolling) recFrames.push(dt);
       }
@@ -245,7 +263,12 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
     recBtn.textContent = 'Идёт замер — скролль!'; }
   function stopRec(){
     recording = false; recBtn.textContent = 'Замерить 6 секунд';
-    if(recFrames.length < 40) return;
+    if(recFrames.length < 40){
+      rowsEl.innerHTML = '<tr><td colspan="4" class="bad">Кадры не считаются — ' +
+        'страница открыта там, где браузер не рисует анимации. Открой в Chrome.</td></tr>';
+      outEl.value = buildReport() + '\n\nзамер не получился: браузер не отдаёт кадры';
+      return;
+    }
     var sum = 0, mx = 0, long = 0;
     recFrames.forEach(function(d){ sum += d; if(d > mx) mx = d; if(d > LONG) long++; });
     var row = { name: scenario(), fps: Math.round(1000 / (sum / recFrames.length)),
@@ -270,7 +293,7 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
     results.forEach(function(r){
       lines.push(r.name + ' → ' + r.fps + ' fps, худший ' + r.worst + ' мс, долгих ' + r.long + '%');
     });
-    if(!results.length) lines.push('замеров пока нет');
+    if(!results.length) lines.push('замеров пока нет (кадров получено: ' + deltas.length + ')');
     return lines.join('\n');
   }
 
@@ -310,6 +333,28 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
       }
     });
   }, 500);
+
+  /* ---- проверяем, идут ли вообще кадры ---- */
+  var frameCount = 0;
+  var _tick0 = tick;
+  tick = function(t){ frameCount++; return _tick0(t); };
+  // встроенный просмотрщик приложения помечает себя как "; wv)" — там кадров не сосчитать
+  var inWebView = /;\s*wv\)/.test(navigator.userAgent);
+  var URL_HERE = location.href.split('#')[0];
+  var CHROME_INTENT = 'intent://' + URL_HERE.replace(/^https?:\/\//, '') +
+                      '#Intent;scheme=https;package=com.android.chrome;end';
+  document.getElementById('chromeLink').setAttribute('href', CHROME_INTENT);
+  function showWarn(){
+    document.getElementById('warn').style.display = 'block';
+    document.getElementById('fps').textContent = '—';
+  }
+  if(inWebView) setTimeout(showWarn, 300);
+  // за 1,5 с живой браузер отдаёт 90–180 кадров; меньше 20 — считать нечего
+  setTimeout(function(){ if(frameCount < 20) showWarn(); }, 1500);
+
+  /* отладочный крючок: позволяет прогнать счётчик искусственными кадрами */
+  window.__tick = tick;
+  window.__report = buildReport;
 
   requestAnimationFrame(tick);
 })();
