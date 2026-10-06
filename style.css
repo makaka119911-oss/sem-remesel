@@ -228,8 +228,11 @@ a{color:inherit;text-decoration:none}
 /* Курсив здесь синтетический: у Comfortaa нет настоящего italic, браузер наклоняет буквы сам.
    Наклонённые глифы вылезают за коробку элемента, а градиент с background-clip:text заливается
    строго по коробке — поэтому крайние буквы не закрашивались и выглядели обрезанными.
-   Лечится полями: они расширяют область заливки, и наклон целиком попадает внутрь. */
-.buy h2 em{font-style:italic;padding:0 .22em;
+   Лечим большими полями: они расширяют область заливки с запасом.
+   Отрицательный margin той же величины возвращает layout на место — иначе появился бы
+   лишний зазор перед «Татьяне». Заливка идёт только по буквам (background-clip:text),
+   поэтому расширенная область ничем не пачкает. */
+.buy h2 em{font-style:italic;padding:.1em .5em;margin:0 -.5em;
   background:linear-gradient(100deg,#6b5cc4,#4568d0);
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .buy p{color:var(--dim);margin:22px 0 32px;max-width:48ch}
