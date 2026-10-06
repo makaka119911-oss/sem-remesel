@@ -9,11 +9,10 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
   font:15px/1.55 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
-h1,h2{font-weight:600;letter-spacing:-.015em;margin:0}
+h1,h2,h3{font-weight:600;letter-spacing:-.015em;margin:0}
 
-/* ---- панель замера (всегда сверху) ---- */
 .panel{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(238,235,246,.97);
-  border-bottom:1px solid var(--line);padding:10px 14px 12px;backdrop-filter:blur(9px)}
+  border-bottom:1px solid var(--line);padding:10px 14px 12px}
 .fps{display:flex;align-items:baseline;gap:10px}
 .fps b{font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
 .fps span{font-size:12px;color:var(--dim)}
@@ -24,37 +23,37 @@ h1,h2{font-weight:600;letter-spacing:-.015em;margin:0}
 .bars i.long{background:#b3261e}
 .btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
 button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;
-  padding:9px 14px;font:500 13px 'Inter',sans-serif;cursor:pointer}
-button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
-button.ghost{background:rgba(255,255,255,.6)}
+  padding:10px 15px;font:500 13px 'Inter',sans-serif;cursor:pointer}
+button.pri{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600}
 .switches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;margin-top:10px}
 .sw{display:flex;align-items:center;gap:8px;font-size:13px;background:rgba(255,255,255,.6);
   border-radius:10px;padding:7px 10px;cursor:pointer;user-select:none}
-.sw i{width:34px;height:19px;border-radius:999px;background:#bdb4d6;position:relative;flex:0 0 auto;transition:background .2s}
-.sw i::after{content:'';position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;
+.sw i{width:34px;height:19px;border-radius:999px;background:var(--acc);position:relative;flex:0 0 auto;
+  transition:background .2s}
+.sw i::after{content:'';position:absolute;top:2px;left:16px;width:15px;height:15px;border-radius:50%;
   background:#fff;transition:transform .2s}
 .sw.off i{background:#cfc9e0}
-.sw.on i{background:var(--acc)}
-.sw.on i::after{transform:translateX(15px)}
+.sw.off i::after{transform:translateX(-14px)}
 .sw span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ---- демо-страница: те же эффекты, что на сайте ---- */
-.page{padding-top:250px}
-.hint{padding:18px 18px 0;color:var(--dim);font-size:13px}
+.page{padding-top:274px}
+.hint{padding:18px 18px 0;color:var(--dim);font-size:14px}
 .hint b{color:var(--ink)}
+.step{display:flex;gap:10px;padding:0 18px 6px;font-size:14px;color:var(--dim)}
+.step i{font-style:normal;color:var(--acc);font-weight:700}
 
 .hero{position:relative;height:80vh;min-height:520px;overflow:hidden;display:flex;align-items:stretch}
 .hero__media{position:absolute;inset:0 0 -12% 0}
 .hero__drift{position:absolute;inset:0 -5% -6% -5%;transform-origin:50% 0;
   background:url('../img/hero-mobile.jpg') center/cover no-repeat;
   animation:drift 34s ease-in-out infinite alternate}
-@keyframes drift{from{transform:scale(1) translate3d(-1.7%,0,0)}
-                to{transform:scale(1.08) translate3d(1.7%,0,0)}}
+@keyframes drift{from{transform:translate3d(-3%,0,0) scale(1.04)}
+                to{transform:translate3d(3%,0,0) scale(1.04)}}
 .hero::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(to top,#ded8e9 0%,rgba(222,216,233,.92) 12%,rgba(222,216,233,.62) 24%,
     rgba(222,216,233,.30) 38%,rgba(222,216,233,.10) 52%,rgba(222,216,233,0) 66%)}
 .hero__inner{position:relative;z-index:2;margin-top:auto;padding:24px 18px 40px}
-.hero h2{font-size:clamp(30px,8vw,52px);font-family:inherit}
+.hero h2{font-size:clamp(30px,8vw,52px)}
 .hero p{color:var(--dim);max-width:34ch}
 .pill{display:inline-flex;align-items:center;justify-content:center;min-width:200px;height:60px;
   border-radius:999px;margin-top:16px;color:#fff;font-weight:600;letter-spacing:.09em;
@@ -80,7 +79,6 @@ section.block{padding:34px 18px;border-top:1px solid var(--line)}
   transition:opacity 1.15s cubic-bezier(.25,.46,.45,.94),transform 1.15s cubic-bezier(.25,.46,.45,.94)}
 [data-rv].is-in{opacity:1;transform:none}
 
-/* фон: аура + зерно — как на сайте */
 body::before{content:'';position:fixed;inset:-12%;z-index:0;pointer-events:none;
   background:radial-gradient(38% 30% at 22% 18%,rgba(255,255,255,.40),transparent 70%),
              radial-gradient(34% 28% at 78% 72%,rgba(196,182,240,.30),transparent 70%);
@@ -90,7 +88,6 @@ body::before{content:'';position:fixed;inset:-12%;z-index:0;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
 @media (min-width:901px){ .grain{inset:-2%;opacity:.13;mix-blend-mode:overlay} }
 
-/* ---- выключатели ---- */
 body.no-grain .grain{display:none}
 body.no-aura::before{content:none!important}
 body.no-drift .hero__drift{animation:none}
@@ -98,18 +95,16 @@ body.no-marquee .marquee__row span{animation:none}
 body.no-reveal [data-rv]{opacity:1!important;transform:none!important;transition:none!important}
 body.no-shine .pill::after{animation:none}
 
-/* ---- таблица результатов ---- */
 .res{padding:24px 18px 60px}
 .res h1{font-size:22px}
 table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
 th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
 th{color:var(--dim);font-weight:500}
 td b{font-variant-numeric:tabular-nums}
-textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);border-radius:12px;
-  padding:10px;font:12px/1.5 ui-monospace,Menlo,monospace;background:rgba(255,255,255,.7)}
+textarea{width:100%;height:150px;margin-top:12px;border:1px solid var(--line);border-radius:12px;
+  padding:10px;font:12px/1.5 ui-monospace,Menlo,monospace;background:rgba(255,255,255,.75)}
 .bad{color:#b3261e;font-weight:600}
-.good2{color:#1e6b3a;font-weight:600}
-/* предупреждение, если страница открыта там, где анимации не идут */
+.good{color:#1e6b3a;font-weight:600}
 .warn{display:none;margin:14px 18px 0;padding:16px 18px;border-radius:16px;
   background:#fdecea;border:1px solid rgba(179,38,30,.35)}
 .warn h3{margin:0 0 8px;font-size:17px;color:#b3261e}
@@ -117,22 +112,21 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
 .warn a{display:inline-block;background:#b3261e;color:#fff;text-decoration:none;
   padding:12px 18px;border-radius:999px;font-weight:600;font-size:14px}
 .warn small{display:block;margin-top:10px;color:#7a2320;font-size:12px}
-.good{color:#1e6b3a;font-weight:600}
 </style>
 <body>
 <div class="grain" aria-hidden="true"></div>
 
 <div class="panel">
-  <div class="fps"><b id="fps">—</b><span>кадров в секунду, пока ты скроллишь</span></div>
+  <div class="fps"><b id="fps">—</b><span>кадров в секунду</span></div>
   <div class="stats">
     <span>худший кадр: <b id="worst">—</b> мс</span>
-    <span>долгих кадров: <b id="long">—</b>%</span>
-    <span>замеров: <b id="cnt">0</b></span>
+    <span>долгих: <b id="long">—</b>%</span>
+    <span>накоплено кадров: <b id="collected">0</b></span>
   </div>
   <div class="bars" id="bars"></div>
   <div class="btns">
-    <button id="rec" class="on">Замерить 6 секунд</button>
-    <button id="copy" class="ghost">Скопировать отчёт</button>
+    <button id="copy" class="pri">Скопировать отчёт</button>
+    <button id="reset">Сбросить замеры</button>
   </div>
   <div class="switches" id="switches"></div>
 </div>
@@ -140,12 +134,17 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
 <div class="page">
   <div class="warn" id="warn">
     <h3>Так мерить нельзя</h3>
-    <p>Эта страница открыта <b>внутри приложения</b> — здесь браузер не считает кадры,
-       поэтому замер всегда будет пустым. Открой в обычном Chrome.</p>
-    <a id="chromeLink" href="#">Открыть в Chrome</a>
-    <small>Если кнопка не сработала: скопируй адрес и вставь его в Chrome вручную.</small>
+    <p>Страница открыта там, где браузер не считает кадры (встроенный просмотрщик приложения).
+       Открой в обычном Chrome.</p>
+    <a id="chromeLink" href="#">Открыть в нормальном браузере</a>
+    <small>Если кнопка не сработала — скопируй адрес и вставь в Chrome вручную.</small>
   </div>
-  <p class="hint">Прокручивай страницу вверх-вниз, пока идёт замер. Потом выключи один выключатель и замерь снова — так найдём, что именно роняет кадры. <b>Худший кадр больше 33 мс — уже видимое дёрганье.</b></p>
+
+  <div class="step"><i>1</i><span>Прокрути страницу вверх-вниз раз пять. Просто скролль — цифры считаются сами.</span></div>
+  <div class="step"><i>2</i><span>Выключи <b>все</b> выключатели сверху и прокрути ещё раз.</span></div>
+  <div class="step"><i>3</i><span>Включай по одному и после каждого прокручивай страницу. На противном — увидишь падение.</span></div>
+  <div class="step"><i>4</i><span>Нажми «Скопировать отчёт» и пришли мне.</span></div>
+  <p class="hint"><b>Худший кадр больше 33 мс</b> — это уже видимое дёрганье. Разбираться будем по нему.</p>
 
   <div class="hero">
     <div class="hero__media"><div class="hero__drift"></div></div>
@@ -181,9 +180,9 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
 
   <div class="res">
     <h1>Результаты замеров</h1>
-    <table><thead><tr><th>сценарий</th><th>средний FPS</th><th>худший кадр</th><th>долгих</th></tr></thead>
-      <tbody id="rows"></tbody></table>
-    <textarea id="out" readonly placeholder="Здесь появится отчёт — можно скопировать и прислать"></textarea>
+    <table><thead><tr><th>сценарий</th><th>FPS</th><th>худший</th><th>долгих</th><th>кадров</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="5">Пока пусто — прокрути страницу.</td></tr></tbody></table>
+    <textarea id="out" readonly placeholder="Здесь появится отчёт"></textarea>
   </div>
 </div>
 
@@ -200,161 +199,154 @@ textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);bo
   var box = document.getElementById('switches');
   FEATURES.forEach(function(f){
     var d = document.createElement('div');
-    d.className = 'sw on';
+    d.className = 'sw';
     d.innerHTML = '<i></i><span>' + f[1] + '</span>';
     d.addEventListener('click', function(){
       state[f[0]] = !state[f[0]];
-      d.classList.toggle('on', state[f[0]]);
       d.classList.toggle('off', !state[f[0]]);
       document.body.classList.toggle('no-' + f[0], !state[f[0]]);
     });
     box.appendChild(d);
   });
 
-  function scenario(){
+  function label(){
     var off = FEATURES.filter(function(f){ return !state[f[0]]; })
                      .map(function(f){ return f[1].split(' ')[0]; });
-    return off.length ? 'выключено: ' + off.join(', ') : 'всё включено (как на сайте)';
+    return off.length ? 'выключено: ' + off.join(', ') : 'ВСЁ ВКЛЮЧЕНО (как на сайте)';
   }
+  function key(){ return FEATURES.map(function(f){ return state[f[0]] ? '1' : '0'; }).join(''); }
 
-  /* ---- измерение кадров ---- */
-  var deltas = [], last = 0, recording = false, recFrames = [], recStart = 0;
-  var scrolling = false, scrollTimer = null;
-  var LONG = 33;           // мс: больше — уже видимое дёрганье
   var fpsEl = document.getElementById('fps'), worstEl = document.getElementById('worst'),
       longEl = document.getElementById('long'), barsEl = document.getElementById('bars'),
       rowsEl = document.getElementById('rows'), outEl = document.getElementById('out'),
-      cntEl = document.getElementById('cnt'), recBtn = document.getElementById('rec');
-  var results = [];
-
-  function tick(t){
-    if(last){
-      var dt = t - last;
-      // считаем только осмысленные кадры: отрицательные — сбой часов;
-      // длиннее 200 мс — это не дёрганье, а пауза (свернули приложение)
-      if(dt > 0 && dt < 200){
-        deltas.push(dt); if(deltas.length > 90) deltas.shift();
-        if(recording && scrolling) recFrames.push(dt);
-      }
-    }
-    last = t;
-    render();
-    if(recording && performance.now() - recStart > 6000) stopRec();
-    requestAnimationFrame(tick);
-  }
-
-  function render(){
-    var recent = deltas.slice(-30).filter(function(x){ return x < 500; });
-    if(!recent.length) return;
-    var sum = 0, mx = 0, long = 0;
-    deltas.forEach(function(d){ if(d > mx) mx = d; if(d > LONG) long++; });
-    recent.forEach(function(d){ sum += d; });
-    var avg = sum / recent.length;
-    fpsEl.textContent = Math.round(1000 / avg);
-    worstEl.textContent = Math.round(mx);
-    longEl.textContent = Math.round(long / Math.max(deltas.length,1) * 100);
-    barsEl.innerHTML = deltas.slice(-60).map(function(d){
-      var h = Math.min(16, Math.max(1, d / 2));
-      return '<i class="' + (d > LONG ? 'long' : '') + '" style="height:' + h + 'px"></i>';
-    }).join('');
-  }
-
-  function startRec(){ recording = true; recFrames = []; recStart = performance.now();
-    recBtn.textContent = 'Идёт замер — скролль!'; }
-  function stopRec(){
-    recording = false; recBtn.textContent = 'Замерить 6 секунд';
-    if(recFrames.length < 40){
-      rowsEl.innerHTML = '<tr><td colspan="4" class="bad">Кадры не считаются — ' +
-        'страница открыта там, где браузер не рисует анимации. Открой в Chrome.</td></tr>';
-      outEl.value = buildReport() + '\n\nзамер не получился: браузер не отдаёт кадры';
-      return;
-    }
-    var sum = 0, mx = 0, long = 0;
-    recFrames.forEach(function(d){ sum += d; if(d > mx) mx = d; if(d > LONG) long++; });
-    var row = { name: scenario(), fps: Math.round(1000 / (sum / recFrames.length)),
-                worst: Math.round(mx), long: Math.round(long / recFrames.length * 100),
-                n: recFrames.length };
-    results.push(row);
-    rowsEl.innerHTML = results.map(function(r){
-      return '<tr><td>' + r.name + '</td><td><b>' + r.fps + '</b></td>' +
-             '<td><b class="' + (r.worst > LONG ? 'bad' : 'good') + '">' + r.worst + '</b> мс</td>' +
-             '<td><b>' + r.long + '</b>%</td></tr>';
-    }).join('');
-    cntEl.textContent = results.length;
-    outEl.value = buildReport();
-  }
-
-  function buildReport(){
-    var ua = navigator.userAgent.replace(/^Mozilla\/5\.0 /, '').slice(0, 90);
-    var lines = ['Замер плавности «Семь ремёсел»',
-      'устройство: ' + ua,
-      'экран: ' + screen.width + 'x' + screen.height + ', плотность ' + window.devicePixelRatio,
-      'порог «долгого» кадра: ' + LONG + ' мс', ''];
-    results.forEach(function(r){
-      lines.push(r.name + ' → ' + r.fps + ' fps, худший ' + r.worst + ' мс, долгих ' + r.long + '%');
-    });
-    if(!results.length) lines.push('замеров пока нет (кадров получено: ' + deltas.length + ')');
-    return lines.join('\n');
-  }
-
-  recBtn.addEventListener('click', function(){ if(!recording) startRec(); });
-  document.getElementById('copy').addEventListener('click', function(){
-    var txt = outEl.value || buildReport();
-    outEl.value = txt;
-    outEl.select();
-    try { navigator.clipboard.writeText(txt); } catch(e){}
-    document.execCommand && document.execCommand('copy');
-    this.textContent = 'Скопировано ✓';
-  });
+      collectedEl = document.getElementById('collected');
+  var LONG = 33;                 // мс: длиннее — уже видимое дёрганье
+  var CAP = 200;                 // мс: длиннее — это пауза (свернули приложение), не дёрганье
+  var recent = [];               // последние кадры — для живого счётчика
+  var buckets = {};              // сценарий -> кадры
+  var order = [];
+  var last = 0, scrolling = false, scrollTimer = null, total = 0;
 
   addEventListener('scroll', function(){
     scrolling = true;
     clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function(){ scrolling = false; }, 400);
+    scrollTimer = setTimeout(function(){ scrolling = false; }, 500);
   }, { passive: true });
+
+  function stats(frames){
+    var sum = 0, mx = 0, long = 0;
+    frames.forEach(function(d){ sum += d; if(d > mx) mx = d; if(d > LONG) long++; });
+    return { fps: Math.round(1000 / (sum / frames.length)), worst: Math.round(mx),
+             long: Math.round(long / frames.length * 100), n: frames.length };
+  }
+
+  function tick(t){
+    if(last){
+      var dt = t - last;
+      if(dt > 0 && dt < CAP){
+        recent.push(dt); if(recent.length > 90) recent.shift();
+        if(scrolling){
+          var k = key();
+          if(!buckets[k]){ buckets[k] = { name: label(), frames: [] }; order.push(k); }
+          if(buckets[k].frames.length < 1200){ buckets[k].frames.push(dt); total++; }
+        }
+      }
+    }
+    last = t;
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  function render(){
+    if(recent.length < 5) return;
+    var s = stats(recent.slice(-30));
+    fpsEl.textContent = s.fps;
+    worstEl.textContent = Math.round(Math.max.apply(null, recent));
+    longEl.textContent = Math.round(recent.filter(function(d){ return d > LONG; }).length / recent.length * 100);
+    collectedEl.textContent = total;
+    barsEl.innerHTML = recent.slice(-60).map(function(d){
+      var h = Math.min(16, Math.max(1, d / 2));
+      return '<i class="' + (d > LONG ? 'long' : '') + '" style="height:' + h + 'px"></i>';
+    }).join('');
+    if(order.length) renderTable();
+  }
+
+  function renderTable(){
+    rowsEl.innerHTML = order.map(function(k){
+      var b = buckets[k], s = stats(b.frames);
+      var thin = s.n < 100;
+      return '<tr><td>' + b.name + (thin ? ' <span class="bad">(мало данных)</span>' : '') + '</td>' +
+             '<td><b' + (s.fps < 50 ? ' class="bad"' : '') + '>' + s.fps + '</b></td>' +
+             '<td><b' + (s.worst > LONG ? ' class="bad"' : ' class="good"') + '>' + s.worst + '</b> мс</td>' +
+             '<td><b>' + s.long + '</b>%</td><td>' + s.n + '</td></tr>';
+    }).join('');
+    outEl.value = buildReport();
+  }
+
+  function buildReport(){
+    var lines = ['Замер плавности «Семь ремёсел»',
+      'устройство: ' + navigator.userAgent.slice(0, 110),
+      'экран: ' + screen.width + 'x' + screen.height + ', плотность ' + window.devicePixelRatio,
+      'порог «долгого» кадра: ' + LONG + ' мс', ''];
+    if(!order.length){
+      lines.push('данных нет: прокрути страницу перед тем, как копировать');
+    } else {
+      order.forEach(function(k){
+        var b = buckets[k], s = stats(b.frames);
+        lines.push(b.name + ' → ' + s.fps + ' fps, худший ' + s.worst + ' мс, долгих ' +
+                   s.long + '%, кадров ' + s.n + (s.n < 100 ? ' (мало данных!)' : ''));
+      });
+    }
+    return lines.join('\n');
+  }
+
+  document.getElementById('copy').addEventListener('click', function(){
+    var txt = buildReport();
+    outEl.value = txt;
+    outEl.select();
+    try { navigator.clipboard.writeText(txt); } catch(e){}
+    try { document.execCommand('copy'); } catch(e){}
+    this.textContent = 'Скопировано ✓ пришли мне';
+    var self = this;
+    setTimeout(function(){ self.textContent = 'Скопировать отчёт'; }, 2500);
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    buckets = {}; order = []; total = 0; recent = [];
+    rowsEl.innerHTML = '<tr><td colspan="5">Сброшено — прокрути страницу.</td></tr>';
+    outEl.value = ''; total = 0; collectedEl.textContent = '0';
+    fpsEl.textContent = '—'; worstEl.textContent = '—'; longEl.textContent = '—';
+  });
 
   /* появление блоков */
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
   }, { threshold: .15 });
   document.querySelectorAll('[data-rv]').forEach(function(el){ io.observe(el); });
-  /* страховка, если наблюдатель не сработает */
-  setTimeout(function(){
-    var probe = document.querySelector('[data-rv]');
-    if(probe && parseFloat(getComputedStyle(probe).opacity) < .8){
-      document.querySelectorAll('[data-rv]').forEach(function(el){ el.classList.add('is-in'); });
-    }
-  }, 1500);
   setInterval(function(){
-    document.querySelectorAll('[data-rv]').forEach(function(el){
-      if(!el.classList.contains('is-in')){
-        var r = el.getBoundingClientRect();
-        if(r.top < innerHeight * .85 && r.bottom > 0) el.classList.add('is-in');
-      }
+    document.querySelectorAll('[data-rv]:not(.is-in)').forEach(function(el){
+      var r = el.getBoundingClientRect();
+      if(r.top < innerHeight * .85 && r.bottom > 0) el.classList.add('is-in');
     });
   }, 500);
 
-  /* ---- проверяем, идут ли вообще кадры ---- */
-  var frameCount = 0;
-  var _tick0 = tick;
-  tick = function(t){ frameCount++; return _tick0(t); };
-  // встроенный просмотрщик приложения помечает себя как "; wv)" — там кадров не сосчитать
-  var inWebView = /;\s*wv\)/.test(navigator.userAgent);
-  var URL_HERE = location.href.split('#')[0];
-  var CHROME_INTENT = 'intent://' + URL_HERE.replace(/^https?:\/\//, '') +
-                      '#Intent;scheme=https;package=com.android.chrome;end';
-  document.getElementById('chromeLink').setAttribute('href', CHROME_INTENT);
+  /* предупреждение, если кадры не считаются */
+  var frameCount = 0, tickInner = tick;
+  tick = function(t){ frameCount++; return tickInner(t); };
   function showWarn(){
     document.getElementById('warn').style.display = 'block';
-    document.getElementById('fps').textContent = '—';
+    if(!order.length) fpsEl.textContent = '—';
   }
-  if(inWebView) setTimeout(showWarn, 300);
-  // за 1,5 с живой браузер отдаёт 90–180 кадров; меньше 20 — считать нечего
+  if(/;\s*wv\)/.test(navigator.userAgent)) setTimeout(showWarn, 300);
   setTimeout(function(){ if(frameCount < 20) showWarn(); }, 1500);
 
-  /* отладочный крючок: позволяет прогнать счётчик искусственными кадрами */
-  window.__tick = tick;
-  window.__report = buildReport;
+  var here = location.href.split('#')[0];
+  document.getElementById('chromeLink').setAttribute('href',
+    'intent://' + here.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end');
+
+  /* отладочный крючок (не мешает работе): можно прогнать счётчик искусственными кадрами */
+  window.__fpsTick = tick;
+  window.__fpsState = function(){ return { total: total, order: order.length }; };
 
   requestAnimationFrame(tick);
 })();
