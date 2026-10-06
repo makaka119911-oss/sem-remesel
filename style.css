@@ -31,32 +31,37 @@ body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
   background:
     radial-gradient(38% 30% at 22% 18%, rgba(255,255,255,.40), transparent 70%),
     radial-gradient(34% 28% at 78% 72%, rgba(196,182,240,.30), transparent 70%);
-  filter:blur(36px);animation:aura 22s ease-in-out infinite}
+  animation:aura 26s ease-in-out infinite}
 @keyframes aura{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(2%,-2%,0) scale(1.06)}}
 h1,h2,h3{margin:0;font-family:'Comfortaa',system-ui,sans-serif;font-weight:700;letter-spacing:-.015em;line-height:1.2}
 a{color:inherit;text-decoration:none}
 
 /* живое зерно */
-.grain{position:fixed;inset:-50%;z-index:60;pointer-events:none;opacity:.13;mix-blend-mode:overlay;
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.10;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 1.2s steps(2) infinite}
-@keyframes grain{0%{transform:translate(0,0)}50%{transform:translate(-2%,1%)}100%{transform:translate(1%,-2%)}}
+}
+
+/* на большом экране зерно с наложением: телефон его не тянет на каждом кадре */
+@media (min-width:901px){
+  .grain{inset:-2%;opacity:.13;mix-blend-mode:overlay}
+}
 
 /* курсор-точка */
 .cursor{position:fixed;top:0;left:0;width:22px;height:22px;border-radius:50%;z-index:70;pointer-events:none;
   border:1px solid rgba(230,240,255,.5);transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s,opacity .3s;mix-blend-mode:difference}
 
 /* прогресс */
-.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:80;
-  background:linear-gradient(90deg,#4568d0,#6559be);transition:width .1s linear}
+.progress{position:fixed;top:0;left:0;height:2px;width:100%;z-index:80;
+  transform:scaleX(0);transform-origin:0 50%;will-change:transform;
+  background:linear-gradient(90deg,#4568d0,#6559be);transition:transform .12s linear}
 
 /* шапка */
 .bar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
   padding:20px var(--pad);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
   background:transparent;border-bottom:1px solid transparent;
   transition:background .45s var(--ease),backdrop-filter .45s var(--ease),border-color .45s var(--ease),padding .45s var(--ease)}
-.bar.is-solid{background:rgba(240,237,247,.86);backdrop-filter:blur(16px) saturate(140%);
-  -webkit-backdrop-filter:blur(16px) saturate(140%);border-bottom-color:var(--line);padding-top:14px;padding-bottom:14px}
+.bar.is-solid{background:rgba(240,237,247,.90);backdrop-filter:blur(9px) saturate(140%);
+  -webkit-backdrop-filter:blur(9px) saturate(140%);border-bottom-color:var(--line);padding-top:14px;padding-bottom:14px}
 .bar__brand{color:var(--ink);letter-spacing:.1em}
 .bar__cta{position:relative;color:#5b52a0}
 .bar__cta::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;
@@ -116,8 +121,8 @@ a{color:inherit;text-decoration:none}
   background-size:cover;background-position:center,72% center;
   animation:drift 34s ease-in-out infinite alternate}
 @keyframes drift{
-  from{transform:scale(1.03) translate3d(-1.1%,-.7%,0)}
-  to{transform:scale(1.10) translate3d(1.3%,1.1%,0)}
+  from{transform:scale(1.04) translate3d(-1.5%,-1%,0)}
+  to{transform:scale(1.13) translate3d(1.7%,1.4%,0)}
 }
 /* светлая вуаль: картинка дышит сверху, низ ровно уходит в фон страницы —
    текст теперь тёмный, поэтому шторки не затемняют, а наоборот проясняют */
