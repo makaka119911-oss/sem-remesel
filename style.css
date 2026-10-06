@@ -117,7 +117,13 @@ a{color:inherit;text-decoration:none}
 .pill--line:hover{border-color:var(--ink)}
 
 /* ---------- ГЕРОЙ ---------- */
-.hero{position:relative;height:100vh;height:100dvh;min-height:620px;overflow:hidden;display:flex;align-items:stretch}
+/* ВАЖНО: 100svh, а НЕ 100dvh.
+   dvh — «динамическая» высота: в Chrome на Android она меняется, когда при скролле
+   прячется адресная строка. Герой из-за этого подрастал, а картинка с cover
+   пересчитывалась — читалось как «пролистнул и размер поменялся».
+   svh — высота при показанной адресной строке, она не меняется никогда.
+   Если внизу останется полоска — она того же цвета, что фон страницы, и не видна. */
+.hero{position:relative;height:100vh;height:100svh;min-height:620px;overflow:hidden;display:flex;align-items:stretch}
 /* запас по высоте: сдвиг параллакса не должен оголять край картинки */
 /* ВАЖНО: слои выровнены по ВЕРХУ героя, а запас уходит ВНИЗ.
    Предметы на картинке живут в верхней половине, ниже — пустой фон.
