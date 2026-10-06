@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ded8e9">
+<title>Замер плавности — Семь ремёсел</title>
+<style>
+:root{--bg:#ded8e9;--ink:#37325a;--dim:#5d5678;--acc:#5b4fb0;--line:rgba(90,80,140,.2)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:15px/1.55 'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2{font-weight:600;letter-spacing:-.015em;margin:0}
+
+/* ---- панель замера (всегда сверху) ---- */
+.panel{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(238,235,246,.97);
+  border-bottom:1px solid var(--line);padding:10px 14px 12px;backdrop-filter:blur(9px)}
+.fps{display:flex;align-items:baseline;gap:10px}
+.fps b{font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.fps span{font-size:12px;color:var(--dim)}
+.stats{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-top:4px}
+.stats b{color:var(--ink);font-variant-numeric:tabular-nums}
+.bars{display:flex;gap:1px;height:16px;margin-top:8px;align-items:flex-end}
+.bars i{flex:1;background:var(--acc);border-radius:1px;min-height:1px}
+.bars i.long{background:#b3261e}
+.btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;
+  padding:9px 14px;font:500 13px 'Inter',sans-serif;cursor:pointer}
+button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+button.ghost{background:rgba(255,255,255,.6)}
+.switches{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px;margin-top:10px}
+.sw{display:flex;align-items:center;gap:8px;font-size:13px;background:rgba(255,255,255,.6);
+  border-radius:10px;padding:7px 10px;cursor:pointer;user-select:none}
+.sw i{width:34px;height:19px;border-radius:999px;background:#bdb4d6;position:relative;flex:0 0 auto;transition:background .2s}
+.sw i::after{content:'';position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;
+  background:#fff;transition:transform .2s}
+.sw.off i{background:#cfc9e0}
+.sw.on i{background:var(--acc)}
+.sw.on i::after{transform:translateX(15px)}
+.sw span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---- демо-страница: те же эффекты, что на сайте ---- */
+.page{padding-top:250px}
+.hint{padding:18px 18px 0;color:var(--dim);font-size:13px}
+.hint b{color:var(--ink)}
+
+.hero{position:relative;height:80vh;min-height:520px;overflow:hidden;display:flex;align-items:stretch}
+.hero__media{position:absolute;inset:0 0 -12% 0}
+.hero__drift{position:absolute;inset:0 -5% -6% -5%;transform-origin:50% 0;
+  background:url('../img/hero-mobile.jpg') center/cover no-repeat;
+  animation:drift 34s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1) translate3d(-1.7%,0,0)}
+                to{transform:scale(1.08) translate3d(1.7%,0,0)}}
+.hero::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(to top,#ded8e9 0%,rgba(222,216,233,.92) 12%,rgba(222,216,233,.62) 24%,
+    rgba(222,216,233,.30) 38%,rgba(222,216,233,.10) 52%,rgba(222,216,233,0) 66%)}
+.hero__inner{position:relative;z-index:2;margin-top:auto;padding:24px 18px 40px}
+.hero h2{font-size:clamp(30px,8vw,52px);font-family:inherit}
+.hero p{color:var(--dim);max-width:34ch}
+.pill{display:inline-flex;align-items:center;justify-content:center;min-width:200px;height:60px;
+  border-radius:999px;margin-top:16px;color:#fff;font-weight:600;letter-spacing:.09em;
+  background:linear-gradient(180deg,#6f63c8,#5b4fb0);position:relative;overflow:hidden;text-decoration:none}
+.pill::after{content:'';position:absolute;top:0;bottom:0;left:-100%;width:60%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);animation:shine 5.4s linear infinite}
+@keyframes shine{from{left:-100%}to{left:100%}}
+
+.marquee{position:relative;padding:22px 0;overflow:hidden;border-top:1px solid rgba(90,80,140,.1);
+  border-bottom:1px solid rgba(90,80,140,.1)}
+.marquee__row{display:flex;white-space:nowrap;width:max-content;font-weight:500;
+  font-size:clamp(13px,3.4vw,17px);color:var(--dim)}
+.marquee__row span{padding-right:clamp(20px,5vw,44px);animation:mq 70s linear infinite}
+.marquee__row em{font-style:normal;margin:0 .55em;color:var(--acc);opacity:.65}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+section.block{padding:34px 18px;border-top:1px solid var(--line)}
+.cards{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-top:14px}
+.card{background:rgba(255,255,255,.66);border-radius:16px;padding:16px 18px}
+.card b{display:block}
+.card span{color:var(--dim);font-size:13px}
+[data-rv]{opacity:0;transform:translateY(64px);
+  transition:opacity 1.15s cubic-bezier(.25,.46,.45,.94),transform 1.15s cubic-bezier(.25,.46,.45,.94)}
+[data-rv].is-in{opacity:1;transform:none}
+
+/* фон: аура + зерно — как на сайте */
+body::before{content:'';position:fixed;inset:-12%;z-index:0;pointer-events:none;
+  background:radial-gradient(38% 30% at 22% 18%,rgba(255,255,255,.40),transparent 70%),
+             radial-gradient(34% 28% at 78% 72%,rgba(196,182,240,.30),transparent 70%);
+  animation:aura 26s ease-in-out infinite}
+@keyframes aura{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(2%,-2%,0) scale(1.06)}}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.10;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (min-width:901px){ .grain{inset:-2%;opacity:.13;mix-blend-mode:overlay} }
+
+/* ---- выключатели ---- */
+body.no-grain .grain{display:none}
+body.no-aura::before{content:none!important}
+body.no-drift .hero__drift{animation:none}
+body.no-marquee .marquee__row span{animation:none}
+body.no-reveal [data-rv]{opacity:1!important;transform:none!important;transition:none!important}
+body.no-shine .pill::after{animation:none}
+
+/* ---- таблица результатов ---- */
+.res{padding:24px 18px 60px}
+.res h1{font-size:22px}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-weight:500}
+td b{font-variant-numeric:tabular-nums}
+textarea{width:100%;height:120px;margin-top:12px;border:1px solid var(--line);border-radius:12px;
+  padding:10px;font:12px/1.5 ui-monospace,Menlo,monospace;background:rgba(255,255,255,.7)}
+.bad{color:#b3261e;font-weight:600}
+.good{color:#1e6b3a;font-weight:600}
+</style>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="panel">
+  <div class="fps"><b id="fps">—</b><span>кадров в секунду, пока ты скроллишь</span></div>
+  <div class="stats">
+    <span>худший кадр: <b id="worst">—</b> мс</span>
+    <span>долгих кадров: <b id="long">—</b>%</span>
+    <span>замеров: <b id="cnt">0</b></span>
+  </div>
+  <div class="bars" id="bars"></div>
+  <div class="btns">
+    <button id="rec" class="on">Замерить 6 секунд</button>
+    <button id="copy" class="ghost">Скопировать отчёт</button>
+  </div>
+  <div class="switches" id="switches"></div>
+</div>
+
+<div class="page">
+  <p class="hint">Прокручивай страницу вверх-вниз, пока идёт замер. Потом выключи один выключатель и замерь снова — так найдём, что именно роняет кадры. <b>Худший кадр больше 33 мс — уже видимое дёрганье.</b></p>
+
+  <div class="hero">
+    <div class="hero__media"><div class="hero__drift"></div></div>
+    <div class="hero__inner">
+      <h2>Семь ремёсел<br>своими руками</h2>
+      <p>За один вечер — готовая вещь.</p>
+      <a class="pill" href="#" onclick="return false"><span>Смотреть курсы</span></a>
+    </div>
+  </div>
+
+  <div class="marquee"><div class="marquee__row">
+    <span>древо рода<em>·</em>картины<em>·</em>стрит-арт<em>·</em>платья<em>·</em>макраме<em>·</em>абажур<em>·</em>барельеф<em>·</em></span>
+    <span>древо рода<em>·</em>картины<em>·</em>стрит-арт<em>·</em>платья<em>·</em>макраме<em>·</em>абажур<em>·</em>барельеф<em>·</em></span>
+  </div></div>
+
+  <section class="block"><h2>Семь ремёсел</h2>
+    <div class="cards">
+      <article class="card" data-rv><b>Древо рода</b><span>мох · дерево · 3–4 ч</span></article>
+      <article class="card" data-rv><b>Картины</b><span>акрил · 3 ч</span></article>
+      <article class="card" data-rv><b>Платья</b><span>ткань · 5 ч</span></article>
+      <article class="card" data-rv><b>Барельеф</b><span>гипс · 2–3 ч</span></article>
+    </div>
+  </section>
+
+  <section class="block" data-rv><h2>Что внутри курса</h2>
+    <p>Видео крупным планом, список материалов, шаг за шагом, доступ навсегда.</p></section>
+  <section class="block" data-rv><h2>Мастер</h2>
+    <p>Татьяна Солнечная. Много лет работаю с женщинами — в кругах и практиках.</p></section>
+  <section class="block" data-rv><h2>Стоимость</h2>
+    <p>Курсы продаются по отдельности — можно взять один или собрать набор.</p></section>
+  <section class="block" data-rv><h2>Частые вопросы</h2>
+    <p>Нужен ли опыт, сколько идёт курс, где брать материалы.</p></section>
+
+  <div class="res">
+    <h1>Результаты замеров</h1>
+    <table><thead><tr><th>сценарий</th><th>средний FPS</th><th>худший кадр</th><th>долгих</th></tr></thead>
+      <tbody id="rows"></tbody></table>
+    <textarea id="out" readonly placeholder="Здесь появится отчёт — можно скопировать и прислать"></textarea>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var FEATURES = [
+    ['grain','Зерно (шум)'], ['aura','Аура фона'], ['drift','Дрейф картинки'],
+    ['marquee','Лента ремёсел'], ['reveal','Появление блоков'], ['shine','Блик на кнопке']
+  ];
+  var state = {};
+  FEATURES.forEach(function(f){ state[f[0]] = true; });
+
+  var box = document.getElementById('switches');
+  FEATURES.forEach(function(f){
+    var d = document.createElement('div');
+    d.className = 'sw on';
+    d.innerHTML = '<i></i><span>' + f[1] + '</span>';
+    d.addEventListener('click', function(){
+      state[f[0]] = !state[f[0]];
+      d.classList.toggle('on', state[f[0]]);
+      d.classList.toggle('off', !state[f[0]]);
+      document.body.classList.toggle('no-' + f[0], !state[f[0]]);
+    });
+    box.appendChild(d);
+  });
+
+  function scenario(){
+    var off = FEATURES.filter(function(f){ return !state[f[0]]; })
+                     .map(function(f){ return f[1].split(' ')[0]; });
+    return off.length ? 'выключено: ' + off.join(', ') : 'всё включено (как на сайте)';
+  }
+
+  /* ---- измерение кадров ---- */
+  var deltas = [], last = 0, recording = false, recFrames = [], recStart = 0;
+  var scrolling = false, scrollTimer = null;
+  var LONG = 33;           // мс: больше — уже видимое дёрганье
+  var fpsEl = document.getElementById('fps'), worstEl = document.getElementById('worst'),
+      longEl = document.getElementById('long'), barsEl = document.getElementById('bars'),
+      rowsEl = document.getElementById('rows'), outEl = document.getElementById('out'),
+      cntEl = document.getElementById('cnt'), recBtn = document.getElementById('rec');
+  var results = [];
+
+  function tick(t){
+    if(last){
+      var dt = t - last;
+      if(dt < 500){                       // выбросы после сворачивания не считаем
+        deltas.push(dt); if(deltas.length > 90) deltas.shift();
+        if(recording && scrolling) recFrames.push(dt);
+      }
+    }
+    last = t;
+    render();
+    if(recording && performance.now() - recStart > 6000) stopRec();
+    requestAnimationFrame(tick);
+  }
+
+  function render(){
+    var recent = deltas.slice(-30).filter(function(x){ return x < 500; });
+    if(!recent.length) return;
+    var sum = 0, mx = 0, long = 0;
+    deltas.forEach(function(d){ if(d > mx) mx = d; if(d > LONG) long++; });
+    recent.forEach(function(d){ sum += d; });
+    var avg = sum / recent.length;
+    fpsEl.textContent = Math.round(1000 / avg);
+    worstEl.textContent = Math.round(mx);
+    longEl.textContent = Math.round(long / Math.max(deltas.length,1) * 100);
+    barsEl.innerHTML = deltas.slice(-60).map(function(d){
+      var h = Math.min(16, Math.max(1, d / 2));
+      return '<i class="' + (d > LONG ? 'long' : '') + '" style="height:' + h + 'px"></i>';
+    }).join('');
+  }
+
+  function startRec(){ recording = true; recFrames = []; recStart = performance.now();
+    recBtn.textContent = 'Идёт замер — скролль!'; }
+  function stopRec(){
+    recording = false; recBtn.textContent = 'Замерить 6 секунд';
+    if(recFrames.length < 40) return;
+    var sum = 0, mx = 0, long = 0;
+    recFrames.forEach(function(d){ sum += d; if(d > mx) mx = d; if(d > LONG) long++; });
+    var row = { name: scenario(), fps: Math.round(1000 / (sum / recFrames.length)),
+                worst: Math.round(mx), long: Math.round(long / recFrames.length * 100),
+                n: recFrames.length };
+    results.push(row);
+    rowsEl.innerHTML = results.map(function(r){
+      return '<tr><td>' + r.name + '</td><td><b>' + r.fps + '</b></td>' +
+             '<td><b class="' + (r.worst > LONG ? 'bad' : 'good') + '">' + r.worst + '</b> мс</td>' +
+             '<td><b>' + r.long + '</b>%</td></tr>';
+    }).join('');
+    cntEl.textContent = results.length;
+    outEl.value = buildReport();
+  }
+
+  function buildReport(){
+    var ua = navigator.userAgent.replace(/^Mozilla\/5\.0 /, '').slice(0, 90);
+    var lines = ['Замер плавности «Семь ремёсел»',
+      'устройство: ' + ua,
+      'экран: ' + screen.width + 'x' + screen.height + ', плотность ' + window.devicePixelRatio,
+      'порог «долгого» кадра: ' + LONG + ' мс', ''];
+    results.forEach(function(r){
+      lines.push(r.name + ' → ' + r.fps + ' fps, худший ' + r.worst + ' мс, долгих ' + r.long + '%');
+    });
+    if(!results.length) lines.push('замеров пока нет');
+    return lines.join('\n');
+  }
+
+  recBtn.addEventListener('click', function(){ if(!recording) startRec(); });
+  document.getElementById('copy').addEventListener('click', function(){
+    var txt = outEl.value || buildReport();
+    outEl.value = txt;
+    outEl.select();
+    try { navigator.clipboard.writeText(txt); } catch(e){}
+    document.execCommand && document.execCommand('copy');
+    this.textContent = 'Скопировано ✓';
+  });
+
+  addEventListener('scroll', function(){
+    scrolling = true;
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function(){ scrolling = false; }, 400);
+  }, { passive: true });
+
+  /* появление блоков */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  document.querySelectorAll('[data-rv]').forEach(function(el){ io.observe(el); });
+  /* страховка, если наблюдатель не сработает */
+  setTimeout(function(){
+    var probe = document.querySelector('[data-rv]');
+    if(probe && parseFloat(getComputedStyle(probe).opacity) < .8){
+      document.querySelectorAll('[data-rv]').forEach(function(el){ el.classList.add('is-in'); });
+    }
+  }, 1500);
+  setInterval(function(){
+    document.querySelectorAll('[data-rv]').forEach(function(el){
+      if(!el.classList.contains('is-in')){
+        var r = el.getBoundingClientRect();
+        if(r.top < innerHeight * .85 && r.bottom > 0) el.classList.add('is-in');
+      }
+    });
+  }, 500);
+
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
