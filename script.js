@@ -14,7 +14,7 @@
   const setProg = () => {
     if (!prog) return;
     const h = document.documentElement.scrollHeight - innerHeight;
-    prog.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+    prog.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0).toFixed(4) + ')';
   };
 
   /* ---- 2. курсор ---- */
@@ -114,6 +114,7 @@
   addEventListener('pointerup', () => pressPill(1), { passive: true });
   addEventListener('pointercancel', () => pressPill(1), { passive: true });
   const masterPhoto = document.querySelector('.master__photo');
+  const lastK = [];   // памятка для «локомотивовского» фокуса слайдов
 
   function measure() {
     if (!gallery || !track) return;
@@ -158,10 +159,14 @@
       track.style.transform = `translate3d(${-p * dist}px,0,0)`;
       // ближние к центру — в фокусе, крайние — тише (локомотивовский приём)
       const cx = innerWidth / 2;
-      slides.forEach((el) => {
+      slides.forEach((el, i) => {
         const r = el.getBoundingClientRect();
         const d = Math.abs((r.left + r.width / 2) - cx) / cx;
         const k = clamp(1 - d * 0.55, 0.62, 1);
+        // filter — дорогое свойство: трогаем, только если сдвинулось заметно
+        const last = lastK[i] || 0;
+        if (Math.abs(k - last) < 0.02) return;
+        lastK[i] = k;
         el.style.opacity = k.toFixed(3);
         el.style.filter = `saturate(${(0.75 + k * 0.3).toFixed(2)})`;
       });
