@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ded8e9">
+<title>Плавность — что взять у SYNTX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+<header class="head">
+  <p class="kicker">разбор одного сайта</p>
+  <h1>Плавность:<br>что взять у SYNTX</h1>
+  <p class="lead">Четыре приёма вживую, на нашем материале. Слева-направо — не картинки, всё работает: жми переключатели и смотри.</p>
+</header>
+
+<!-- 1. ЖИВОЙ ФОН -->
+<section class="blk" id="bg">
+  <div class="blk__head">
+    <span class="num">01</span>
+    <h2>Живой фон</h2>
+    <p class="hint">У них фон — видео на 3 МБ. У нас статичная картинка. Есть приём, который даёт «живость» бесплатно: <b>медленный дрейф</b> — картинка годами неспешно едет и дышит. Ниже — три темпа, выбери свой.</p>
+  </div>
+
+  <div class="demo">
+    <div class="hero" id="hero">
+      <div class="hero__media" id="heroMedia"></div>
+      <div class="hero__inner">
+        <p class="hero__kicker">видеокурсы ручной работы</p>
+        <h3 class="hero__title">Семь ремёсел<br>своими руками</h3>
+        <p class="hero__lead">За один вечер — готовая вещь. Мастер ведёт за руку.</p>
+      </div>
+    </div>
+
+    <div class="ctrl">
+      <div class="seg" data-group="drift">
+        <button class="seg__b is-on" data-drift="0">стоит</button>
+        <button class="seg__b" data-drift="20">дрейф 20 с</button>
+        <button class="seg__b" data-drift="12">дрейф 12 с</button>
+        <button class="seg__b" data-drift="34">дрейф 34 с</button>
+      </div>
+      <button class="ghost" id="replayHero">проиграть заново</button>
+    </div>
+  </div>
+</section>
+
+<!-- 2. ЛЕНТА РЕМЁСЕЛ -->
+<section class="blk" id="tape">
+  <div class="blk__head">
+    <span class="num">02</span>
+    <h2>Лента ремёсел</h2>
+    <p class="hint">Их лента моделей идёт <b>70 секунд</b> на оборот — это ~2 пикселя в секунду, движение почти не ловится глазом. Она мелкая, с иконками, и работает как <i>ткань фона</i>, а не как заявление. У нас сейчас <b>26 с</b> и крупный кегль — это заявление.</p>
+  </div>
+
+  <div class="tape-lab">медленная · как у них — 70 с</div>
+  <div class="tape tape--70 tape--small">
+    <div class="tape__row">
+      <span class="item">древо рода</span><span class="dot">·</span><span class="item">картины</span><span class="dot">·</span><span class="item">стрит-арт</span><span class="dot">·</span><span class="item">платья</span><span class="dot">·</span><span class="item">макраме</span><span class="dot">·</span><span class="item">абажур</span><span class="dot">·</span><span class="item">барельеф</span><span class="dot">·</span><span class="item">свечи</span><span class="dot">·</span><span class="item">батик</span><span class="dot">·</span><span class="item">валяние</span><span class="dot">·</span>
+      <span class="item">древо рода</span><span class="dot">·</span><span class="item">картины</span><span class="dot">·</span><span class="item">стрит-арт</span><span class="dot">·</span><span class="item">платья</span><span class="dot">·</span><span class="item">макраме</span><span class="dot">·</span><span class="item">абажур</span><span class="dot">·</span><span class="item">барельеф</span><span class="dot">·</span><span class="item">свечи</span><span class="dot">·</span><span class="item">батик</span><span class="dot">·</span><span class="item">валяние</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <div class="tape-lab">средняя — 40 с</div>
+  <div class="tape tape--40 tape--small">
+    <div class="tape__row">
+      <span class="item">древо рода</span><span class="dot">·</span><span class="item">картины</span><span class="dot">·</span><span class="item">стрит-арт</span><span class="dot">·</span><span class="item">платья</span><span class="dot">·</span><span class="item">макраме</span><span class="dot">·</span><span class="item">абажур</span><span class="dot">·</span><span class="item">барельеф</span><span class="dot">·</span><span class="item">свечи</span><span class="dot">·</span><span class="item">батик</span><span class="dot">·</span><span class="item">валяние</span><span class="dot">·</span>
+      <span class="item">древо рода</span><span class="dot">·</span><span class="item">картины</span><span class="dot">·</span><span class="item">стрит-арт</span><span class="dot">·</span><span class="item">платья</span><span class="dot">·</span><span class="item">макраме</span><span class="dot">·</span><span class="item">абажур</span><span class="dot">·</span><span class="item">барельеф</span><span class="dot">·</span><span class="item">свечи</span><span class="dot">·</span><span class="item">батик</span><span class="dot">·</span><span class="item">валяние</span><span class="dot">·</span>
+    </div>
+  </div>
+
+  <div class="tape-lab">наша сейчас — 26 с, крупно</div>
+  <div class="tape tape--26 tape--big">
+    <div class="tape__row">
+      <span class="item">древо рода · картины · стрит-арт · платья · макраме · абажур · барельеф · </span>
+      <span class="item">древо рода · картины · стрит-арт · платья · макраме · абажур · барельеф · </span>
+    </div>
+  </div>
+
+  <p class="note">Одинаковый текст, три скорости, идут одновременно — так разницу видно честно, а не по памяти.</p>
+</section>
+
+<!-- 3. ПОЯВЛЕНИЕ БЛОКОВ -->
+<section class="blk" id="reveal">
+  <div class="blk__head">
+    <span class="num">03</span>
+    <h2>Появление блоков</h2>
+    <p class="hint">Их приём называется <code>element-up</code>: элемент выезжает снизу на <b>64px</b> и проявляется за <b>1.15 с</b> по кривой <code>cubic-bezier(.25,.46,.45,.94)</code> — это сильное торможение в конце, поэтому движение читается как «мягко опустилось», а не «прилетело».</p>
+  </div>
+
+  <div class="ctrl">
+    <div class="seg" data-group="reveal">
+      <button class="seg__b is-on" data-rv-mode="syntx">как у них · 64px · 1.15 с</button>
+      <button class="seg__b" data-rv-mode="our">наш · как сейчас</button>
+      <button class="seg__b" data-rv-mode="sharp">резко · для сравнения</button>
+    </div>
+    <button class="ghost" id="replayRv">проиграть заново</button>
+  </div>
+
+  <div class="cards" id="cards">
+    <article class="card"><b>Древо рода</b><span>мох · дерево · 3–4 ч</span></article>
+    <article class="card"><b>Картины</b><span>акрил · 3 ч</span></article>
+    <article class="card"><b>Платья</b><span>ткань · 5 ч</span></article>
+    <article class="card"><b>Барельеф</b><span>гипс · 2–3 ч</span></article>
+  </div>
+</section>
+
+<!-- 4. ОТКЛИК КНОПКИ -->
+<section class="blk" id="press">
+  <div class="blk__head">
+    <span class="num">04</span>
+    <h2>Отклик кнопки</h2>
+    <p class="hint">У них два отдельных эффекта. <b>Блик</b> — 600 мс, один проход по нажатию. <b>Кольцо</b> — расходящаяся тень, 2 с, повторяется, зовёт нажать. Наша кнопка пробегает бликом раз в 5,4 с сама по себе.</p>
+  </div>
+
+  <div class="ctrl ctrl--stack">
+    <div class="seg" data-group="press">
+      <button class="seg__b is-on" data-press="shine">блик · 600 мс</button>
+      <button class="seg__b" data-press="pulse">кольцо · 2 с</button>
+      <button class="seg__b" data-press="ours">наш · раз в 5,4 с</button>
+    </div>
+    <p class="hint hint--tiny" id="pressHint">Нажми на капсулу — сработает выбранный отклик.</p>
+  </div>
+
+  <div class="pressbox">
+    <a class="pill pill--shine" id="pill" href="#press" onclick="return false">
+      <span>Смотреть курсы</span>
+    </a>
+  </div>
+</section>
+
+<!-- ИТОГ -->
+<section class="blk" id="sum">
+  <div class="blk__head">
+    <span class="num">05</span>
+    <h2>Что из этого стоит брать</h2>
+  </div>
+  <ul class="sum">
+    <li><b>Медленный дрейф фона</b><span>живость без 3 МБ видео — вес нулевой</span><em class="ok">брать</em></li>
+    <li><b>Разделители между словами в ленте</b><span>точка «·» с отступом держит ритм</span><em class="ok">брать</em></li>
+    <li><b>Блик по нажатию, 600 мс</b><span>отклик по действию собраннее, чем сам по себе</span><em class="maybe">на выбор</em></li>
+    <li><b>Кольцо-пульс</b><span>зовёт нажать, но у нас капсула-картинка</span><em class="maybe">на выбор</em></li>
+    <li><b>Видео-фон 3 МБ</b><span>красиво, но телефон грузит 3 МБ вместо 240 КБ</span><em class="no">не брать</em></li>
+    <li><b>Одна надпись на весь экран</b><span>у них одна мысль; у нас лендинг из 8 секций — так нельзя</span><em class="no">не брать</em></li>
+  </ul>
+</section>
+
+<footer class="foot">
+  <span>Песочница · ничего на сайте не менялось</span>
+</footer>
+
+<script src="script.js?v=3"></script>
+</body>
+</html>
