@@ -118,7 +118,8 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- ГЕРОЙ ---------- */
 .hero{position:relative;height:100vh;height:100dvh;min-height:620px;overflow:hidden;display:flex;align-items:stretch}
-.hero__media{position:absolute;inset:-6% 0;will-change:transform}
+/* запас по высоте: сдвиг параллакса не должен оголять край картинки */
+.hero__media{position:absolute;inset:-12% 0;will-change:transform}
 /* Медленный дрейф: картинка неспешно едет и дышит — «живость» без видеофайла.
    Отдельным слоем, потому что на .hero__media висит параллакс из JS: инлайновый
    transform перебил бы CSS-анимацию. 34 с на проход, туда-обратно. */
