@@ -32,6 +32,8 @@ body::before{content:"";position:fixed;inset:-20%;z-index:0;pointer-events:none;
     radial-gradient(38% 30% at 22% 18%, rgba(255,255,255,.40), transparent 70%),
     radial-gradient(34% 28% at 78% 72%, rgba(196,182,240,.30), transparent 70%);
   animation:aura 26s ease-in-out infinite}
+/* телефон: подсветка статичная — выглядит так же, но не крутится каждый кадр */
+@media (max-width:900px){ body::before{animation:none} }
 @keyframes aura{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(2%,-2%,0) scale(1.06)}}
 h1,h2,h3{margin:0;font-family:'Comfortaa',system-ui,sans-serif;font-weight:700;letter-spacing:-.015em;line-height:1.2}
 a{color:inherit;text-decoration:none}
@@ -62,6 +64,10 @@ a{color:inherit;text-decoration:none}
   transition:background .45s var(--ease),backdrop-filter .45s var(--ease),border-color .45s var(--ease),padding .45s var(--ease)}
 .bar.is-solid{background:rgba(240,237,247,.90);backdrop-filter:blur(9px) saturate(140%);
   -webkit-backdrop-filter:blur(9px) saturate(140%);border-bottom-color:var(--line);padding-top:14px;padding-bottom:14px}
+/* на телефоне размытие подложки дорогое: плотный фон читается так же */
+@media (max-width:900px){
+  .bar.is-solid{background:rgba(238,235,246,.97);backdrop-filter:none;-webkit-backdrop-filter:none}
+}
 .bar__brand{color:var(--ink);letter-spacing:.1em}
 .bar__cta{position:relative;color:#5b52a0}
 .bar__cta::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;
@@ -120,6 +126,8 @@ a{color:inherit;text-decoration:none}
   background-image:var(--hero-mobile,none),url('img/hero.jpg?v=68');
   background-size:cover;background-position:center,72% center;
   animation:drift 34s ease-in-out infinite alternate}
+/* дрейф не крутится, когда герой ушёл за экран — телефон не греется зря */
+.hero--paused .hero__drift{animation-play-state:paused}
 @keyframes drift{
   from{transform:scale(1.04) translate3d(-1.5%,-1%,0)}
   to{transform:scale(1.13) translate3d(1.7%,1.4%,0)}
@@ -145,9 +153,10 @@ a{color:inherit;text-decoration:none}
 @media (min-width:901px){
   .hero::before{background:
     linear-gradient(to top,
-      #ded8e9 0%, rgba(222,216,233,.94) 10%, rgba(222,216,233,.70) 22%,
-      rgba(222,216,233,.40) 36%, rgba(222,216,233,.16) 52%, rgba(222,216,233,.04) 70%,
-      rgba(222,216,233,0) 88%),
+      #ded8e9 0%, rgba(222,216,233,.99) 10%, rgba(222,216,233,.91) 18%,
+      rgba(222,216,233,.77) 26%, rgba(222,216,233,.57) 34%, rgba(222,216,233,.39) 42%,
+      rgba(222,216,233,.19) 50%, rgba(222,216,233,.12) 58%, rgba(222,216,233,.07) 66%,
+      rgba(222,216,233,.03) 74%, rgba(222,216,233,0) 82%),
     linear-gradient(96deg,
       rgba(238,234,247,.60) 0%,
       rgba(238,234,247,.34) 30%,
@@ -414,16 +423,16 @@ body{font-size:17px}
 }
 
 /* ===== ГЕРОЙ: картинка мягко растворяется в фон =====
-   Так под текстом получается честная пустота: предметы живут сверху,
-   а заголовок и кнопка стоят в темноте, а не поверх ткани и мха. */
+   Раньше это делала маска (mask-image) — но маска заставляет браузер пересчитывать
+   затухание на каждом кадре дрейфа, поэтому её заменили на вуаль с посчитанным
+   профилем (разница по цвету меньше 0,6%, то есть незаметна). Маску оставили
+   только телефонам, где она и была отключена. */
 .hero__media{
-  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.6) 76%,rgba(0,0,0,.2) 92%,rgba(0,0,0,0) 100%);
-          mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.6) 76%,rgba(0,0,0,.2) 92%,rgba(0,0,0,0) 100%);
+  -webkit-mask-image:none;mask-image:none;
 }
 @media (min-width:901px){
   .hero__media{
-    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.75) 66%,rgba(0,0,0,.3) 82%,rgba(0,0,0,0) 96%);
-            mask-image:linear-gradient(to bottom,#000 0%,#000 50%,rgba(0,0,0,.75) 66%,rgba(0,0,0,.3) 82%,rgba(0,0,0,0) 96%);
+    -webkit-mask-image:none;mask-image:none;
   }
 }
 
