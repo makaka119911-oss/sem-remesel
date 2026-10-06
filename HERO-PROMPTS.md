@@ -5,6 +5,88 @@
 
 ---
 
+## 🔘 ПРОМПТ — КНОПКА v2 (сочная, «в виде чего-то»)
+
+> Брат: «чтоб сочная была, красивая, мож в виде чего-то, чтоб сочеталось с главной».
+> Размер: Leonardo preset **16:9** (если есть 21:9 — бери его). Внутри **никакого текста** —
+> надпись накладываем кодом. Фон строго однородный — по нему вырезаю в прозрачность.
+
+### 1 ⭐ ОСНОВНОЙ — сочная желейная капсула (под белый текст)
+```
+A single glossy jelly capsule button, UI element, centered, filling about 88% of the frame width, rounded pill shape with fully rounded ends, aspect ratio about 4:1. Rich saturated lavender-violet translucent gel, deep periwinkle blue shading in the lower half, juicy candy-like volume, thick glossy highlight across the top, bright white rim light, a few tiny dew drops and one soft specular streak. The center of the capsule is clean and smooth: empty space for a label. Soft violet drop shadow and a gentle lilac glow around it. Background: flat, uniform, plain light lilac, no objects, no texture. Product render, studio light, crisp edges, 3D UI asset, straight front view, perfectly centered and symmetrical, ultra detailed, 8k. No text, no letters, no numbers, no icon, no logo, no watermark.
+```
+Negative:
+```
+text, letters, words, numbers, icon, arrow, logo, watermark, signature, hands, fingers, phone, screen, mockup, perspective, tilted, rotated, cropped, multiple buttons, extra objects, busy background, texture, noise, dark background, black, dull, washed out, desaturated, muddy, blurry, low contrast, flat
+```
+
+### 2 — стеклянная капсула с лавандой внутри (декоративная, центр пустой)
+```
+A single transparent glass capsule button, UI element, centered, about 88% of the frame width, rounded pill shape, aspect ratio about 4:1. Clear smooth glass filled with a soft lavender-violet liquid glow, two small sprigs of dried lavender fixed inside near the two rounded ends only, the middle third of the capsule completely clear and empty for a label. Bright white rim light, delicate specular highlights, soft violet drop shadow, gentle lilac glow around. Background: flat, uniform, plain light lilac, no objects, no texture. Product render, studio light, crisp sharp edges, 3D UI asset, straight front view, perfectly centered and symmetrical, ultra detailed, 8k. No text, no letters, no numbers, no icon, no logo, no watermark.
+```
+
+### 3 — кнопка-голыш из лавандового мыла (матовая, «ручная работа»)
+```
+A single smooth oval bar of handmade lavender soap used as a button, UI element, centered, about 88% of the frame width, very rounded pill shape, aspect ratio about 4:1. Matte soft lavender-violet surface with a subtle silky sheen, a few tiny air bubbles and a hint of dried lavender speckle at the very edges, the central area clean and smooth for a label. Soft short drop shadow, gentle lilac glow around. Background: flat, uniform, plain light lilac, no objects, no texture. Product render, studio light, crisp edges, 3D UI asset, straight front view, perfectly centered and symmetrical, ultra detailed, 8k. No text, no letters, no numbers, no icon, no logo, no watermark.
+```
+
+**Моя ставка — №1.** Она «сочная» именно так, как ты просишь, и при этом центр чистый: белая надпись ляжет без проблем. №2 самая нарядная, но лаванда по краям съест место под текст — придётся делать кнопку шире. №3 самая «ручная», но матовая кнопка на светлом фоне будет самой незаметной из трёх.
+
+---
+
+## 🔘 ПРОМПТ — КНОПКА (стеклянная капсула под светлую тему)
+
+> Брат просит сгенерить кнопку в Leonardo. Важно: **капсулу просим ПУСТУЮ** — буквы генератор
+> пишет криво; надпись «Смотреть курсы» накладываем кодом поверх.
+> **Размер:** Leonardo preset **16:9** (если есть 21:9 — бери его, капсула выйдет длиннее и ровнее).
+> На выходе ~1472×832. Нужна капсула ~4:1, итог на сайте — 217×56 CSS (×3 для retina = 651×168).
+
+**EN:**
+```
+A single horizontal glass capsule button, UI element, centered, occupying about 88% of the frame width. Rounded pill shape with fully rounded ends, aspect ratio about 4:1. Palette: pale lavender, soft periwinkle and milky white. Translucent frosted glass with a bright white rim light along the top edge, soft inner glow, subtle violet inner shadow at the bottom, tiny specular highlights. Gentle drop shadow beneath, soft lilac glow around it. Completely EMPTY inside: absolutely no text, no letters, no numbers, no icons, no symbols, no logo. Background: flat, clean, uniform pale lilac, no objects, no texture. Product render, studio lighting, crisp sharp edges, 3D UI asset, straight front view, perfectly centered, symmetrical, ultra detailed, 8k.
+```
+
+**RU:**
+```
+Одна горизонтальная стеклянная капсула-кнопка, элемент интерфейса, по центру кадра, занимает около 88% ширины. Форма пилюли с полностью скруглёнными торцами, соотношение примерно 4:1. Палитра: бледная лаванда, мягкий васильково-голубой и молочно-белый. Полупрозрачное матовое стекло, яркая белая контурная подсветка по верхней кромке, мягкое внутреннее свечение, лёгкая сиреневая тень внутри снизу, мелкие блики. Внизу мягкая падающая тень, вокруг — лиловое свечение. Внутри капсулы ПУСТО: никакого текста, букв, цифр, иконок, символов и логотипов. Фон — ровный, чистый, однородный бледно-лиловый, без предметов и фактуры. Продуктовый рендер, студийный свет, резкие края, 3D-элемент интерфейса, строго фронтальный вид, идеально по центру, симметрично, 8k.
+```
+
+**Negative:**
+```
+text, letters, words, numbers, icon, arrow, logo, watermark, signature, hands, fingers, phone, screen, mockup, perspective, tilted, rotated, cropped, multiple buttons, extra objects, busy background, texture, noise, dark background, black, navy, oversaturated, blurry, low contrast
+```
+
+---
+
+## 🌸 ПРОМПТ v6 (САМЫЙ АКТУАЛЬНЫЙ) — васильки + «древо рода» со мхом
+
+> Задача брата: главная в той же лавандовой палитре, но **больше васильков** (их синева сядет
+> в тон кнопке-капсуле, у неё внутри синева `#313abe`), плюс **древо рода со стабилизированным
+> мхом** — перекличка с фото мастера. Низ кадра — пустой, чуть холоднее книзу, чтобы кнопка «села».
+> Внутри никакого текста. Фон ровный — по нему при необходимости режу в прозрачность.
+
+**EN (телефон, 9:16) — preset 9:16:**
+```
+Cinematic bright still life photograph, vertical 9:16. Airy high-key lighting, soft diffused daylight, gentle haze. Palette: pale lavender and lilac with strong cornflower-blue accents and milky white. Centerpiece: a round handmade linen wall panel (panno) with a family tree laid out on it - the trunk and branches made of twisted jute twine and copper wire, generously covered with soft stabilised moss in fresh green, studded with violet amethyst beads, small polished stones and thin linen ribbons - the panel stands leaning at a slight angle against a rough plaster block. Around it: a generous bouquet of blue cornflowers mixed with dried lavender, a small blue glass apothecary bottle with a cork, a white lit pillar candle on a stone coaster, a clear glass bell jar, a pale moss sphere, a white quartz crystal cluster, washed linen cloth, a coil of jute rope. Objects clustered in the upper half and toward the sides, dissolving softly into a pale lilac background. The lower 45% is completely empty: smooth, pale, slightly blurred, tinted soft lilac-blue, clean negative space for a headline and a button. No dark shadows, no black areas. Shallow depth of field, delicate film grain, pastel colour grading, no text, no watermark, ultra detailed, 8k.
+```
+
+**RU:**
+```
+Кинематографичный светлый натюрморт, вертикально 9:16. Воздушный высокий ключ, мягкий рассеянный свет, лёгкая дымка. Палитра: бледная лаванда и сирень с сильными васильково-синими акцентами и молочно-белым. В центре — круглое ПАННО из льна ручной работы, на нём выложено древо рода: ствол и ветви из скрученного джутового шнура и медной проволоки, густо покрытые мягким стабилизированным мхом свежего зелёного цвета, с сиреневыми бусинами аметиста, мелкими отшлифованными камнями и тонкими льняными лентами; панно стоит, прислонённое под лёгким углом к гипсовому блоку. Вокруг: щедрый букет синих васильков вместе с сушёной лавандой, маленькая синяя стеклянная бутылочка с пробкой, белая зажжённая свеча-столбик на каменной подставке, стеклянный колпак, светлый шар мха, белая друза кварца, выстиранная льняная ткань, моток джутовой верёвки. Предметы собраны в верхней половине и по краям, мягко растворяясь в бледно-сиреневом фоне. Нижние 45% полностью пустые: ровные, светлые, слегка размытые, с лёгким сиренево-голубым оттенком — чистое место под заголовок и кнопку. Без тёмных теней и чёрных зон. Малая глубина резкости, лёгкое зерно, пастельная цветокоррекция, без текста и водяных знаков, 8k.
+```
+
+**Для десктопа (16:9)** — те же три замены, что и раньше:
+`vertical 9:16` → `horizontal 16:9`, `upper half and toward the sides` → `upper half, weighted to the right`,
+`The lower 45%` → `The lower 45% and the left side`.
+
+**Negative:**
+```
+text, letters, words, watermark, logo, signature, dark background, deep navy, black, moody low-key, heavy shadows, purple neon, magenta, oversaturated, plastic, blurry, horizontal stripes, hard edges, banding, cluttered bottom, crowded composition, dried brown moss, dead plants
+```
+> `dried brown moss, dead plants` — иначе «стабилизированный мох» выйдет сухим и бурым, а нужен свежий зелёный.
+
+---
+
 ## 🌟 ПРОМПТ v5 (САМЫЙ АКТУАЛЬНЫЙ) — светлый, ФИОЛЕТОВЕЕ, как `23110.jpg`
 
 > Брат прислал `uploads/23110.jpg` — почти идеал: лаванда, синяя бутылочка, белая свеча, колпак,
