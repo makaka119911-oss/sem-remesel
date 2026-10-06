@@ -37,12 +37,15 @@
   const heroMedia = document.getElementById('heroMedia');
   const bar = document.querySelector('.bar');
   const dotsBox = document.getElementById('dots');
-  let dots = [], dotCenters = [], pill = null, pillW = 22;
+  let dots = [];
   if (dotsBox) {
     slides.forEach((slide, i) => {
-      const d = document.createElement('i');
-      d.setAttribute('role', 'button');
-      d.setAttribute('tabindex', '0');
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'thumb';
+      // миниатюра берёт ту же картинку, что и слайд
+      const img = (slide.style.getPropertyValue('--img') || '').trim();
+      if (img) d.style.backgroundImage = img;
       d.setAttribute('aria-label', 'Курс ' + (i + 1));
       const go = () => {
         if (isMobile()) {
@@ -54,65 +57,22 @@
       };
       d.addEventListener('click', go);
       d.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          pressPill(.78);
-          setTimeout(() => pressPill(1), 160);
-          go();
-        }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
       });
-      d.addEventListener('pointerdown', () => pressPill(.78));
-      d.addEventListener('pointerup', () => pressPill(1));
-      d.addEventListener('pointerleave', () => pressPill(1));
       dotsBox.appendChild(d);
       dots.push(d);
     });
-    // «пилюля» — плавно скользит между точками, вместо жёсткого переключения
-    pill = document.createElement('span');
-    pill.className = 'dots__pill';
-    dotsBox.appendChild(pill);
   }
 
-  function layoutDots() {
-    if (!dotsBox || !dots.length) return;
-    const box = dotsBox.getBoundingClientRect();
-    dotCenters = dots.map(d => {
-      const r = d.getBoundingClientRect();
-      return r.left - box.left + r.width / 2;
-    });
-    pillW = pill.getBoundingClientRect().width || 22;
-  }
+  // миниатюрам раскладка не нужна: они сами растут и сжимаются
+  function layoutDots() {}
 
-  // f — дробный номер курса: пилюля едет вслед за пальцем, а не прыгает по шагам
+  // f — дробный номер курса; активная миниатюра растёт и наливается цветом
   function setDots(f) {
-    if (!dots.length || !pill) return;
-    const n = dots.length - 1;
-    const v = clamp(f, 0, n);
-    const i0 = Math.floor(v), i1 = Math.min(i0 + 1, n), t = v - i0;
-    if (!dotCenters.length) layoutDots();
-    const x = dotCenters[i0] + (dotCenters[i1] - dotCenters[i0]) * t;
-    pillX = x - pillW / 2;
-    applyPill();
-    const near = Math.round(v);
+    if (!dots.length) return;
+    const near = Math.round(clamp(f, 0, dots.length - 1));
     dots.forEach((d, k) => d.classList.toggle('on', k === near));
   }
-
-  // «ленивая» капсула: позиция меняется сразу, а догоняет её CSS-переход
-  // с мягкой пружинкой — поэтому она отстаёт от пальца и плавно доезжает
-  let pillX = 0, pillPress = 1;
-  function applyPill() {
-    if (!pill) return;
-    pill.style.transform = `translateX(${pillX.toFixed(2)}px) scale(${pillPress})`;
-  }
-  // отклик на нажатие: капсула продавливается, потом отпускает
-  function pressPill(v) {
-    if (!pill) return;
-    pillPress = v;
-    pill.classList.toggle('is-press', v < 1);
-    applyPill();
-  }
-  addEventListener('pointerup', () => pressPill(1), { passive: true });
-  addEventListener('pointercancel', () => pressPill(1), { passive: true });
   const masterPhoto = document.querySelector('.master__photo');
   const lastK = [];   // памятка для «локомотивовского» фокуса слайдов
 
