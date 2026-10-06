@@ -529,3 +529,15 @@ body{font-size:17px}
   .hero__lead{margin-top:10px;line-height:1.42}
   .hero__inner > .pill{margin-top:10px}
 }
+
+
+/* ===== НИКАКОЙ СИСТЕМНОЙ ПОДСВЕТКИ ПРИ КАСАНИИ =====
+   Chrome на Android при касании рисует поверх элемента серо-синий прямоугольник.
+   На миниатюрах он ещё и больше кадра, потому что зона нажатия расширена через ::after, —
+   читалось как «квадратик» при нажатии. Отклик у нас свой: миниатюра сжимается,
+   у кнопки — волна и лепестки. Системную подсветку убираем. */
+a,button,.thumb,.pill,.tlink,.bar__cta,.dots .thumb{-webkit-tap-highlight-color:transparent}
+.dots .thumb:focus{outline:none}
+/* но для клавиатуры кольцо оставляем — иначе непонятно, где находишься */
+.dots .thumb:focus-visible,.pill:focus-visible,.tlink:focus-visible,.bar__cta:focus-visible{
+  outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
