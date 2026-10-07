@@ -137,7 +137,7 @@ a{color:inherit;text-decoration:none}
    Отдельным слоем, потому что на .hero__media висит параллакс из JS: инлайновый
    transform перебил бы CSS-анимацию. 34 с на проход, туда-обратно. */
 .hero__drift{position:absolute;inset:0 -5% -6% -5%;will-change:transform;
-  background-image:var(--hero-mobile,none),url('img/hero.jpg?v=68');
+  background-image:var(--hero-mobile,none),url('img/hero.jpg?v=69');
   background-size:cover;background-position:center,72% center;
   /* точка роста — верхний край: картинка «дышит» вниз, а верх композиции
      остаётся ровно на месте и никогда не срезается */
@@ -299,7 +299,7 @@ a{color:inherit;text-decoration:none}
    вниз — и они заезжают под текст. Здесь размер ровно по высоте слоя (auto 104%),
    верх прибит к верху героя, а запас на сдвиг даётся только по бокам. */
 @media (max-width:900px){
-  :root{--hero-mobile:url('img/hero-mobile.jpg?v=67')}
+  :root{--hero-mobile:url('img/hero-mobile.jpg?v=68')}
   .hero__media{inset:0}
   .hero__drift{inset:0 -3% 0 -3%;background-size:cover;background-position:50% 0}
   /* текст опускаем ниже предметов и собираем в ровный ритм:
